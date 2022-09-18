@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "eslint": "eslint . --ext .ts --ext tsx --ext js"
   },
   "dependencies": {
     "next": "12.3.0",
