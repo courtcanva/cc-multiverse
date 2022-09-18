@@ -2,13 +2,13 @@
 
 TL;DR;
 
-This is courtcanva's multiverse world, it's aim to house `cc-galaxy` and `cc-startrek` project where they will share `@cc/ui`, `@cc/eslint-config`, `@cc/tsconfig` libraries.
+This is courtcanva's multiverse world, it's aim is to house `cc-galaxy` and `cc-startrek` projects where they will share `@cc/ui`, `@cc/eslint-config`, `@cc/tsconfig` libraries.
 
 This monorepo was bootstrapped using [`create-turbo`](https://turborepo.org/docs/getting-started/create-new) command and is being managed using [`turborepo`](https://turborepo.org/docs)
 
 ## 🤓 How to set up this repo?
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager, for start install the dependencies with
+This turborepo uses [npm](https://www.npmjs.com/) as a package manager, for a start, install the dependencies with
 
 ```
 npm install
@@ -45,7 +45,7 @@ npm run build
 npm run build --force
 ```
 
-### 🧑‍💻 How to start developement server?
+### 🧑‍💻 How to start the developement server?
 
 To develop all apps and packages, run the following command:
 
@@ -57,11 +57,11 @@ npm run dev
 npm run dev -w=docs
 ```
 
-### 📝 Are there any caviets I should know?
+### 📝 Are there any caveats I should know?
 
-1. You might see messages like `npm ERR! Workspaces not supported for global packages` when you are running scripts with `npm`. I think it's not project related but an issue iwht the package manager. But nothing to be worried about! _(I hope)_
-2. If you have changes that only modifies the `eslint` rules, turborepo might not detech theses changes when compareing caches. Suggest to run `npm run eslint --force` to overwrite existing cache to validate if new `eslint` rules is working as intended.
-3. The grammer errors in this `README.md` is to be unseen. 😊
+1. You might see messages like `npm ERR! Workspaces are not supported for global packages` when you are running scripts with `npm`. I think it's not project related but an issue with the package manager. But nothing to be worried about! _(I hope)_
+2. If you have changes that only modify the `eslint` rules, turborepo might not detect these changes when comparing caches. Suggest running `npm run eslint --force` to overwrite the existing cache to validate if the new `eslint` rules are working as intended.
+3. The grammar errors in this `README.md` is to be unseen. 😊
 
 ### 🥞 What tech is in this project?
 
