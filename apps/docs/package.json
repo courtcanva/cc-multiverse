@@ -6,7 +6,8 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
-    "eslint": "eslint . --ext .ts --ext tsx --ext js"
+    "eslint": "eslint . --ext .ts --ext tsx --ext js",
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit"
   },
   "dependencies": {
     "@cc/ui": "^0.0.0",
