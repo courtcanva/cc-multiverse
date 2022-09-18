@@ -5,9 +5,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
-    "lint": {
+    "eslint": {
       "outputs": []
     },
+    "type-check": {},
     "dev": {
       "cache": false
     }

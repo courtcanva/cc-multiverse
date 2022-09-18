@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo '🏗️👷 Styling, testing and building your project before committing'
+
+# Format files to Prettier standards
+npm run format
+
+# Check ESLint Standards
+npm run eslint ||
+(
+        echo '😤🏀👋😤 Eslint Check Failed. 😤🏀👋😤 
+                Make the required changes listed above, add changes and try to commit again.
+                You can read the ".turbo/turbo-eslint.log" of the failing project for more detail.
+              '
+        false; 
+)
+
+# Check tsconfig standards
+npm run type-check ||
+(
+    echo '🤡😂❌🤡 Type Check Failed. 🤡😂❌🤡
+            Make the changes required above.
+            You can read the ".turbo/turbo-type-check.log" of the failing project for more detail.
+          '
+    false;
+)
