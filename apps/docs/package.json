@@ -10,7 +10,7 @@
     "type-check": "tsc --project tsconfig.json --pretty --noEmit"
   },
   "dependencies": {
-    "@cc/ui": "^0.0.0",
+    "@cc/ui-tailwind": "^0.0.0",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -21,8 +21,11 @@
     "@cc/tsconfig": "^0.0.0",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",
+    "autoprefixer": "^10.4.11",
     "eslint": "7.32.0",
     "next-transpile-modules": "9.0.0",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
     "typescript": "^4.5.3"
   }
 }
