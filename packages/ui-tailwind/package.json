@@ -5,13 +5,25 @@
   "main": "./src/index.ts",
   "scripts": {
     "lint": "eslint *.ts*",
-    "test": "test"
+    "test": "test",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack4": "^6.5.12",
+    "@storybook/manager-webpack4": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "autoprefixer": "^10.4.11",
+    "babel-loader": "^8.2.5",
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "postcss": "^8.4.16",
