@@ -1,4 +1,4 @@
-import { Stack, Button } from "@cc/ui";
+import { Stack, Button } from "@cc/ui-chakra";
 
 const NEVER_GONNA_GIVE_YOU_UP = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
