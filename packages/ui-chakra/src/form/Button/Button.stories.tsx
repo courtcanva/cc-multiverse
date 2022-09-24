@@ -1,12 +1,16 @@
+import { ComponentMeta } from "@storybook/react";
+
 import { HStack } from "@chakra-ui/react";
 import { Button } from "./Button";
 
-const onClick = () => {};
+const onClick = () => {
+  console.debug("Beep");
+};
 
 export default {
   title: "Form / Button",
   component: Button,
-};
+} as ComponentMeta<typeof Button>;
 
 export function Default() {
   return <Button onClick={onClick}>Button</Button>;
