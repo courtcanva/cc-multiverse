@@ -20,7 +20,8 @@
     "@commitlint/config-conventional": "^17.1.0",
     "husky": "^8.0.1",
     "prettier": "latest",
-    "turbo": "latest"
+    "turbo": "latest",
+    "webpack": "^5.74.0"
   },
   "engines": {
     "node": ">=14.0.0"
