@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { Button, ButtonVariant, Icon } from "@cc/ui-tailwind";
 
-const NEVER_GONNA_GIVE_YOU_UP = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+const LEARN_SPRING_BOOT_URL = "https://www.baeldung.com/spring-boot";
+const SPRING_BOOT_URL = "https://spring.io/projects/spring-boot";
 
 export default function Web() {
   const onGetStarted = () => {
-    window.location.assign(NEVER_GONNA_GIVE_YOU_UP);
+    window.location.assign(LEARN_SPRING_BOOT_URL);
   };
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const onTroll = () => {};
 
   return (
     <main className="flex flex-col justify-center items-center gap-12 min-h-screen">
@@ -34,16 +33,10 @@ export default function Web() {
             <Button onClick={onGetStarted} variant={ButtonVariant.Primary}>
               Get Started 🥳
             </Button>
-
-            <Link href={NEVER_GONNA_GIVE_YOU_UP}>
-              <Button onClick={onTroll} variant={ButtonVariant.Secondary}>
-                Or Not 🥲
-              </Button>
-            </Link>
           </div>
         </section>
 
-        <Link href={NEVER_GONNA_GIVE_YOU_UP} passHref>
+        <Link href={SPRING_BOOT_URL} passHref>
           <a target="_blank" className="text-blue-500">
             Learn more
           </a>
