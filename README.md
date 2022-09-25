@@ -2,7 +2,7 @@
 
 TL;DR;
 
-This is courtcanva's multiverse world, it's aim is to house `cc-galaxy` and `cc-startrek` projects where they will share `@cc/ui`, `@cc/eslint-config`, `@cc/tsconfig` libraries.
+This is courtcanva's multiverse world, it's aim is to house `cc-galaxy` and `cc-startrek` projects where they will share `@cc/ui-chakra`, `@cc/ui-tailwind`, `@cc/eslint-config`, `@cc/tsconfig` libraries.
 
 This monorepo was bootstrapped using [`create-turbo`](https://turborepo.org/docs/getting-started/create-new) command and is being managed using [`turborepo`](https://turborepo.org/docs)
 
@@ -88,7 +88,6 @@ npm run storybook -w=docs
 1. You might see messages like `npm ERR! Workspaces are not supported for global packages` when you are running scripts with `npm`. I think it's not project related but an issue with the package manager. But nothing to be worried about! _(I hope)_
 2. If you have changes that only modify the `eslint` rules, turborepo might not detect these changes when comparing caches. Suggest running `npm run eslint --force` to overwrite the existing cache to validate if the new `eslint` rules are working as intended.
 3. The grammar errors in this `README.md` is to be unseen. 😊
-4.
 
 ### 🥞 What tech is in this project?
 
