@@ -6,6 +6,18 @@ This is courtcanva's multiverse world, it's aim is to house `cc-galaxy` and `cc-
 
 This monorepo was bootstrapped using [`create-turbo`](https://turborepo.org/docs/getting-started/create-new) command and is being managed using [`turborepo`](https://turborepo.org/docs)
 
+## Table of contents
+
+- [🤓 How to set up this repo?](#🤓-how-to-set-up-this-repo)
+- [🤔 What's inside?](#🤔-whats-inside)
+  - [💻📱 Apps](#💻📱-apps)
+  - [📦 Packages](#📦-packages)
+- [🏗️ How to build this project?](#🏗️-how-to-build-this-project)
+- [🧑‍💻 How to start the developement server?](#🧑‍💻-how-to-start-the-developement-server)
+- [📚 How to open storybooks?](#📚-how-to-open-storybooks)
+- [📝 Are there any caveats I should know?](#📝-are-there-any-caveats-i-should-know)
+- [🥞 What tech is in this project?](#🥞-what-tech-is-in-this-project)
+
 ## 🤓 How to set up this repo?
 
 This turborepo uses [npm](https://www.npmjs.com/) as a package manager, for a start, install the dependencies with
@@ -16,22 +28,24 @@ npm install
 
 Then you all set!
 
-## 🤔 What's inside? _[as of this commit]_
+## 🤔 What's inside?
 
 It includes the following packages/apps:
 
 ### 💻📱 Apps
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
+- `galaxy`: a franchisee-facing [Next.js](https://nextjs.org) app that uses `@cc/ui-chakra`.
+- `startrek`: a franchisee-admin panel [Next.js](https://nextjs.org) app that uses `@cc/ui-tailwind`.
 
 ### 📦 Packages
 
 - `@cc/eslint-config`: `eslint` configurations for [`next`](https://nextjs.org/) apps
 - `@cc/tsconfig`: `tsconfig.json`s used throughout the monorepo
-- `@cc/ui`: a stub React component library shared by both `web` and `docs` applications
+- `@cc/ui-chakra`: a stub React component library made for but not limited to `galaxy`.
+- `@cc/ui-tailwind`: a stub React component library made for but not limited to `startrek`.
 
 Each package/app is and should be 100% [TypeScript](https://www.typescriptlang.org/).
+Only the config files can be written in js.
 
 ### 🏗️ How to build this project?
 
@@ -57,11 +71,24 @@ npm run dev
 npm run dev -w=docs
 ```
 
+### 📚 How to open storybooks?
+
+To open storybook of ui packages, run the following command:
+
+```bash
+# This will start the `storybook` pipeline specified in `turbo.json`
+npm run storybook
+
+# The `-w=` will specify a workspace to run the `storybook` script with
+npm run storybook -w=docs
+```
+
 ### 📝 Are there any caveats I should know?
 
 1. You might see messages like `npm ERR! Workspaces are not supported for global packages` when you are running scripts with `npm`. I think it's not project related but an issue with the package manager. But nothing to be worried about! _(I hope)_
 2. If you have changes that only modify the `eslint` rules, turborepo might not detect these changes when comparing caches. Suggest running `npm run eslint --force` to overwrite the existing cache to validate if the new `eslint` rules are working as intended.
 3. The grammar errors in this `README.md` is to be unseen. 😊
+4.
 
 ### 🥞 What tech is in this project?
 
