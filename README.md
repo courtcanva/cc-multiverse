@@ -34,15 +34,15 @@ It includes the following packages/apps:
 
 ### 💻📱 Apps
 
-- `galaxy`: a franchisee-facing [Next.js](https://nextjs.org) app that uses `@cc/ui-chakra`.
-- `startrek`: a franchisee-admin panel [Next.js](https://nextjs.org) app that uses `@cc/ui-tailwind`.
+- `galaxy`: a franchisee-facing [Next.js](https://nextjs.org) app.
+- `startrek`: a franchisee-admin panel [Next.js](https://nextjs.org) app.
 
 ### 📦 Packages
 
 - `@cc/eslint-config`: `eslint` configurations for [`next`](https://nextjs.org/) apps
 - `@cc/tsconfig`: `tsconfig.json`s used throughout the monorepo
-- `@cc/ui-chakra`: a stub React component library made for but not limited to `galaxy`.
-- `@cc/ui-tailwind`: a stub React component library made for but not limited to `startrek`.
+- `@cc/ui-chakra`: a stub React component library made with [`@chakra-ui`](https://chakra-ui.com/) and [`storybook`](https://storybook.js.org/).
+- `@cc/ui-tailwind`: a stub React component library made with [`tailwindcss`](https://tailwindcss.com/) ~~and [`storybook`](https://storybook.js.org/)~~.
 
 Each package/app is and should be 100% [TypeScript](https://www.typescriptlang.org/).
 Only the config files can be written in js.
@@ -91,19 +91,19 @@ npm run storybook -w=docs
 
 ### 🥞 What tech is in this project?
 
-| Category           | Packages                                    |
-| ------------------ | ------------------------------------------- |
-| Framework          | `turbo`, `next`                             |
-| BootStrapper       | `create-turbo`, `create-next-app`           |
-| Scripting Language | `typescript`                                |
-| ApiClient          |                                             |
-| Styling            | `chakra-ui`, `framer-motion`, `fontsource`  |
-| State-Management   |                                             |
-| Testing            |                                             |
-| Localisation       |                                             |
-| Code Control       | `husky`, `commitlint`, `eslint`, `prettier` |
-| CI/CD              |                                             |
-| Others             |                                             |
+| Category           | Packages                                                                                                         |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Framework          | `turbo`, `next`                                                                                                  |
+| BootStrapper       | `create-turbo`, `create-next-app`                                                                                |
+| Scripting Language | `typescript`                                                                                                     |
+| ApiClient          |                                                                                                                  |
+| Styling            | [`@chakra-ui`](https://chakra-ui.com/), `framer-motion`, `fontsource`, [`tailwindcss`](https://tailwindcss.com/) |
+| State-Management   |                                                                                                                  |
+| Testing            |                                                                                                                  |
+| Localisation       |                                                                                                                  |
+| Code Control       | `husky`, `commitlint`, `eslint`, `prettier`                                                                      |
+| CI/CD              |                                                                                                                  |
+| Others             |                                                                                                                  |
 
 ### 💾 Remote Caching
 
