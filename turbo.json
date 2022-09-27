@@ -11,6 +11,7 @@
     "type-check": {},
     "dev": {
       "cache": false
-    }
+    },
+    "storybook": {}
   }
 }

@@ -32,7 +32,7 @@ module.exports = {
   plugins: ["react", "@typescript-eslint", "jest", "prettier"],
   rules: {
     "@next/next/no-html-link-for-pages": "off",
-    "no-console": 2,
+    "no-console": 1,
     // do not require JSDoc for your functions
     "require-jsdoc": "off",
     // suppress errors for missing 'import React' in files
