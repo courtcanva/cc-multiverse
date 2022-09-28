@@ -5,10 +5,12 @@ import { Button as CKButton } from "@chakra-ui/react";
 type ButtonVariant = "primary" | "secondary" | "tertiary" | "accent" | "error";
 type ButtonProps = {
   variant?: ButtonVariant;
-  onClick: () => void;
-  children: string;
 };
-export const Button = ({ variant = "primary", onClick, children }: ButtonProps) => {
+export const Button = ({
+  variant = "primary",
+  children,
+  ...props
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const buttonVariants = {
     primary: {
       bg: "#6B8F40",
@@ -28,7 +30,7 @@ export const Button = ({ variant = "primary", onClick, children }: ButtonProps) 
   };
 
   return (
-    <CKButton onClick={onClick} color="#FFFFFF" {...buttonVariants[variant]}>
+    <CKButton {...props} color="#FFFFFF" {...buttonVariants[variant]}>
       {children}
     </CKButton>
   );

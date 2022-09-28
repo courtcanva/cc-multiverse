@@ -9,6 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "test": "turbo run test",
     "eslint": "turbo run eslint",
     "type-check": "turbo run type-check",
     "storybook": "turbo run storybook",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@cc/eslint-config": "file:packages/eslint-config",
+    "@cc/jest-config": "file:packages/jest-config",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "husky": "^8.0.1",
