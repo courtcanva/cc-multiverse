@@ -5,8 +5,7 @@ module.exports = {
   testMatch: ["<rootDir>/src/__tests__/**/**/*.{spec,test}.{js,jsx,ts,tsx}"],
   moduleFileExtensions: ["js", "jsx", "json", "ts", "tsx"],
   transform: {
-    "^.+\\.tsx?$": "esbuild-jest",
-    "^.+\\.jsx?$": "esbuild-jest",
+    "^.+\\.(t|j)sx?$": ["@swc/jest"],
   },
   coveragePathIgnorePatterns: [],
   coverageThreshold: null,
