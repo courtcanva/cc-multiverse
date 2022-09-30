@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { Button, ButtonVariant, Icon } from "@cc/ui-tailwind";
 
-const LEARN_SPRING_BOOT_URL = "https://www.baeldung.com/spring-boot";
 const SPRING_BOOT_URL = "https://spring.io/projects/spring-boot";
 
 export default function Web() {
   const onGetStarted = () => {
-    window.location.assign(LEARN_SPRING_BOOT_URL);
+    console.log("Get Started 🥳");
   };
 
   return (

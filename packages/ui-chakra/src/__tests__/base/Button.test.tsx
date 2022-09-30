@@ -6,11 +6,7 @@ describe("base/Button", () => {
   it("should render button and listen on click handler", async () => {
     const onClick = jest.fn();
 
-    render(
-      <Button variant="primary" onClick={onClick}>
-        Submit
-      </Button>
-    );
+    render(<Button onClick={onClick}>Submit</Button>);
 
     const submitBtn = screen.getByText(/submit/i);
     user.click(submitBtn);

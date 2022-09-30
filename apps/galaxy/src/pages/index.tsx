@@ -2,7 +2,7 @@ import { Stack, Button } from "@cc/ui-chakra";
 
 export default function Galaxy() {
   const onToGalaxy = () => {
-    console.debug("Welcome to galaxy");
+    console.log("Welcome to galaxy");
   };
 
   return (
