@@ -4,6 +4,7 @@ import { Button as CKButton } from "@chakra-ui/react";
 
 type ButtonVariant = "primary" | "secondary" | "tertiary" | "accent" | "error";
 type ButtonProps = {
+  flex?: number;
   variant?: ButtonVariant;
 };
 export const Button = ({

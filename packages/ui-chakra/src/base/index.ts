@@ -1,2 +1,3 @@
 export * from "./Button/Button";
-export { Stack } from "@chakra-ui/react";
+export * from "./Input/Input";
+export * from "./Input/Select";
