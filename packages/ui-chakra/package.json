@@ -29,10 +29,10 @@
     "@types/react-dom": "^17.0.11",
     "babel-loader": "^8.2.5",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "*",
+    "@cc/eslint-config": "*",
     "framer-motion": "^7.3.6",
     "react": "^18.2.0",
-    "tsconfig": "*",
+    "@cc/tsconfig": "*",
     "typescript": "^4.5.2",
     "webpack": "*"
   }

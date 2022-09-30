@@ -18,9 +18,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@cc/eslint-config": "^0.0.0",
-    "@cc/jest-config": "^0.0.0",
-    "@cc/tsconfig": "^0.0.0",
+    "@cc/eslint-config": "*",
+    "@cc/jest-config": "*",
+    "@cc/tsconfig": "*",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",
     "eslint": "7.32.0",

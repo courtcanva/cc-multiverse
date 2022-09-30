@@ -11,15 +11,16 @@
     "test": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
   },
   "dependencies": {
-    "@cc/ui-tailwind": "^0.0.0",
+    "@cc/ui-tailwind": "*",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@cc/eslint-config": "^0.0.0",
-    "@cc/tsconfig": "^0.0.0",
+    "@cc/eslint-config": "*",
+    "@cc/jest-config": "*",
+    "@cc/tsconfig": "*",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",
     "autoprefixer": "^10.4.11",
