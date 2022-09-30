@@ -8,7 +8,9 @@
     "start": "next start",
     "eslint": "eslint . --ext .ts --ext tsx --ext js",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "test": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
+    "test": "jest --colors --config jest.config.js --maxWorkers=50%",
+    "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
+    "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
   },
   "dependencies": {
     "@cc/ui-chakra": "*",
