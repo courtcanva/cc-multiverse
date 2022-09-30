@@ -13,6 +13,7 @@ This monorepo was bootstrapped using [`create-turbo`](https://turborepo.org/docs
   - [💻📱 Apps](#💻📱-apps)
   - [📦 Packages](#📦-packages)
 - [🏗️ How to build this project?](#🏗️-how-to-build-this-project)
+- [🧪 How to run test for this project?](#)
 - [🧑‍💻 How to start the developement server?](#🧑‍💻-how-to-start-the-developement-server)
 - [📚 How to open storybooks?](#📚-how-to-open-storybooks)
 - [📝 Are there any caveats I should know?](#📝-are-there-any-caveats-i-should-know)
@@ -59,6 +60,14 @@ npm run build
 npm run build --force
 ```
 
+### 🧪 How to run test for this project?
+
+Test is a bit special, it has three different mode at the moment.
+
+- `test`: just gooo o tests
+- `test:watch`: run test that watch for file changes, recommend to run this with `--workplace` option.
+- `test:coverage`: run test and generates a coverage report for your satisfaction
+
 ### 🧑‍💻 How to start the developement server?
 
 To develop all apps and packages, run the following command:
@@ -68,7 +77,7 @@ To develop all apps and packages, run the following command:
 npm run dev
 
 # The `-w=` will specify a workspace to run the `dev` script with
-npm run dev -w=docs
+npm run dev -w=galaxy
 ```
 
 ### 📚 How to open storybooks?
@@ -80,7 +89,7 @@ To open storybook of ui packages, run the following command:
 npm run storybook
 
 # The `-w=` will specify a workspace to run the `storybook` script with
-npm run storybook -w=docs
+npm run storybook -w=galaxy
 ```
 
 ### 📝 Are there any caveats I should know?
@@ -99,7 +108,7 @@ npm run storybook -w=docs
 | ApiClient          |                                                                                                                  |
 | Styling            | [`@chakra-ui`](https://chakra-ui.com/), `framer-motion`, `fontsource`, [`tailwindcss`](https://tailwindcss.com/) |
 | State-Management   |                                                                                                                  |
-| Testing            |                                                                                                                  |
+| Testing            | `jest`, `swc/jest`, `react-testign-library`                                                                      |
 | Localisation       |                                                                                                                  |
 | Code Control       | `husky`, `commitlint`, `eslint`, `prettier`                                                                      |
 | CI/CD              |                                                                                                                  |
