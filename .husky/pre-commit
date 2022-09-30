@@ -30,7 +30,7 @@ npm run type-check ||
 npm run test:coverage ||
 (
     echo '😤😂❌🤡 Test Failed. 😤😂❌🤡
-            Make sure all tests pass.'
+            Make sure all tests pass and meet the required coverage threshold'
     false;
 )
 
