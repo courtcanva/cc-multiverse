@@ -1,5 +1,5 @@
 import React from "react";
-import NotFoundIcon from "../../assets/icons/404.svg";
+import NotFoundIcon from "@src/assets/icons/404.svg";
 
 export type IconVariants = "not-found";
 

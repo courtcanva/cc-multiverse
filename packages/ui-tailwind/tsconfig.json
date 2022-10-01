@@ -3,9 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
-    },
-    "typeRoots": ["./src/types"]
+      "@src/*": ["./src/*"]
+    }
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]

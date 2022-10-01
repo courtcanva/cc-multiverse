@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button, ButtonVariant, Icon } from "@cc/ui-tailwind";
-import NoFound from "../assets/icons/404.svg";
+import NoFound from "@src/assets/icons/404.svg";
 
 const SPRING_BOOT_URL = "https://spring.io/projects/spring-boot";
 

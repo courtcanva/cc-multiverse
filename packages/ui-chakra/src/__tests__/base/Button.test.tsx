@@ -1,4 +1,4 @@
-import { Button } from "../../base/Button/Button";
+import { Button } from "@src/base/Button/Button";
 import { render, screen, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 

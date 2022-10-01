@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Web from "../../pages";
+import Web from "@src/pages";
 
 describe("page/Galaxy", () => {
   beforeAll(() => {
