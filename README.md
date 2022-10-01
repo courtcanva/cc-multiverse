@@ -100,7 +100,7 @@ npm run storybook -w=galaxy
 2. If you have changes that only modify the `eslint` rules, turborepo might not detect these changes when comparing caches. Suggest running `npm run eslint --force` to overwrite the existing cache to validate if the new `eslint` rules are working as intended.
 3. The grammar errors in this `README.md` is to be unseen. 😊
 
-### 🥞 What tech is in this project?
+### 🥞 What techs are in this project?
 
 | Category           | Packages                                                                                                         |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------- |
@@ -110,7 +110,7 @@ npm run storybook -w=galaxy
 | ApiClient          |                                                                                                                  |
 | Styling            | [`@chakra-ui`](https://chakra-ui.com/), `framer-motion`, `fontsource`, [`tailwindcss`](https://tailwindcss.com/) |
 | State-Management   |                                                                                                                  |
-| Testing            | `jest`, `swc/jest`, `react-testign-library`                                                                      |
+| Testing            | `jest`, `react-testign-library`                                                                                  |
 | Localisation       |                                                                                                                  |
 | Code Control       | `husky`, `commitlint`, `eslint`, `prettier`                                                                      |
 | CI/CD              |                                                                                                                  |
