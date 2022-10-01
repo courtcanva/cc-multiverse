@@ -4,19 +4,9 @@ import { Input } from "@cc/ui-chakra";
 import { Control, useController } from "react-hook-form";
 
 type FormTextInputProps = {
-  type?: React.HTMLInputTypeAttribute;
-  label: string;
-  placeholder: string;
-  name: string;
   control: Control<any, any>;
-};
-export function FormTextInput({
-  type = "text",
-  label,
-  placeholder,
-  name,
-  control,
-}: FormTextInputProps) {
+} & TextFormInput;
+export function FormTextInput({ name, control, type = "text", ...inputProps }: FormTextInputProps) {
   const {
     field: { value, onChange },
     fieldState: { error },
@@ -24,12 +14,11 @@ export function FormTextInput({
 
   return (
     <Input
-      type={type}
-      label={label}
-      placeholder={placeholder}
       value={value}
       onChange={onChange}
       errorMessage={error?.message}
+      type={type}
+      {...inputProps}
     />
   );
 }
