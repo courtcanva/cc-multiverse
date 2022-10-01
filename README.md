@@ -31,6 +31,8 @@ Then you all set!
 
 ## 🤔 What's inside?
 
+This repo is using [`npm workspaces`](https://docs.npmjs.com/cli/v7/using-npm/workspaces). To find the name of a workspace/package, you just need to traverse to the `package.json` file in each of the workspace directories, the `name` property will indiciate the name of the workspace.
+
 It includes the following packages/apps:
 
 ### 💻📱 Apps
