@@ -14,19 +14,19 @@ export const Button = ({
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const buttonVariants = {
     primary: {
-      bg: "#6B8F40",
-    },
-    secondary: {
-      bg: "#972A3A",
-    },
-    tertiary: {
       bg: "#36495D",
     },
-    accent: {
+    secondary: {
       bg: "#49B785",
     },
-    error: {
+    tertiary: {
       bg: "#6F4E93",
+    },
+    accent: {
+      bg: "#6B8F40",
+    },
+    error: {
+      bg: "#972A3A",
     },
   };
 
