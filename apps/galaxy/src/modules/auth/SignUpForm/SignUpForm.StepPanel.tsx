@@ -5,13 +5,8 @@ import { Button, Stack, TabPanel } from "@cc/ui-chakra";
 import { FormSelectInput, FormTextInput } from "@src/common";
 
 type SignUpFormStepPanelProps = {
-  fields: Array<TextFormInput | SelectFormInput>;
   control: Control<SignUpFormValues>;
-  disableBackButton: boolean;
-  isLastStep: boolean;
-  onBack?: () => void;
-  onNext?: () => void;
-};
+} & SignUpFormStep;
 export function SignUpFormStepPanel({
   fields,
   control,
@@ -30,7 +25,7 @@ export function SignUpFormStepPanel({
             <FormSelectInput
               key={field.name}
               control={control}
-              options={(field as SelectFormInput).options}
+              options={(field as SelectFormInput<SignUpFormValues>).options}
               {...field}
             />
           ),

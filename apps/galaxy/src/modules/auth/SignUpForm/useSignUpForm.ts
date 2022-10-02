@@ -1,139 +1,152 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
-const australiaStates = [
-  {
-    value: "NSW",
-    label: "NSW",
-  },
-  {
-    value: "VIC",
-    label: "VIC",
-  },
-  {
-    value: "ACT",
-    label: "ACT",
-  },
-  {
-    value: "QLD",
-    label: "QLD",
-  },
-  {
-    value: "SA",
-    label: "SA",
-  },
-  {
-    value: "WA",
-    label: "WA",
-  },
-  {
-    value: "NT",
-    label: "NT",
-  },
-  {
-    value: "TAS",
-    label: "TAS",
-  },
-];
+import { states } from "@src/constants";
 
 export function useSignUpForm() {
-  const formFields: SignUpFormField[][] = [
-    [
-      {
-        name: "email",
-        label: "Email",
-        placeholder: "Enter email address",
+  function checkIfEmailExist() {
+    console.log(`${watch("staff.email")} does not exist, i think 🤔`);
+    return true;
+  }
+
+  function checkIfAbnExist(): boolean {
+    console.log(`${watch("franchise.abn")} does not exist, i think 🤔`);
+    return true;
+  }
+
+  const defaultValues: SignUpFormValues = {
+    franchise: {
+      businessName: null,
+      legalEntityName: null,
+      abn: null,
+      contactNumber: null,
+      businessAddress: null,
+      postcode: null,
+      state: null,
+    },
+    staff: {
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null,
+      confirmPassword: null,
+      phoneNumber: null,
+      residentialAddress: null,
+      postcode: null,
+      state: null,
+    },
+  };
+  const { control, watch, handleSubmit } = useForm<SignUpFormValues>({
+    defaultValues,
+  });
+
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps: SignUpFormStep[] = [
+    {
+      onNext: () => checkIfEmailExist() && setCurrentStep((prevValue) => prevValue + 1),
+      fields: [
+        {
+          name: "staff.email",
+          label: "Email",
+          placeholder: "Enter email address",
+        },
+        {
+          type: "password",
+          name: "staff.password",
+          label: "Password",
+          placeholder: "Enter password",
+        },
+        {
+          type: "password",
+          name: "staff.confirmPassword",
+          label: "Confirm Password",
+          placeholder: "Confirm Password",
+        },
+      ],
+    },
+    {
+      onBack: () => setCurrentStep((prevValue) => prevValue - 1),
+      onNext: () => checkIfAbnExist() && setCurrentStep((prevValue) => prevValue + 1),
+      fields: [
+        {
+          name: "franchise.businessName",
+          label: "Business Name",
+          placeholder: "Enter business name",
+        },
+        {
+          name: "franchise.legalEntityName",
+          label: "Legal Name",
+          placeholder: "Enter Legal name",
+        },
+        {
+          name: "franchise.abn",
+          label: "ABN",
+          placeholder: "Enter ABN",
+        },
+        {
+          type: "select",
+          name: "franchise.state",
+          label: "State (AU only)",
+          placeholder: "Choose your state",
+          options: states,
+        },
+        {
+          name: "franchise.postcode",
+          label: "Postcode",
+          placeholder: "Enter postcode",
+        },
+        {
+          name: "franchise.businessAddress",
+          label: "Business Address",
+          placeholder: "Enter business address details",
+        },
+      ],
+    },
+    {
+      onBack: () => {
+        setCurrentStep((prevValue) => prevValue - 1);
       },
-      {
-        type: "password",
-        name: "password",
-        label: "Password",
-        placeholder: "Enter password",
-      },
-      {
-        type: "password",
-        name: "confirmPassword",
-        label: "Confirm Password",
-        placeholder: "Confirm Password",
-      },
-    ],
-    [
-      {
-        name: "businessName",
-        label: "Business Name",
-        placeholder: "Enter business name",
-      },
-      {
-        name: "abn",
-        label: "ABN",
-        placeholder: "Enter ABN",
-      },
-      {
-        type: "select",
-        name: "state",
-        label: "State (AU only)",
-        placeholder: "Choose your state",
-        options: australiaStates,
-      },
-      {
-        name: "postcode",
-        label: "Postcode",
-        placeholder: "Enter postcode",
-      },
-      {
-        name: "companyAddress",
-        label: "Company Address Details",
-        placeholder: "Enter company address details",
-      },
-    ],
-    [
-      {
-        name: "firstName",
-        label: "First Name",
-        placeholder: "Enter first name",
-      },
-      {
-        name: "lastName",
-        label: "Last Name",
-        placeholder: "Enter last name",
-      },
-      {
-        name: "phoneNumber",
-        label: "Phone Number",
-        placeholder: "Phone No.",
-      },
-      {
-        name: "staffIdType",
-        label: "Staff Identification Document",
-        placeholder: "Choose type of ID",
-      },
-      {
-        name: "postcode",
-        label: "Postcode",
-        placeholder: "Enter postcode",
-      },
-      {
-        type: "select",
-        name: "state",
-        label: "State (AU only)",
-        placeholder: "Choose state",
-        options: australiaStates,
-      },
-      {
-        name: "residentialAddress",
-        label: "Residential Address",
-        placeholder: "Enter residential address details",
-      },
-    ],
+      fields: [
+        {
+          name: "staff.firstName",
+          label: "First Name",
+          placeholder: "Enter first name",
+        },
+        {
+          name: "staff.lastName",
+          label: "Last Name",
+          placeholder: "Enter last name",
+        },
+        {
+          name: "staff.phoneNumber",
+          label: "Phone Number",
+          placeholder: "Phone No.",
+        },
+        {
+          name: "staff.postcode",
+          label: "Postcode",
+          placeholder: "Enter postcode",
+        },
+        {
+          type: "select",
+          name: "staff.state",
+          label: "State (AU only)",
+          placeholder: "Choose state",
+          options: states,
+        },
+        {
+          name: "staff.residentialAddress",
+          label: "Residential Address",
+          placeholder: "Enter residential address details",
+        },
+      ],
+    },
   ];
 
-  // Add scheme later
-
-  const checkIfEmailExist = () => {
-    // make call to api to check if email exists
-    console.log(`${watch("email")} does not exist, i think 🤔`);
+  const onSubmit = () => {
+    handleSubmit(console.debug);
   };
 
-  const { control, watch, handleSubmit } = useForm<SignUpFormValues>();
-
-  return { formFields, checkIfEmailExist, control, handleSubmit };
+  return { steps, currentStep, control, onSubmit };
 }

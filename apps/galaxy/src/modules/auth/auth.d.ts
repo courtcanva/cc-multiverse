@@ -1,26 +1,34 @@
-type SignUpFormValues = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  businessName: string;
-  abn: string;
-  state: string;
-  postcode: string;
-  companyAddress: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  staffIdType: string;
-  staffId: unknown;
-  personalPostcode: string;
-  personalState: string;
-  residentialAddress: string;
+type AustraliaState = "ACT" | "NSW" | "QLD" | "VIC" | "NT" | "WA" | "SA";
+
+type BaseInfo = {
+  postcode: number | null;
+  state: AustraliaState | null;
 };
 
-type SignUpFormField = {
-  type?: "text" | "password" | "select";
-  name: keyof SignUpFormValues;
-  label: string;
-  placeholder: string;
-  options?: { value: string; label: string }[];
+type SignUpFormValues = {
+  franchise: {
+    businessName?: string | null;
+    legalEntityName?: string | null;
+    abn?: string | null;
+    contactNumber?: string | null;
+    businessAddress?: string | null;
+  } & BaseInfo;
+  staff: {
+    firstName?: string | null;
+    lastName?: string | null;
+    email?: string | null;
+    password?: string | null;
+    confirmPassword?: string | null;
+    phoneNumber?: string | null;
+    residentialAddress?: string | null;
+  } & BaseInfo;
+};
+
+type SignUpFormStep = {
+  isDisabled?: boolean;
+  disableBackButton?: boolean;
+  isLastStep?: boolean;
+  onBack?: () => void;
+  onNext?: () => void;
+  fields: Array<FormInputField<SignUpFormValues>>;
 };
