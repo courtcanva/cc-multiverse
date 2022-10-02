@@ -1,16 +1,16 @@
 import React from "react";
 import { Control } from "react-hook-form";
 
-import { Button, SelectOption, Stack, TabPanel } from "@cc/ui-chakra";
+import { Button, Stack, TabPanel } from "@cc/ui-chakra";
 import { FormSelectInput, FormTextInput } from "@src/common";
 
 type SignUpFormStepPanelProps = {
-  fields: SignUpFormField[];
-  control: Control<any, any>;
+  fields: Array<TextFormInput | SelectFormInput>;
+  control: Control<SignUpFormValues>;
   disableBackButton: boolean;
   isLastStep: boolean;
-  onBack: () => void;
-  onNext: () => void;
+  onBack?: () => void;
+  onNext?: () => void;
 };
 export function SignUpFormStepPanel({
   fields,
@@ -30,7 +30,7 @@ export function SignUpFormStepPanel({
             <FormSelectInput
               key={field.name}
               control={control}
-              options={field.options as SelectOption[]}
+              options={(field as SelectFormInput).options}
               {...field}
             />
           ),
@@ -41,7 +41,7 @@ export function SignUpFormStepPanel({
 
       <Stack direction="row" justifyContent="stretch">
         {!disableBackButton && (
-          <Button flex={1} onClick={onBack}>
+          <Button variant="secondary" flex={1} onClick={onBack}>
             Back
           </Button>
         )}
