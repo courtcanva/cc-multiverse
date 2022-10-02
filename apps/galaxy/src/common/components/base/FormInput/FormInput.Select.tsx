@@ -5,7 +5,7 @@ import { Control, useController } from "react-hook-form";
 
 type FormSelectInputProps = {
   control: Control<any, any>;
-} & SelectFormInput;
+} & SelectFormInput<any>;
 export function FormSelectInput({ name, control, ...inputProps }: FormSelectInputProps) {
   const {
     field: { value, onChange },

@@ -1,14 +1,16 @@
-type BaseFormInput = {
-  name: string;
+type BaseFormInput<FormValueType> = {
+  name: NestedKeyOf<FormValueType>;
   label: string;
   placeholder: string;
 };
 
-type TextFormInput = {
+type TextFormInput<FormValueType = object> = {
   type?: "text" | "password";
-} & BaseFormInput;
+} & BaseFormInput<FormValueType>;
 
-type SelectFormInput = {
+type SelectFormInput<FormValueType = object> = {
   type?: "select";
   options: { value: string; label: string }[];
-} & BaseFormInput;
+} & BaseFormInput<FormValueType>;
+
+type FormInputField<FormValueType> = TextFormInput<FormValueType> | SelectFormInput<FormValueType>;

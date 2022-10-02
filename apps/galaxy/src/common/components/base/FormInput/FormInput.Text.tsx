@@ -5,7 +5,7 @@ import { Control, useController } from "react-hook-form";
 
 type FormTextInputProps = {
   control: Control<any, any>;
-} & TextFormInput;
+} & TextFormInput<any>;
 export function FormTextInput({ name, control, type = "text", ...inputProps }: FormTextInputProps) {
   const {
     field: { value, onChange },
