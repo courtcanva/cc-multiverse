@@ -5,8 +5,6 @@
   "main": "./src/index.ts",
   "scripts": {
     "lint": "eslint *.ts*",
-    "storybook": "start-storybook -p 6007",
-    "build-storybook": "build-storybook",
     "test": "jest --colors --config jest.config.js --maxWorkers=50%",
     "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
     "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
