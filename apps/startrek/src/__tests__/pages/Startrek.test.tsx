@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Web from "@src/pages";
+import Startrek from "@src/pages";
 
 describe("page/Galaxy", () => {
   beforeAll(() => {
@@ -8,7 +8,7 @@ describe("page/Galaxy", () => {
   });
 
   it("should render galaxy page correctly", async () => {
-    render(<Web />);
+    render(<Startrek />);
 
     await userEvent.click(screen.getByText("Get Started 🥳"));
     expect(console.log).toHaveBeenCalledWith("Get Started 🥳");

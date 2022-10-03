@@ -4,7 +4,7 @@ import NoFound from "@src/assets/icons/404.svg";
 
 const SPRING_BOOT_URL = "https://spring.io/projects/spring-boot";
 
-export default function Web() {
+export default function Startrek() {
   const onGetStarted = () => {
     console.log("Get Started 🥳");
   };
