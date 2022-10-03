@@ -1,17 +1,19 @@
 import Link from "next/link";
 import { Button, ButtonVariant, Icon } from "@cc/ui-tailwind";
+import NoFound from "@src/assets/icons/404.svg";
 
-const LEARN_SPRING_BOOT_URL = "https://www.baeldung.com/spring-boot";
 const SPRING_BOOT_URL = "https://spring.io/projects/spring-boot";
 
-export default function Web() {
+export default function Startrek() {
   const onGetStarted = () => {
-    window.location.assign(LEARN_SPRING_BOOT_URL);
+    console.log("Get Started 🥳");
   };
 
   return (
     <main className="flex flex-col justify-center items-center gap-12 min-h-screen">
       <Icon variant="not-found" />
+
+      <NoFound fill="blue" />
 
       <section className="flex flex-col justify-center items-center gap-4">
         <h1 className="pb-[56px] text-center text-6xl">

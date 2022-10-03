@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "eslint": "eslint . --ext .ts --ext tsx --ext js",
-    "type-check": "tsc --project tsconfig.json --pretty --noEmit"
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
+    "test": "jest --colors --config jest.config.js --maxWorkers=50%",
+    "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
+    "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
   },
   "dependencies": {
     "@cc/ui-chakra": "*",
@@ -17,8 +20,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@cc/eslint-config": "^0.0.0",
-    "@cc/tsconfig": "^0.0.0",
+    "@cc/eslint-config": "*",
+    "@cc/jest-config": "*",
+    "@cc/tsconfig": "*",
+    "@svgr/webpack": "^6.2.1",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",
     "eslint": "7.32.0",

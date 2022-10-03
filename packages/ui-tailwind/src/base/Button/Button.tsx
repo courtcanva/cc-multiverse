@@ -7,19 +7,17 @@ export enum ButtonVariant {
 }
 
 type ButtonProps = {
-  isLoading?: boolean;
   isDisabled?: boolean;
   onClick: () => void;
   children: string;
   variant?: ButtonVariant;
 };
 export function Button({
-  isLoading,
   isDisabled,
-  onClick,
   children,
   variant = ButtonVariant.Primary,
-}: ButtonProps) {
+  ...props
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const baseStyle =
     "rounded-lg px-4 py-2 text-white text-lg transition-all duration-500 ease-in-out";
   const classVariants = {
@@ -29,11 +27,7 @@ export function Button({
   };
 
   return (
-    <button
-      disabled={isDisabled}
-      onClick={onClick}
-      className={`${baseStyle} ${classVariants[variant]}`}
-    >
+    <button disabled={isDisabled} {...props} className={`${baseStyle} ${classVariants[variant]}`}>
       {children}
     </button>
   );

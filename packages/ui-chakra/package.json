@@ -8,7 +8,10 @@
     "lint": "eslint *.ts*",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test": "jest --colors --config jest.config.js --maxWorkers=50%",
+    "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
+    "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
@@ -28,10 +31,10 @@
     "@types/react-dom": "^17.0.11",
     "babel-loader": "^8.2.5",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "*",
+    "@cc/eslint-config": "*",
     "framer-motion": "^7.3.6",
     "react": "^18.2.0",
-    "tsconfig": "*",
+    "@cc/tsconfig": "*",
     "typescript": "^4.5.2",
     "webpack": "*"
   }

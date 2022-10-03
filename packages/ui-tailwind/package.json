@@ -5,26 +5,25 @@
   "main": "./src/index.ts",
   "scripts": {
     "lint": "eslint *.ts*",
-    "test": "test",
-    "storybook": "start-storybook -p 6007",
-    "build-storybook": "build-storybook"
+    "test": "jest --colors --config jest.config.js --maxWorkers=50%",
+    "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
+    "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
   },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.19.1",
+    "@cc/eslint-config": "*",
+    "@cc/tsconfig": "*",
+    "@types/jest": "^29.1.0",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "autoprefixer": "^10.4.11",
     "babel-loader": "^8.2.5",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "*",
     "postcss": "^8.4.16",
     "react": "^18.2.0",
+    "scss": "^0.2.4",
     "tailwindcss": "^3.1.8",
-    "tsconfig": "*",
     "typescript": "^4.5.2"
-  },
-  "dependencies": {
-    "scss": "^0.2.4"
   }
 }
