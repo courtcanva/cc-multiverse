@@ -14,9 +14,8 @@ phases:
      # - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${NEXT_PUBLIC_GOOGLE_CLIENT_ID}
       - npm i
       - npm run build
-      - npm run build:static
-
+      - npm run build:static --workspace=galaxy
 artifacts:
-  base-directory: ./out
+  base-directory: /codebuild/output/src241490807/src/apps/galaxy/out
   files:
     - '**/*'
