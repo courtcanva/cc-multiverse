@@ -16,6 +16,6 @@ phases:
       - npm run build
       - npm run build:static --workspace=galaxy
 artifacts:
-  base-directory: /codebuild/output/src241490807/src/apps/galaxy/out
+  base-directory: ./apps/galaxy/out
   files:
     - '**/*'
