@@ -5,6 +5,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "build:static": {
+      "dependsOn": ["^build"],
+      "outputs": ["out/**"]
+    },
     "test": {
       "dependsOn": ["^build"]
     },
@@ -15,9 +19,7 @@
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
-    "eslint": {
-      "outputs": []
-    },
+    "eslint": {},
     "type-check": {},
     "dev": {
       "cache": false
