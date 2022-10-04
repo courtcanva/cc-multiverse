@@ -14,7 +14,7 @@ phases:
      # - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${NEXT_PUBLIC_GOOGLE_CLIENT_ID}
       - npm i
       - npm run build
-      - npm run export
+      - npm run build:static
 
 artifacts:
   base-directory: ./out
