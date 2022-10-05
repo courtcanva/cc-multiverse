@@ -18,7 +18,7 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
 
       - name: Install dependencies
-        run: npm run install
+        run: npm install
       - run: echo "🚚 All dependencies listed has been installed on the runner."
       - run: echo "💅 The workflow will now check if your code meet the eslint rules."
 
