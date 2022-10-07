@@ -5,6 +5,9 @@ import { Button as CKButton } from "@chakra-ui/react";
 type ButtonVariant = "primary" | "secondary" | "tertiary" | "accent" | "error";
 type ButtonProps = {
   variant?: ButtonVariant;
+  width?: string;
+  marginTop?: string;
+  isLoading?: boolean;
 };
 export const Button = ({
   variant = "primary",

@@ -1,8 +1,9 @@
-import { Button, Container, FormLabel, Input } from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import useSignIn from "../../../services/signin/useSignIn";
+import { Input } from "./Input";
+import { Button, Container, FormLabel, FormControl } from "@cc/ui-chakra";
 
 interface FormData {
   email: string;
@@ -24,9 +25,10 @@ const SignInForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(formSubmit)}>
+    <FormControl as="form" width="100%" onSubmit={handleSubmit(formSubmit)}>
       <FormLabel fontWeight="600">Email</FormLabel>
       <Input
+        width="100%"
         placeholder="Enter email"
         role="email"
         type="email"
@@ -52,15 +54,16 @@ const SignInForm = () => {
         <ErrorMessage errors={errors} name="password" render={showError} />
       </Container>
       <Button
+        width="100%"
         role="signIn"
-        variant={"signInBtn"}
+        variant="accent"
         marginTop="48px"
         type="submit"
         isLoading={isLoading}
       >
         Sign In
       </Button>
-    </form>
+    </FormControl>
   );
 };
 
