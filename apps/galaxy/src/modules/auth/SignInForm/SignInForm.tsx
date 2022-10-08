@@ -26,7 +26,7 @@ const SignInForm = () => {
 
   return (
     <FormControl as="form" width="100%" onSubmit={handleSubmit(formSubmit)}>
-      <FormLabel>Email</FormLabel>
+      <FormLabel fontWeight="600">Email</FormLabel>
       <Input
         width="100%"
         placeholder="Enter email"
@@ -39,7 +39,9 @@ const SignInForm = () => {
       <Container color="red">
         <ErrorMessage errors={errors} name="email" render={showError} />
       </Container>
-      <FormLabel marginTop="24px">Password</FormLabel>
+      <FormLabel marginTop="24px" fontWeight="600">
+        Password
+      </FormLabel>
       <Input
         placeholder="Enter password"
         role="password"

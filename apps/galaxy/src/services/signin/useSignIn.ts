@@ -1,7 +1,7 @@
 import axios from "../utils/axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useToast } from "@chakra-ui/react";
+import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 
 export default function useSignIn() {

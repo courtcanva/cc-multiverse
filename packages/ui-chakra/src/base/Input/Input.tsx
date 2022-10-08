@@ -1,28 +1,33 @@
-import React from "react";
-
+import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { Input as CKInput } from "@chakra-ui/react";
 
-type InputVariant = "primary";
-type InputProps = {
+export type InputSize = "medium" | "large";
+export type InputType = "text" | "email";
+type InputVariant = "primary" | "secondary";
+
+export type InputProps = {
   variant?: InputVariant;
-  width?: string;
-};
+  type?: InputType;
+  size?: InputSize;
+  className?: string;
+} & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "size">;
+
 export const Input = ({
   variant = "primary",
   children,
   ...props
 }: InputProps & React.InputHTMLAttributes<HTMLInputElement>) => {
-  const InputVariants = {
+  const inputVariants = {
     primary: {
       size: "md",
     },
     secondary: {
-      size: "sm",
+      size: "ms",
     },
   };
 
   return (
-    <CKInput {...props} {...InputVariants[variant]}>
+    <CKInput {...props} color="#FFFFFF" {...inputVariants[variant]}>
       {children}
     </CKInput>
   );

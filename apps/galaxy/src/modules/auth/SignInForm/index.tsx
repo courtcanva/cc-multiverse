@@ -12,12 +12,10 @@ const SignIn = () => {
             alt="dashboard-logo-192x192"
             src="/assets/dashboard-logo-192x192.png"
           />
-          <Text fontSize="24" color="brand.secondary">
-            CourtCanva
-          </Text>
+          <Text fontSize="24">CourtCanva</Text>
         </Flex>
         <Flex marginTop="12px" marginBottom="48px" flexDir="column" alignItems="center">
-          <Text variant="primary" fontWeight="700">
+          <Text fontSize="23" fontWeight="bold">
             Sign in to CourtCanva Franchisee
           </Text>
         </Flex>
