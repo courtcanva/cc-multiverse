@@ -28,6 +28,7 @@ const SignInForm = () => {
     <FormControl as="form" width="100%" onSubmit={handleSubmit(formSubmit)}>
       <FormLabel fontWeight="600">Email</FormLabel>
       <Input
+        id="email"
         width="100%"
         placeholder="Enter email"
         role="email"
@@ -43,6 +44,7 @@ const SignInForm = () => {
         Password
       </FormLabel>
       <Input
+        id="password"
         placeholder="Enter password"
         role="password"
         type="password"
