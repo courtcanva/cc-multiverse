@@ -1,14 +1,14 @@
 export * from "./Button/Button";
-// export * from "./Input/Input";
+export * from "./Input/Input";
 export {
   Stack,
   Container,
-  FormLabel,
   FormControl,
+  FormLabel,
   Box,
   Flex,
   Image,
   Text,
-  Input as AInput,
+  Input as ReInput,
   useToast,
 } from "@chakra-ui/react";

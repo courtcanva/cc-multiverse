@@ -16,7 +16,7 @@ const SignIn = () => {
             CourtCanva
           </Text>
         </Flex>
-        <Flex marginTop="24px" marginBottom="48px" flexDir="column" alignItems="center">
+        <Flex marginTop="12px" marginBottom="48px" flexDir="column" alignItems="center">
           <Text variant="primary" fontWeight="700">
             Sign in to CourtCanva Franchisee
           </Text>
