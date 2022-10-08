@@ -9,5 +9,6 @@ export {
   Flex,
   Image,
   Text,
+  Input as AInput,
   useToast,
 } from "@chakra-ui/react";
