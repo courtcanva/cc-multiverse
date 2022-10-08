@@ -2,8 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import useSignIn from "../../../services/signin/useSignIn";
-import { ReInput as Input } from "@cc/ui-chakra";
-import { Button, Container, FormLabel, FormControl } from "@cc/ui-chakra";
+import { Button, Container, FormLabel, FormControl, Input } from "@cc/ui-chakra";
 
 interface FormData {
   email: string;
