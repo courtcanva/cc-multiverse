@@ -13,8 +13,9 @@ This monorepo was bootstrapped using [`create-turbo`](https://turborepo.org/docs
   - [💻📱 Apps](#💻📱-apps)
   - [📦 Packages](#📦-packages)
 - [🏗️ How to build this project?](#🏗️-how-to-build-this-project)
-- [🧪 How to run test for this project?](#)
+- [📦 How to install packages into individual workspace?](#📦-how-to-install-packages-into-individual-workspace)
 - [🧑‍💻 How to start the developement server?](#🧑‍💻-how-to-start-the-developement-server)
+- [🧪 How to run test for this project?](#🧪-how-to-run-test-for-this-project)
 - [📚 How to open storybooks?](#📚-how-to-open-storybooks)
 - [📝 Are there any caveats I should know?](#📝-are-there-any-caveats-i-should-know)
 - [🥞 What tech is in this project?](#🥞-what-tech-is-in-this-project)
@@ -60,6 +61,14 @@ npm run build
 
 # The `--force` tag will override the cache and run a fresh build
 npm run build --force
+```
+
+### 📦 How to install packages into individual workspace?
+
+Simple! assuming you want to install `react-hook-form`, just use the commands as normal but with `--workspace=` flag at the end.
+
+```bash
+npm install react-hook-form --workspace=galaxy
 ```
 
 ### 🧪 How to run test for this project?
