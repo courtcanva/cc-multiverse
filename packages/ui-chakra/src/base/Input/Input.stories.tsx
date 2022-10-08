@@ -20,7 +20,7 @@ export function Variants() {
   return (
     <HStack>
       <Input onClick={onClick}>Primary Input</Input>
-      <Input variant="primary" onClick={onClick}>
+      <Input variant="secondary" onClick={onClick}>
         Secondary Input
       </Input>
     </HStack>
