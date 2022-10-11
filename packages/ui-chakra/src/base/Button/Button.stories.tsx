@@ -23,15 +23,6 @@ export function Variants() {
       <Button variant="secondary" onClick={onClick}>
         Secondary Button
       </Button>
-      <Button variant="tertiary" onClick={onClick}>
-        Tertiary Button
-      </Button>
-      <Button variant="accent" onClick={onClick}>
-        Accent Button
-      </Button>
-      <Button variant="error" onClick={onClick}>
-        Error Button
-      </Button>
     </HStack>
   );
 }

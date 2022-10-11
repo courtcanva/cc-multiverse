@@ -2,9 +2,12 @@ import React from "react";
 
 import { Button as CKButton } from "@chakra-ui/react";
 
-type ButtonVariant = "primary" | "secondary" | "tertiary" | "accent" | "error";
+type ButtonVariant = "primary" | "secondary";
 type ButtonProps = {
   variant?: ButtonVariant;
+  width?: string;
+  marginTop?: string;
+  isLoading?: boolean;
 };
 export const Button = ({
   variant = "primary",
@@ -13,19 +16,17 @@ export const Button = ({
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const buttonVariants = {
     primary: {
-      bg: "#6B8F40",
-    },
-    secondary: {
-      bg: "#972A3A",
-    },
-    tertiary: {
       bg: "#36495D",
     },
-    accent: {
+    secondary: {
       bg: "#49B785",
-    },
-    error: {
-      bg: "#6F4E93",
+      _hover: {
+        background: "#49B785",
+        opacity: "0.82",
+      },
+      _active: {
+        background: "#49B785",
+      },
     },
   };
 
