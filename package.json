@@ -31,5 +31,8 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "npm@8.5.0"
+  "packageManager": "npm@8.5.0",
+  "dependencies": {
+    "chakra-react-select": "^4.2.5"
+  }
 }
