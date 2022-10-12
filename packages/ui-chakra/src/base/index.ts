@@ -1,4 +1,7 @@
 export * from "./Button/Button";
+export * from "./Input/Select";
+export * from "./Input/Input";
+
 export {
   Stack,
   Container,
@@ -8,6 +11,5 @@ export {
   Flex,
   Image,
   Text,
-  Input,
   useToast,
 } from "@chakra-ui/react";
