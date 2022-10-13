@@ -1,5 +1,5 @@
 import { AppProps } from "next/app";
-
+import GlobalLayout from "../layouts";
 import { ThemeProvider } from "@cc/ui-chakra";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -8,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={randomTheme}>
-      <Component {...pageProps} />
+      <GlobalLayout>
+        <Component {...pageProps} />
+      </GlobalLayout>
     </ThemeProvider>
   );
 }
