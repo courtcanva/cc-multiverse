@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:static": "next build && next export",
     "start": "next start",
     "eslint": "eslint . --ext .ts --ext tsx --ext js",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",

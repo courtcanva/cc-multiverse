@@ -63,6 +63,24 @@ npm run build
 npm run build --force
 ```
 
+### ⚡ How to static export this project?
+
+It's really the same deal here as well, you just need to run the following command:
+
+```bash
+# This will start the `build:static` pipeline specified in `turbo.json`, which will run `next build && next export` in configured workspaces.
+npm run build:static
+
+# To target a specific workspace, pass the `--workspace` flag at the end.
+npm run build:static --workspace=galaxy
+
+# The `--force` tag will override the cache and run a fresh build:static
+npm run build:static --force
+```
+
+After running this command, the built static web app will be in the `apps/[workspace]/out` directory. 👍
+
+
 ### 📦 How to install packages into individual workspace?
 
 Simple! assuming you want to install `react-hook-form`, just use the commands as normal but with `--workspace=` flag at the end.

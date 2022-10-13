@@ -9,6 +9,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "turbo run build",
+    "build:static": "turbo run build:static",
     "dev": "turbo run dev --parallel",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
