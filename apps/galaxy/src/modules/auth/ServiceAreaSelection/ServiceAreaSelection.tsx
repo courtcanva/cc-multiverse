@@ -1,52 +1,55 @@
-import { Select, Button, HStack, FormControl, FormLabel } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Button, HStack, Container, Select } from "@cc/ui-chakra";
+import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
-import useGetSuburbs, { SuburbArray } from "../../../services/selectServieArea/useGetSuburbs";
-import useSelectServiceArea from "../../../services/selectServieArea/useSelectServiceArea";
+import getSuburbsInfo from "../../../services/selectServieArea/useGetSuburbs";
 import usePostServiceArea from "../../../services/selectServieArea/usePostServiceArea";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-interface FormData {
-  sscCode: number;
+interface SuburbGroup {
+  label: string;
+  value: number;
 }
 
-type SuburbProps = {
-  suburbs: SuburbArray[];
-  handleSelect: () => void;
-};
+interface FormData {
+  suburbs: SuburbGroup[];
+}
+
+const defaultValues: FormData = { suburbs: [] };
 
 const ServiceAreaSelection = () => {
-  const { handleSuburbsInfo, suburbs } = useGetSuburbs();
-  const { selected, handleSelect } = useSelectServiceArea();
+  // const { suburbs, setSuburbs } = useState([]);
   const { isLoading, handleServiceAreaSubmit } = usePostServiceArea();
-  const { handleSubmit } = useForm<FormData>();
-  const formSubmit = ({ sscCode }: FormData) => {
-    handleServiceAreaSubmit(sscCode);
+  const { control, handleSubmit } = useForm<FormData>({
+    defaultValues,
+  });
+
+  const submit: SubmitHandler<FormData> = async (data) => {
+    handleServiceAreaSubmit(data);
   };
 
   useEffect(() => {
-    handleSuburbsInfo;
-    handleSuburbsInfo();
+    getSuburbsInfo();
+    // setSuburbs(getSuburbsInfo());
+    console.log(getSuburbsInfo());
   }, []);
 
   return (
-    <FormControl onSubmit={handleSubmit(formSubmit)}>
-      <FormLabel>Select function</FormLabel>
+    <Container as="form" onSubmit={handleSubmit(submit)}>
+      <label>Select Area Filter Mode</label>
       <Select>
-        <option value="include">Include Area</option>
-        {/* <option value="exclude">Exclude Area</option> */}
+        <option value="include">Include Mode</option>
+        <option value="exclude">Exclude Area</option>
       </Select>
-      <FormLabel marginTop="24px">Search Area</FormLabel>
-      <SearchBar suburbs={suburbs} handleSelect={handleSelect} />
+      {/* <SearchBar control={control} /> */}
       <HStack marginTop="48px">
-        <Button type="button" colorScheme="teal" width="50%" isLoading={isLoading}>
-          Cancel
+        <Button type="button" isLoading={isLoading} variant="secondary" width="50%">
+          Back
         </Button>
-        <Button type="submit" colorScheme="teal" width="50%">
+        <Button type="submit" isLoading={isLoading} variant="primary" width="50%">
           Submit
         </Button>
       </HStack>
-    </FormControl>
+    </Container>
   );
 };
 

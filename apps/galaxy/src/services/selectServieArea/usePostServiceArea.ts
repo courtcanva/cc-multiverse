@@ -4,16 +4,31 @@ import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 
+interface SuburbGroup {
+  label: string;
+  value: number;
+}
+
+interface FormData {
+  suburbs: SuburbGroup[];
+}
+
 export default function usePostServiceArea() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
 
-  const handleServiceAreaSubmit = async (sscCode: number) => {
+  const handleServiceAreaSubmit = async (data: FormData) => {
     setIsLoading(true);
+
     try {
+      const newData = data.suburbs.map((val: SuburbGroup) => {
+        return {
+          sscCode: val.value,
+        };
+      });
       const response = await axios.post("/franchisee/1/service_areas", {
-        sscCode: sscCode,
+        suburbs: newData,
       });
       if (response.status === 200) {
         router.push("/");

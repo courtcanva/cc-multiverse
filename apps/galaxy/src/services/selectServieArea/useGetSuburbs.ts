@@ -13,21 +13,21 @@ export interface SuburbData {
   postcode: number;
 }
 export default function useGetSuburbs() {
-  const [isLoading, setIsLoading] = useState(false);
   const [suburbs, setSuburbs] = useState<SuburbArray[]>();
   const toast = useToast();
   const suburbsArr: SuburbArray[] = [];
 
-  const handleSuburbsInfo = async () => {
-    setIsLoading(true);
+  const getSuburbsInfo = async () => {
     try {
-      await axios.get("http://localhost:8080/api/v1/suburbs").then((response) => {
+      await axios.get("/suburbs").then((response) => {
         const result = response.data.suburbs;
         result.map((suburb: SuburbData) => {
           const label = `${suburb.suburbName} ${suburb.state}, ${suburb.postcode}`;
           return suburbsArr.push({ value: suburb.sscCode, label: label });
         });
         setSuburbs(suburbsArr);
+
+        return suburbs;
       });
     } catch (error) {
       const err = error as AxiosError;
@@ -50,7 +50,6 @@ export default function useGetSuburbs() {
         });
       }
     }
-    setIsLoading(false);
   };
-  return { isLoading, suburbs, handleSuburbsInfo };
+  return { getSuburbsInfo };
 }
