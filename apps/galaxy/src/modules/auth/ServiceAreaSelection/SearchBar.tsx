@@ -2,12 +2,7 @@ import { Select } from "chakra-react-select";
 import { Controller } from "react-hook-form";
 import { FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
-export interface SuburbArray {
-  value: number;
-  label: string;
-}
-
-const SearchBar = ({ control, suburbs }: { control: any; suburbs: SuburbArray[] }) => {
+const SearchBar = ({ options, control }: { options: { value: number; label: string }[] }) => {
   return (
     <Controller
       control={control}
@@ -22,7 +17,7 @@ const SearchBar = ({ control, suburbs }: { control: any; suburbs: SuburbArray[] 
             name={name}
             onChange={onChange}
             value={value}
-            options={suburbs}
+            options={options}
             placeholder={"Please input your address or suburb"}
             components={{ DropdownIndicator: () => null }}
             closeMenuOnSelect={false}

@@ -1,28 +1,46 @@
 import axios from "../utils/axios";
-import { useState } from "react";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
-interface SuburbGroup {
+interface Suburb {
   label: string;
   value: number;
 }
 
-interface FormData {
-  suburbs: SuburbGroup[];
+interface SuburbGroup {
+  suburbs: Suburb[];
 }
 
-export default function usePostServiceArea() {
+export default function useGetSuburbs() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
 
-  const handleServiceAreaSubmit = async (data: FormData) => {
+  const getSuburbsInfo = async () => {
+    try {
+      const response = await axios.get("/suburbs");
+      const result = response.data.suburbs;
+      return result;
+    } catch (error) {
+      const err = error as AxiosError;
+      toast({
+        title: err.message,
+        description: "error",
+        status: "error",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleServiceAreaSubmit = async (data: SuburbGroup) => {
     setIsLoading(true);
 
     try {
-      const newData = data.suburbs.map((val: SuburbGroup) => {
+      const newData = data.suburbs.map((val: Suburb) => {
         return {
           sscCode: val.value,
         };
@@ -56,5 +74,6 @@ export default function usePostServiceArea() {
     }
     setIsLoading(false);
   };
-  return { isLoading, handleServiceAreaSubmit };
+
+  return { isLoading, handleServiceAreaSubmit, getSuburbsInfo };
 }

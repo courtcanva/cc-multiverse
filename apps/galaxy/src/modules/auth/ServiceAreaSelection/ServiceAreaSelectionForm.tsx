@@ -1,9 +1,15 @@
 import { Button, HStack, Container, Select } from "@cc/ui-chakra";
 import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
-import getSuburbsInfo from "../../../services/selectServieArea/useGetSuburbs";
-import usePostServiceArea from "../../../services/selectServieArea/usePostServiceArea";
+import useGetSuburbs from "../../../services/servicearea/useServiceArea";
 import { useForm, SubmitHandler } from "react-hook-form";
+
+interface SuburbData {
+  sscCode: number;
+  suburbName: string;
+  state: string;
+  postcode: number;
+}
 
 interface SuburbGroup {
   label: string;
@@ -17,20 +23,25 @@ interface FormData {
 const defaultValues: FormData = { suburbs: [] };
 
 const ServiceAreaSelection = () => {
-  // const { suburbs, setSuburbs } = useState([]);
-  const { isLoading, handleServiceAreaSubmit } = usePostServiceArea();
+  const [options, setOptions] = useState<SuburbGroup[]>([]);
+  const suburbsArr: SuburbGroup[] = [];
+  const { isLoading, handleServiceAreaSubmit, getSuburbsInfo } = useGetSuburbs();
   const { control, handleSubmit } = useForm<FormData>({
     defaultValues,
   });
 
-  const submit: SubmitHandler<FormData> = async (data) => {
+  const submit: SubmitHandler<FormData> = (data) => {
     handleServiceAreaSubmit(data);
   };
 
   useEffect(() => {
-    getSuburbsInfo();
-    // setSuburbs(getSuburbsInfo());
-    console.log(getSuburbsInfo());
+    getSuburbsInfo().then((result) => {
+      result.map((suburb: SuburbData) => {
+        const label = `${suburb.suburbName} ${suburb.state}, ${suburb.postcode}`;
+        return suburbsArr.push({ value: suburb.sscCode, label: label });
+      });
+      setOptions(suburbsArr);
+    });
   }, []);
 
   return (
@@ -38,9 +49,9 @@ const ServiceAreaSelection = () => {
       <label>Select Area Filter Mode</label>
       <Select>
         <option value="include">Include Mode</option>
-        <option value="exclude">Exclude Area</option>
+        {/* <option value="exclude">Exclude Area</option> */}
       </Select>
-      {/* <SearchBar control={control} /> */}
+      <SearchBar options={options} control={control} />
       <HStack marginTop="48px">
         <Button type="button" isLoading={isLoading} variant="secondary" width="50%">
           Back
