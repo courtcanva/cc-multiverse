@@ -17,7 +17,7 @@ export default function useSignIn() {
       }
     } catch (error) {
       const { response, message } = error as AxiosError;
-      if (response?.status === 400) {
+      if (response?.status === 401) {
         toast({
           title: "Sign in failed",
           description: "Username and password is not authenticated",
