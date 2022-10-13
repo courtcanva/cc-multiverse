@@ -21,14 +21,6 @@ describe("Sign in Page", () => {
     expect(screen.getByText("Sign in to CourtCanva Franchisee")).toBeInTheDocument();
   });
 
-  it("should show warning when input is empty", async () => {
-    renderWithMockedProvider(<SignIn />);
-    const submitBtn = screen.getByText("Sign In");
-    user.click(submitBtn);
-    expect(await screen.findByText("Username is required")).toBeVisible();
-    expect(await screen.findByText("Password is required")).toBeVisible();
-  });
-
   it("should form submit", async () => {
     renderWithMockedProvider(<SignIn />);
     const submitBtn = screen.getByText("Sign In");
@@ -47,7 +39,7 @@ describe("Sign in Page", () => {
     const { result } = renderHook(() => userSignIn());
 
     act(() => {
-      result.current.handleSignInSubmit(account.username, account.password);
+      result.current.handleSignInSubmit(account);
     });
     await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
@@ -58,7 +50,7 @@ describe("Sign in Page", () => {
     const { result } = renderHook(() => userSignIn());
 
     act(() => {
-      result.current.handleSignInSubmit(account.username, account.password);
+      result.current.handleSignInSubmit(account);
     });
     await waitFor(() => expect(result.current.isLoading).toBe(true));
     expect(await screen.findByRole("status")).toBeInTheDocument();

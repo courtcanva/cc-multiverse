@@ -9,7 +9,7 @@ module.exports = {
   collectCoverageFrom: [
     "**/src/**/*.{js,ts,jsx,tsx}",
     "!**/src/pages/_app.tsx",
-    "!<rootDir>/src/layouts/index.tsx",
+    "!<rootDir>/src/layouts/**",
     "!<rootDir>/**/__tests__/**",
   ],
 };
