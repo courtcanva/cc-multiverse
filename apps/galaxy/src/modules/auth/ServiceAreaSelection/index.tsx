@@ -1,5 +1,5 @@
 import { Flex, Image, Text } from "@cc/ui-chakra";
-import ServiceAreaSelection from "./ServiceAreaSelection";
+import ServiceAreaSelection from "./ServiceAreaSelectionForm";
 
 const SelectServiceArea = () => {
   return (
