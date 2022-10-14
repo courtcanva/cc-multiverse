@@ -9,7 +9,6 @@ export {
   Flex,
   Image,
   Text,
-  Input,
   useToast,
   VStack,
   HStack,

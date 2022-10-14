@@ -80,7 +80,6 @@ npm run build:static --force
 
 After running this command, the built static web app will be in the `apps/[workspace]/out` directory. 👍
 
-
 ### 📦 How to install packages into individual workspace?
 
 Simple! assuming you want to install `react-hook-form`, just use the commands as normal but with `--workspace=` flag at the end.
