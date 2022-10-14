@@ -17,4 +17,9 @@ export {
   VStack,
   HStack,
   Select,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanel,
+  TabPanels,
 } from "@chakra-ui/react";
