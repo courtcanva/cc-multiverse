@@ -2,7 +2,7 @@ import React from "react";
 import { Control } from "react-hook-form";
 
 import { Button, Stack, TabPanel, Flex } from "@cc/ui-chakra";
-import { FormSelectInput, FormTextInput } from "@src/common";
+import { FormSelectInput, FormTextInput } from "@src/components";
 
 type SignUpFormStepPanelProps = {
   control: Control<SignUpFormValues>;

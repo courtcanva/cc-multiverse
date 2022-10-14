@@ -1,5 +1,9 @@
 export * from "./ThemeProvider";
+
 export * from "./base";
+export * from "./general";
+
+// Tabs
 export {
   Stack,
   Container,
