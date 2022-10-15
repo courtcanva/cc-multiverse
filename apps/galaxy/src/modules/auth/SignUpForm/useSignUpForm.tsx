@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 import { states } from "@src/constants";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpFormInfoSchema } from "../../modules/auth/SignUpForm/useSignUpForm.schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SignUpFormInfoSchema } from "./useSignUpFrom.schema";
 
 export function useSignUpForm() {
   function checkIfEmailExist() {
@@ -42,7 +42,7 @@ export function useSignUpForm() {
   const { control, watch, handleSubmit } = useForm<SignUpFormValues>({
     defaultValues,
     mode: "onBlur",
-    resolver: zodResolver(SignUpFormInfoSchema),
+    resolver: yupResolver(SignUpFormInfoSchema),
   });
 
   const [currentStep, setCurrentStep] = useState(0);
