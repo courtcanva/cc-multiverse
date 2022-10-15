@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Input } from "@cc/ui-chakra";
+import { FormInput } from "@cc/ui-chakra";
 import { Control, useController } from "react-hook-form";
 
 type FormTextInputProps = {
@@ -13,7 +13,7 @@ export function FormTextInput({ name, control, type = "text", ...inputProps }: F
   } = useController({ name, control });
 
   return (
-    <Input
+    <FormInput
       value={value}
       onChange={onChange}
       onBlur={onBlur}

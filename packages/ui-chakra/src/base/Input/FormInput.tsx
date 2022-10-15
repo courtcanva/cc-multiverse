@@ -13,7 +13,13 @@ type InputProps = {
   helperText?: string;
   errorMessage?: string;
 } & CKInputProps;
-export function Input({ isRequired, label, helperText, errorMessage, ...inputProps }: InputProps) {
+export function FormInput({
+  isRequired,
+  label,
+  helperText,
+  errorMessage,
+  ...inputProps
+}: InputProps) {
   return (
     <FormControl isRequired={isRequired} isInvalid={errorMessage !== undefined}>
       <FormLabel>{label}</FormLabel>

@@ -19,6 +19,7 @@ export {
   Select,
   Tab,
   Tabs,
+  Input,
   TabList,
   TabPanel,
   TabPanels,
