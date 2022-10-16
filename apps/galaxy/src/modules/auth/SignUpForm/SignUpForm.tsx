@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-// import useSignIn from "@src/services/signin/useSignIn";
+import useSignIn from "@src/services/signin/useSignIn";
 import { Button, FormLabel, FormControl, Input, Stack, VStack } from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
 import { StateEnum } from "@src/constants";
@@ -9,7 +9,7 @@ import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
 import { SignUpFormStepPanel } from "./SignUpForm.StepPanel";
 
 interface FormData {
-  email: "string";
+  username: "string";
   password: "string";
   confirmPassword: "string";
   businessName: "string";
@@ -28,7 +28,7 @@ interface FormData {
 }
 
 const SignUpForm = () => {
-  // const { isLoading, handleSignInSubmit } = useSignIn();
+  const { handleSignInSubmit } = useSignIn();
   const {
     email,
     password,
@@ -58,15 +58,19 @@ const SignUpForm = () => {
         <VStack align="start" alignItems="stretch" spacing="24px">
           <Stack>
             <FormLabel fontWeight="600">Email</FormLabel>
-            <Input {...email} {...register("email")} isRequired={true} />
+            <Input {...email} {...register("username")} isRequired={true} />
           </Stack>
           <Stack>
             <FormLabel fontWeight="600">Password</FormLabel>
             <Input {...password} {...register("password")} isRequired={true} />
           </Stack>
+          <Stack>
+            <FormLabel fontWeight="600">Confirm Password</FormLabel>
+            <Input {...confirmPassword} {...register("password")} isRequired={true} />
+          </Stack>
         </VStack>
         <Stack marginTop="48px">
-          <Button role="signIn" variant="secondary" type="submit" isLoading={isLoading}>
+          <Button role="signIn" variant="secondary" type="submit">
             Next
           </Button>
         </Stack>

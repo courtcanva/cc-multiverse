@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import HeaderLayout from "../layouts/HeaderLayout";
-import { SignUp } from "../modules/auth/SignUpForm/index";
+import SignUp from "../modules/auth/SignUpForm/index";
 
 const SignUpPage: NextPage = () => {
   return (
