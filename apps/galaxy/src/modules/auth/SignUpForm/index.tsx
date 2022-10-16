@@ -2,7 +2,6 @@ import React from "react";
 import { SignUpForm } from "./SignUpForm";
 import { VStack, Stack, Tab, Tabs, TabList, TabPanels, Text } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
-import { SignUpFormStepPanel } from "./SignUpForm.StepPanel";
 
 const SignUp = () => {
   return (
