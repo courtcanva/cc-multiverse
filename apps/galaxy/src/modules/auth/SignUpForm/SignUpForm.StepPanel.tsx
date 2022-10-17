@@ -1,7 +1,7 @@
 import React from "react";
 import { Control } from "react-hook-form";
 
-import { Button, Stack, TabPanel, Flex } from "@cc/ui-chakra";
+import { TabPanel, Flex } from "@cc/ui-chakra";
 import { FormSelectInput, FormTextInput } from "@src/components";
 
 type SignUpFormStepPanelProps = {
@@ -34,26 +34,8 @@ export function SignUpFormStepPanel({
               />
             ),
           };
-
           return inputTypes[type];
         })}
-
-        <Stack direction="row" justifyContent="stretch">
-          {!disableBackButton && (
-            <Button variant="secondary" flex={1} onClick={onBack}>
-              Back
-            </Button>
-          )}
-          {isLastStep ? (
-            <Button type="submit" flex={1}>
-              Submit
-            </Button>
-          ) : (
-            <Button flex={1} onClick={onNext}>
-              Next
-            </Button>
-          )}
-        </Stack>
       </Flex>
     </TabPanel>
   );

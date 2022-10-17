@@ -1,7 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useSignUp from "@src/services/signup/useSignUp";
-import { Button, FormLabel, FormControl, Input, Stack, VStack, Select, Flex } from "@cc/ui-chakra";
+import {
+  Button,
+  FormLabel,
+  FormControl,
+  Input,
+  Stack,
+  VStack,
+  Select,
+  Flex,
+  Text,
+} from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
 import { StateEnum } from "@src/constants";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -36,6 +46,34 @@ const SignUpForm = () => {
   };
   const goBackFromStep = () => {
     setFormStep((cur) => cur - 1);
+  };
+  const renderHeader = () => {
+    if (formStep == 0) {
+      return (
+        <VStack align="start" alignItems="center" spacing="24px">
+          <Stack>
+            <Text height="72px" fontSize="22" fontWeight="bold">
+              Register with CourtCanva as our franchisee
+            </Text>
+          </Stack>
+          <Stack>
+            
+          </Stack>
+        </VStack>
+      );
+    } else if (formStep == 1) {
+      return (
+        <Text height="72px" fontSize="22" fontWeight="bold">
+          Please Fill in your company information details
+        </Text>
+      );
+    } else {
+      return (
+        <Text height="72px" fontSize="22" fontWeight="bold">
+          Please fill in your personal information
+        </Text>
+      );
+    }
   };
   const renderButton = () => {
     if (formStep == 0) {
@@ -99,6 +137,7 @@ const SignUpForm = () => {
   const onSubmit = handleSubmit((data) => console.log(data));
   return (
     <FormControl as="form" onSubmit={onSubmit}>
+      {renderHeader()}
       {formStep === 0 && (
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
