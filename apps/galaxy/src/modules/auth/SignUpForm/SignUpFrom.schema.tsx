@@ -63,4 +63,5 @@ export const SignUpFormInfoSchema = yup.object().shape({
     .required("The postcode is required")
     .matches(postcodeRegex, "The postcode does not match the required format. Example: 4000"),
   residentialState: yup.string().required("Please select a state").oneOf(stateList),
-});
+})
+.required();
