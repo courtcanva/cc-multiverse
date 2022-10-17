@@ -23,7 +23,6 @@ export const SignUpFormInfoSchema = yup
     confirmPassword: yup
       .string()
       .required("The confirm password is required")
-      .min(8)
       .oneOf([yup.ref("password"), null], "Passwords don't match."),
     businessName: yup
       .string()

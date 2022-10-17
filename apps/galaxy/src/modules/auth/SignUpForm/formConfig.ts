@@ -1,3 +1,5 @@
+import { states } from "@src/constants";
+
 export const formConfig = {
   email: {
     id: "email",

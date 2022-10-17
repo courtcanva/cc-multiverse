@@ -4,11 +4,28 @@ import { useRouter } from "next/router";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 
-export default function useSignIn() {
+export default function useSignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
-  const handleSignUpSubmit = async (data: { username: string; password: string }) => {
+  const handleSignUpSubmit = async (data: {
+    username: "string";
+    password: "string";
+    confirmPassword: "string";
+    businessName: "string";
+    legalEntityName: "string";
+    abn: "string";
+    contactNumber: "string";
+    businessAddress: "string";
+    companyPostcode: "string";
+    companyState: "string";
+    firstName: "string";
+    lastName: "string";
+    phoneNumber: "string";
+    residentialAddress: "string";
+    residentialPostcode: "string";
+    residentialState: "string";
+  }) => {
     setIsLoading(true);
     try {
       const response = await axios.post("/staff/signin", data);
