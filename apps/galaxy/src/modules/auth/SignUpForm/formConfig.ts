@@ -21,7 +21,7 @@ export const formConfig = {
     id: "businessName",
     placeholder: "Enter business name",
   },
-  legalName: {
+  legalEntityName: {
     id: "legalName",
     placeholder: "Enter legal name",
   },

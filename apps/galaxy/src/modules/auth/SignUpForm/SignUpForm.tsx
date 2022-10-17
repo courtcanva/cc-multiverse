@@ -13,7 +13,7 @@ interface FormData {
   password: "string";
   confirmPassword: "string";
   businessName: "string";
-  legalName: "string";
+  legalEntityName: "string";
   abn: "string";
   contactNumber: "string";
   businessAddress: "string";
@@ -34,7 +34,7 @@ const SignUpForm = () => {
     password,
     confirmPassword,
     businessName,
-    legalName,
+    legalEntityName,
     abn,
     contactNumber,
     businessAddress,
@@ -47,7 +47,7 @@ const SignUpForm = () => {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const [formStep, setFormStep] = React.useState(0);
+  const [formStep, setFormStep] = React.useState(2);
   const { control, register, watch, handleSubmit } = useForm<FormData>({
     mode: "onBlur",
     resolver: yupResolver(SignUpFormInfoSchema),
@@ -87,7 +87,7 @@ const SignUpForm = () => {
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Legal Name</FormLabel>
-              <Input {...legalName} {...register("legalName")} isRequired={true} />
+              <Input {...legalEntityName} {...register("legalEntityName")} isRequired={true} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">ABN</FormLabel>
