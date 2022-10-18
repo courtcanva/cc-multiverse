@@ -40,10 +40,13 @@ interface FormData {
 }
 
 const SignUpForm = () => {
-  const { handleSignUpSubmit } = useSignUp();
+  const { handleSignUpSubmit, checkEmailRequest, isEmailExists } = useSignUp();
   const [formStep, setFormStep] = React.useState(0);
   const goNextFromStep = () => {
-    setFormStep((cur) => cur + 1);
+    checkEmailRequest(getValues("username"));
+    if (!isEmailExists) {
+      setFormStep((cur) => cur + 1);
+    }
   };
   const goBackFromStep = () => {
     setFormStep((cur) => cur - 1);
@@ -136,7 +139,7 @@ const SignUpForm = () => {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const { control, register, watch, formState, handleSubmit } = useForm<FormData>({
+  const { control, register, watch, getValues, formState, handleSubmit } = useForm<FormData>({
     mode: "onBlur",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
