@@ -36,7 +36,7 @@ const ServiceAreaSelection = () => {
 
   useEffect(() => {
     getSuburbsInfo().then((result) => {
-      result.map((suburb: SuburbData) => {
+      result?.map((suburb: SuburbData) => {
         const label = `${suburb.suburbName} ${suburb.state}, ${suburb.postcode}`;
         return suburbsArr.push({ value: suburb.sscCode, label: label });
       });
