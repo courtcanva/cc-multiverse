@@ -6,8 +6,8 @@ import { phoneNumberRegex, postcodeRegex, abnRegex } from "@src/constants";
 YupPassword(yup);
 const stateList = ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"];
 
-export const SignUpFormInfoSchema = yup.object().shape({
-  email: yup.string().required("The email is required").email("Invalid email address"),
+export const SignUpFormInfoSchema = yup.object({
+  username: yup.string().required("The email is required").email("Invalid email address"),
   password: yup
     .string()
     .required("Please confirm your password")

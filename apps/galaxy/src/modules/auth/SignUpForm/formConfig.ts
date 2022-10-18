@@ -1,6 +1,6 @@
 export const formConfig = {
-  email: {
-    id: "email",
+  username: {
+    id: "username",
     placeholder: "Enter email",
     role: "email",
     type: "email",

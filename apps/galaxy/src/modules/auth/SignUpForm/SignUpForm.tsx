@@ -16,6 +16,7 @@ import { formConfig } from "./formConfig";
 import { StateEnum } from "@src/constants";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
+import { FormErrorMessage } from "@chakra-ui/react";
 // import { Select } from "@cc/ui-chakra/src/base";
 // import { SignUpFormStepPanel } from "./SignUpForm.StepPanel";
 
@@ -56,22 +57,27 @@ const SignUpForm = () => {
               Register with CourtCanva as our franchisee
             </Text>
           </Stack>
-          <Stack>
-            
-          </Stack>
         </VStack>
       );
     } else if (formStep == 1) {
       return (
-        <Text height="72px" fontSize="22" fontWeight="bold">
-          Please Fill in your company information details
-        </Text>
+        <VStack align="start" alignItems="center" spacing="24px">
+          <Stack>
+            <Text height="72px" fontSize="22" fontWeight="bold">
+              Please Fill in your company information details
+            </Text>
+          </Stack>
+        </VStack>
       );
     } else {
       return (
-        <Text height="72px" fontSize="22" fontWeight="bold">
-          Please fill in your personal information
-        </Text>
+        <VStack align="start" alignItems="center" spacing="24px">
+          <Stack>
+            <Text height="72px" fontSize="22" fontWeight="bold">
+              Please fill in your personal information
+            </Text>
+          </Stack>
+        </VStack>
       );
     }
   };
@@ -87,11 +93,11 @@ const SignUpForm = () => {
     } else if (formStep == 1) {
       return (
         <Stack marginTop="24px">
-          <Flex direction="row" gap="1vw" alignItems="center" justifyContent="center">
-            <Button width="16.5vw" onClick={goBackFromStep} type="submit" variant="primary">
+          <Flex direction="row" gap="20px" alignItems="center" justifyContent="center">
+            <Button width="240px" onClick={goBackFromStep} type="submit" variant="primary">
               Back
             </Button>
-            <Button width="16.5vw" onClick={goNextFromStep} type="submit" variant="secondary">
+            <Button width="240px" onClick={goNextFromStep} type="submit" variant="secondary">
               Next
             </Button>
           </Flex>
@@ -100,11 +106,11 @@ const SignUpForm = () => {
     } else {
       return (
         <Stack marginTop="24px">
-          <Flex direction="row" gap="1vw" alignItems="center" justifyContent="center">
-            <Button width="16.5vw" onClick={goBackFromStep} type="submit" variant="primary">
+          <Flex direction="row" gap="20px" alignItems="center" justifyContent="center">
+            <Button width="240px" onClick={goBackFromStep} type="submit" variant="primary">
               Back
             </Button>
-            <Button width="16.5vw" role="signin" type="submit" variant="secondary">
+            <Button width="240px" role="signin" type="submit" variant="secondary">
               Submit
             </Button>
           </Flex>
@@ -113,7 +119,7 @@ const SignUpForm = () => {
     }
   };
   const {
-    email,
+    username,
     password,
     confirmPassword,
     businessName,
@@ -130,11 +136,14 @@ const SignUpForm = () => {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const { control, register, watch, handleSubmit } = useForm<FormData>({
+  const { control, register, watch, formState, handleSubmit } = useForm<FormData>({
     mode: "onBlur",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
   const onSubmit = handleSubmit((data) => console.log(data));
+  React.useEffect(() => {
+    console.log("touchedFields", formState.touchedFields);
+  }, [formState]);
   return (
     <FormControl as="form" onSubmit={onSubmit}>
       {renderHeader()}
@@ -142,8 +151,11 @@ const SignUpForm = () => {
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
             <Stack>
-              <FormLabel fontWeight="600">Email</FormLabel>
-              <Input {...email} {...register("username")} isRequired={true} />
+              <FormControl isInvalid={true}>
+                <FormLabel fontWeight="600">Email</FormLabel>
+                <Input {...username} {...register("username")} isRequired={true} />
+                <FormErrorMessage>error</FormErrorMessage>
+              </FormControl>
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Password</FormLabel>
@@ -177,7 +189,12 @@ const SignUpForm = () => {
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">State (AU only)</FormLabel>
-              <Select variant="outline" placeholder="Please select a state">
+              <Select
+                {...register("companyState")}
+                isRequired={true}
+                variant="outline"
+                placeholder="Please select a state"
+              >
                 <option value="NSW">NSW</option>
                 <option value="VIC">VIC</option>
                 <option value="QLD">QLD</option>
@@ -216,7 +233,11 @@ const SignUpForm = () => {
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">State (AU only)</FormLabel>
-              <Select variant="outline" placeholder="Please select a state">
+              <Select
+                variant="outline"
+                placeholder="Please select a state"
+                {...register("residentialState")}
+              >
                 <option value="NSW">NSW</option>
                 <option value="VIC">VIC</option>
                 <option value="QLD">QLD</option>
