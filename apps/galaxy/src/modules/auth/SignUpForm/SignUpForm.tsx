@@ -1,12 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useSignUp from "@src/services/signup/useSignUp";
-import { Button, FormLabel, FormControl, Input, Stack, VStack, Select, Flex } from "@cc/ui-chakra";
+import {
+  Button,
+  FormLabel,
+  FormControl,
+  Stack,
+  VStack,
+  Select,
+  Flex,
+  FormSelect,
+  FormInput,
+} from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
 import { StateEnum } from "@src/constants";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
-import { FormErrorMessage } from "@chakra-ui/react";
 
 interface FormData {
   username: "string";
@@ -27,7 +36,10 @@ interface FormData {
   residentialState: StateEnum;
 }
 
-const SignUpForm = (props) => {
+const SignUpForm = (props: {
+  setFormStep: (arg0: { (cur: number): number; (cur: number): number }) => void;
+  formStep: number;
+}) => {
   const { handleSignUpSubmit, checkEmailRequest, isEmailExists } = useSignUp();
   const goNextFromStep = () => {
     // if (formStep == 0) {
@@ -88,7 +100,7 @@ const SignUpForm = (props) => {
   });
   const onSubmit = handleSubmit((data) => console.log(data));
   React.useEffect(() => {
-    console.log("touchedFields", formState.touchedFields);
+    console.log("errors", formState.errors);
   }, [formState]);
   return (
     <FormControl as="form" onSubmit={onSubmit}>
@@ -96,19 +108,21 @@ const SignUpForm = (props) => {
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
             <Stack>
-              <FormControl isInvalid={true}>
-                <FormLabel fontWeight="600">Email</FormLabel>
-                <Input {...username} {...register("username")} />
-                <FormErrorMessage>{formState.errors.username?.message}</FormErrorMessage>
-              </FormControl>
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Password</FormLabel>
-              <Input {...password} {...register("password")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Confirm Password</FormLabel>
-              <Input {...confirmPassword} {...register("password")} />
+              <FormInput
+                {...username}
+                {...register("username")}
+                errorMessage={formState.errors.username?.message}
+              />
+              <FormInput
+                {...password}
+                {...register("password")}
+                errorMessage={formState.errors.password?.message}
+              />
+              <FormInput
+                {...confirmPassword}
+                {...register("confirmPassword")}
+                errorMessage={formState.errors.confirmPassword?.message}
+              />
             </Stack>
           </VStack>
         </section>
@@ -116,84 +130,74 @@ const SignUpForm = (props) => {
       {props.formStep === 1 && (
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
-            <Stack>
-              <FormLabel fontWeight="600">Business Name</FormLabel>
-              <Input {...businessName} {...register("businessName")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Legal Name</FormLabel>
-              <Input {...legalEntityName} {...register("legalEntityName")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">ABN</FormLabel>
-              <Input {...abn} {...register("abn")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Contact Number</FormLabel>
-              <Input {...contactNumber} {...register("contactNumber")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">State (AU only)</FormLabel>
-              <Select
-                {...register("companyState")}
-                variant="outline"
-                placeholder="Please select a state"
-              >
-                {formConfig.selectOptions.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </Select>
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Postcode</FormLabel>
-              <Input {...companyPostcode} {...register("companyPostcode")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Company Address Details</FormLabel>
-              <Input {...businessAddress} {...register("businessAddress")} />
-            </Stack>
+            <FormInput
+              {...businessName}
+              {...register("businessName")}
+              errorMessage={formState.errors.businessName?.message}
+            />
+            <FormInput
+              {...legalEntityName}
+              {...register("legalEntityName")}
+              errorMessage={formState.errors.legalEntityName?.message}
+            />
+            <FormInput {...abn} {...register("abn")} errorMessage={formState.errors.abn?.message} />
+            <FormInput
+              {...contactNumber}
+              {...register("contactNumber")}
+              errorMessage={formState.errors.contactNumber?.message}
+            />
+            <FormSelect
+              {...companyState}
+              {...register("companyState")}
+              errorMessage={formState.errors.companyState?.message}
+            />
+            <FormInput
+              {...companyPostcode}
+              {...register("companyPostcode")}
+              errorMessage={formState.errors.companyPostcode?.message}
+            />
+            <FormInput
+              {...businessAddress}
+              {...register("businessAddress")}
+              errorMessage={formState.errors.businessAddress?.message}
+            />
           </VStack>
         </section>
       )}
       {props.formStep === 2 && (
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
-            <Stack>
-              <FormLabel fontWeight="600">First Name</FormLabel>
-              <Input {...firstName} {...register("firstName")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Last Name</FormLabel>
-              <Input {...lastName} {...register("lastName")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Phone Number</FormLabel>
-              <Input {...phoneNumber} {...register("phoneNumber")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">State (AU only)</FormLabel>
-              <Select
-                variant="outline"
-                placeholder="Please select a state"
-                {...register("residentialState")}
-              >
-                {formConfig.selectOptions.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </Select>
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Postcode</FormLabel>
-              <Input {...residentialPostcode} {...register("residentialPostcode")} />
-            </Stack>
-            <Stack>
-              <FormLabel fontWeight="600">Residential Address</FormLabel>
-              <Input {...residentialAddress} {...register("residentialAddress")} />
-            </Stack>
+            <FormInput
+              {...firstName}
+              {...register("firstName")}
+              errorMessage={formState.errors.firstName?.message}
+            />
+            <FormInput
+              {...lastName}
+              {...register("lastName")}
+              errorMessage={formState.errors.lastName?.message}
+            />
+            <FormInput
+              {...phoneNumber}
+              {...register("phoneNumber")}
+              errorMessage={formState.errors.phoneNumber?.message}
+            />
+            <FormSelect
+              {...residentialState}
+              {...register("residentialState")}
+              errorMessage={formState.errors.residentialState?.message}
+            />
+            <FormInput
+              {...residentialPostcode}
+              {...register("residentialPostcode")}
+              errorMessage={formState.errors.residentialPostcode?.message}
+            />
+
+            <FormInput
+              {...residentialAddress}
+              {...register("residentialAddress")}
+              errorMessage={formState.errors.residentialAddress?.message}
+            />
           </VStack>
         </section>
       )}

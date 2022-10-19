@@ -8,6 +8,7 @@ export enum StateEnum {
   NT = "NT",
   ACT = "ACT",
 }
+export const selectOptions = ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"];
 
 export const states = [
   {

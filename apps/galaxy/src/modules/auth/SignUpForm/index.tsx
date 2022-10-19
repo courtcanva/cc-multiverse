@@ -3,7 +3,7 @@ import SignUpForm from "./SignUpForm";
 import { Flex, Text, Tab, Tabs, TabList, TabPanels } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
 
-const SignUp: React.FC = () => {
+const SignUp = () => {
   const formTitles: string[] = [
     "Register with CourtCanva as our franchisee",
     "Please Fill in your company information details",
@@ -15,17 +15,17 @@ const SignUp: React.FC = () => {
   return (
     <Flex width="100vw" justifyContent="center" alignItems="center">
       <Flex
-        width="427px"
+        width="500px"
         margin="102px 0px"
         flexDir="column"
         justifyContent="center"
         alignItems="center"
       >
         <Logo />
-        <Text marginBottom="24px" fontSize="16px" fontWeight="400">
+        <Text marginTop="24px" fontSize="16px" fontWeight="400">
           {formTitles[formStep]}
         </Text>
-        <Tabs isFitted align="center" index={formStep}>
+        <Tabs width="500px" size="md" isFitted align="center" index={formStep}>
           <TabList border="hidden" margin="10.5px 5px 30.5px 5px">
             {stepPannelTitles.map((_step, index) => (
               <Tab

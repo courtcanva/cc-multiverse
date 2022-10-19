@@ -1,3 +1,4 @@
+import React from "react";
 import {
   FormControl,
   FormLabel,
@@ -7,39 +8,38 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 
-export type SelectOption = {
-  value: string;
-  label: string;
-};
 type SelectProps = {
-  isRequired?: boolean;
-  label: string;
+  title: string;
+  id: string;
+  placeholder: string;
   helperText?: string;
   errorMessage?: string;
-  options: SelectOption[];
+  options: string[];
 } & CKSelectProps;
-export function Select({
-  isRequired,
-  label,
-  helperText,
-  errorMessage,
-  options,
-  ...selectProps
-}: SelectProps) {
+export const FormSelect = React.forwardRef(function FormSelect(
+  {
+    isRequired,
+    title,
+    placeholder,
+    helperText,
+    errorMessage,
+    options,
+    ...selectProps
+  }: SelectProps,
+  ref: React.ForwardedRef<HTMLSelectElement>
+) {
   return (
     <FormControl isRequired={isRequired} isInvalid={errorMessage !== undefined}>
-      <FormLabel>{label}</FormLabel>
-
-      <CKSelect {...selectProps}>
+      <FormLabel>{title}</FormLabel>
+      <CKSelect variant="outline" placeholder={placeholder} {...selectProps} ref={ref}>
         {options.map((option, index) => (
-          <option key={option.value + index} value={option.value}>
-            {option.label}
+          <option key={option + index} value={option}>
+            {option}
           </option>
         ))}
       </CKSelect>
-
       <FormHelperText>{helperText}</FormHelperText>
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
   );
-}
+});
