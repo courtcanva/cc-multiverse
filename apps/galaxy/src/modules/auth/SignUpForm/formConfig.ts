@@ -69,4 +69,5 @@ export const formConfig = {
     id: "residentialState",
     placeholder: "",
   },
+  selectOptions: ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"],
 };

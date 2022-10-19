@@ -1,24 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useSignUp from "@src/services/signup/useSignUp";
-import {
-  Button,
-  FormLabel,
-  FormControl,
-  Input,
-  Stack,
-  VStack,
-  Select,
-  Flex,
-  Text,
-} from "@cc/ui-chakra";
+import { Button, FormLabel, FormControl, Input, Stack, VStack, Select, Flex } from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
 import { StateEnum } from "@src/constants";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
 import { FormErrorMessage } from "@chakra-ui/react";
-// import { Select } from "@cc/ui-chakra/src/base";
-// import { SignUpFormStepPanel } from "./SignUpForm.StepPanel";
 
 interface FormData {
   username: "string";
@@ -39,87 +27,42 @@ interface FormData {
   residentialState: StateEnum;
 }
 
-const SignUpForm = () => {
+const SignUpForm = (props) => {
   const { handleSignUpSubmit, checkEmailRequest, isEmailExists } = useSignUp();
-  const [formStep, setFormStep] = React.useState(0);
   const goNextFromStep = () => {
-    checkEmailRequest(getValues("username"));
-    if (!isEmailExists) {
-      setFormStep((cur) => cur + 1);
-    }
+    // if (formStep == 0) {
+    //   checkEmailRequest(getValues("username"));
+    //   if (!isEmailExists) {
+    //     setFormStep((cur) => cur + 1);
+    //   }
+    // } else {
+    props.setFormStep((cur: number) => cur + 1);
   };
+  // };
   const goBackFromStep = () => {
-    setFormStep((cur) => cur - 1);
-  };
-  const renderHeader = () => {
-    if (formStep == 0) {
-      return (
-        <VStack align="start" alignItems="center" spacing="24px">
-          <Stack>
-            <Text height="72px" fontSize="22" fontWeight="bold">
-              Register with CourtCanva as our franchisee
-            </Text>
-          </Stack>
-        </VStack>
-      );
-    } else if (formStep == 1) {
-      return (
-        <VStack align="start" alignItems="center" spacing="24px">
-          <Stack>
-            <Text height="72px" fontSize="22" fontWeight="bold">
-              Please Fill in your company information details
-            </Text>
-          </Stack>
-        </VStack>
-      );
-    } else {
-      return (
-        <VStack align="start" alignItems="center" spacing="24px">
-          <Stack>
-            <Text height="72px" fontSize="22" fontWeight="bold">
-              Please fill in your personal information
-            </Text>
-          </Stack>
-        </VStack>
-      );
-    }
+    props.setFormStep((cur: number) => cur - 1);
   };
   const renderButton = () => {
-    if (formStep == 0) {
-      return (
-        <Stack marginTop="24px">
-          <Button type="submit" onClick={goNextFromStep} variant="secondary">
-            Next
-          </Button>
-        </Stack>
-      );
-    } else if (formStep == 1) {
-      return (
-        <Stack marginTop="24px">
-          <Flex direction="row" gap="20px" alignItems="center" justifyContent="center">
-            <Button width="240px" onClick={goBackFromStep} type="submit" variant="primary">
+    return (
+      <Flex direction="column" gap="16px">
+        <Stack marginTop="24px" direction="row" justifyContent="stretch">
+          {props.formStep != 0 && (
+            <Button flex={1} onClick={goBackFromStep}>
               Back
             </Button>
-            <Button width="240px" onClick={goNextFromStep} type="submit" variant="secondary">
-              Next
-            </Button>
-          </Flex>
-        </Stack>
-      );
-    } else {
-      return (
-        <Stack marginTop="24px">
-          <Flex direction="row" gap="20px" alignItems="center" justifyContent="center">
-            <Button width="240px" onClick={goBackFromStep} type="submit" variant="primary">
-              Back
-            </Button>
-            <Button width="240px" role="signin" type="submit" variant="secondary">
+          )}
+          {props.formStep == 2 ? (
+            <Button type="submit" flex={1} variant="secondary">
               Submit
             </Button>
-          </Flex>
+          ) : (
+            <Button flex={1} onClick={goNextFromStep} variant="secondary">
+              Next
+            </Button>
+          )}
         </Stack>
-      );
-    }
+      </Flex>
+    );
   };
   const {
     username,
@@ -139,7 +82,7 @@ const SignUpForm = () => {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const { control, register, watch, getValues, formState, handleSubmit } = useForm<FormData>({
+  const { control, register, watch, formState, handleSubmit } = useForm<FormData>({
     mode: "onBlur",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
@@ -149,90 +92,85 @@ const SignUpForm = () => {
   }, [formState]);
   return (
     <FormControl as="form" onSubmit={onSubmit}>
-      {renderHeader()}
-      {formStep === 0 && (
+      {props.formStep === 0 && (
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
             <Stack>
               <FormControl isInvalid={true}>
                 <FormLabel fontWeight="600">Email</FormLabel>
-                <Input {...username} {...register("username")} isRequired={true} />
-                <FormErrorMessage>error</FormErrorMessage>
+                <Input {...username} {...register("username")} />
+                <FormErrorMessage>{formState.errors.username?.message}</FormErrorMessage>
               </FormControl>
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Password</FormLabel>
-              <Input {...password} {...register("password")} isRequired={true} />
+              <Input {...password} {...register("password")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Confirm Password</FormLabel>
-              <Input {...confirmPassword} {...register("password")} isRequired={true} />
+              <Input {...confirmPassword} {...register("password")} />
             </Stack>
           </VStack>
         </section>
       )}
-      {formStep === 1 && (
+      {props.formStep === 1 && (
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
             <Stack>
               <FormLabel fontWeight="600">Business Name</FormLabel>
-              <Input {...businessName} {...register("businessName")} isRequired={true} />
+              <Input {...businessName} {...register("businessName")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Legal Name</FormLabel>
-              <Input {...legalEntityName} {...register("legalEntityName")} isRequired={true} />
+              <Input {...legalEntityName} {...register("legalEntityName")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">ABN</FormLabel>
-              <Input {...abn} {...register("abn")} isRequired={true} />
+              <Input {...abn} {...register("abn")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Contact Number</FormLabel>
-              <Input {...contactNumber} {...register("contactNumber")} isRequired={true} />
+              <Input {...contactNumber} {...register("contactNumber")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">State (AU only)</FormLabel>
               <Select
                 {...register("companyState")}
-                isRequired={true}
                 variant="outline"
                 placeholder="Please select a state"
               >
-                <option value="NSW">NSW</option>
-                <option value="VIC">VIC</option>
-                <option value="QLD">QLD</option>
-                <option value="SA">SA</option>
-                <option value="WA">WA</option>
-                <option value="TAS">TAS</option>
-                <option value="NT">NT</option>
-                <option value="ACT">ACT</option>
+                {formConfig.selectOptions.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
               </Select>
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Postcode</FormLabel>
-              <Input {...companyPostcode} {...register("companyPostcode")} isRequired={true} />
+              <Input {...companyPostcode} {...register("companyPostcode")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Company Address Details</FormLabel>
-              <Input {...businessAddress} {...register("businessAddress")} isRequired={true} />
+              <Input {...businessAddress} {...register("businessAddress")} />
             </Stack>
           </VStack>
         </section>
       )}
-      {formStep === 2 && (
+      {props.formStep === 2 && (
         <section>
           <VStack align="start" alignItems="stretch" spacing="24px">
             <Stack>
               <FormLabel fontWeight="600">First Name</FormLabel>
-              <Input {...firstName} {...register("firstName")} isRequired={true} />
+              <Input {...firstName} {...register("firstName")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Last Name</FormLabel>
-              <Input {...lastName} {...register("lastName")} isRequired={true} />
+              <Input {...lastName} {...register("lastName")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Phone Number</FormLabel>
-              <Input {...phoneNumber} {...register("phoneNumber")} isRequired={true} />
+              <Input {...phoneNumber} {...register("phoneNumber")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">State (AU only)</FormLabel>
@@ -241,31 +179,20 @@ const SignUpForm = () => {
                 placeholder="Please select a state"
                 {...register("residentialState")}
               >
-                <option value="NSW">NSW</option>
-                <option value="VIC">VIC</option>
-                <option value="QLD">QLD</option>
-                <option value="SA">SA</option>
-                <option value="WA">WA</option>
-                <option value="TAS">TAS</option>
-                <option value="NT">NT</option>
-                <option value="ACT">ACT</option>
+                {formConfig.selectOptions.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
               </Select>
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Postcode</FormLabel>
-              <Input
-                {...residentialPostcode}
-                {...register("residentialPostcode")}
-                isRequired={true}
-              />
+              <Input {...residentialPostcode} {...register("residentialPostcode")} />
             </Stack>
             <Stack>
               <FormLabel fontWeight="600">Residential Address</FormLabel>
-              <Input
-                {...residentialAddress}
-                {...register("residentialAddress")}
-                isRequired={true}
-              />
+              <Input {...residentialAddress} {...register("residentialAddress")} />
             </Stack>
           </VStack>
         </section>
