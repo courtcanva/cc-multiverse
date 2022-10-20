@@ -1,16 +1,15 @@
 import { AppProps } from "next/app";
 import GlobalLayout from "../layouts";
 import { ThemeProvider, useToast } from "@cc/ui-chakra";
-import React, { useEffect, useState } from "react";
-import tokenService from "@src/utils/tokenService";
+import React, { useEffect } from "react";
+import { getToken, checkTokenExpiration } from "@src/utils/tokenService";
 import { useRouter } from "next/router";
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   // Not suppose to be here but this field is mandatory... So yeah, just throwing a random empty obj to it :)
   const randomTheme = {};
   const router = useRouter();
   const toast = useToast();
-  const { getToken, checkTokenExpiration } = tokenService();
 
   const tokenExpired = () => {
     router.push("/sign-in");
@@ -34,4 +33,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </GlobalLayout>
     </ThemeProvider>
   );
-}
+};
+
+export default App;

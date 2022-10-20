@@ -3,10 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
-import tokenService from "@src/utils/tokenService";
+import { setToken } from "@src/utils/tokenService";
 
-export default function useSignIn() {
-  const { setToken } = tokenService();
+const useSignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
@@ -44,4 +43,6 @@ export default function useSignIn() {
   };
 
   return { isLoading, handleSignInSubmit };
-}
+};
+
+export default useSignIn;

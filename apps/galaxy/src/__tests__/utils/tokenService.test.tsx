@@ -1,4 +1,4 @@
-import tokenService from "../../utils/tokenService";
+import { setToken, getToken, checkTokenExpiration } from "../../utils/tokenService";
 
 const localStorageMock = (function () {
   const store: { [x: string]: string } = {};
@@ -17,8 +17,6 @@ const localStorageMock = (function () {
 })();
 
 Object.defineProperty(window, "localStorage", { value: localStorageMock });
-// eslint-disable-next-line react-hooks/rules-of-hooks
-const { setToken, getToken, checkTokenExpiration } = tokenService();
 
 it("should store accessToken to localStorage", () => {
   setToken("accessToken");

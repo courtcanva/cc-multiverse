@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import { environment } from "../constants/environment";
-import tokenService from "@src/utils/tokenService";
-
-const { getToken } = tokenService();
+import { getToken } from "@src/utils/tokenService";
 
 const token = getToken();
 const REQUEST_TIMEOUT = 2000;
