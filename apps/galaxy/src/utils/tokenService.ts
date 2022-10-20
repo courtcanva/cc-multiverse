@@ -1,5 +1,6 @@
 export default function tokenService() {
   const setToken = (token: string) => {
+    console.log("setToken");
     localStorage.setItem("accessToken", token);
   };
 

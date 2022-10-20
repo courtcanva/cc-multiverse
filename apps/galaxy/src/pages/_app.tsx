@@ -2,7 +2,7 @@ import { AppProps } from "next/app";
 import GlobalLayout from "../layouts";
 import { ThemeProvider, useToast } from "@cc/ui-chakra";
 import React, { useEffect, useState } from "react";
-import useToken from "@src/utils/tokenService";
+import tokenService from "@src/utils/tokenService";
 import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const randomTheme = {};
   const router = useRouter();
   const toast = useToast();
-  const { getToken, checkTokenExpiration } = useToken();
+  const { getToken, checkTokenExpiration } = tokenService();
 
   const tokenExpired = () => {
     router.push("/sign-in");

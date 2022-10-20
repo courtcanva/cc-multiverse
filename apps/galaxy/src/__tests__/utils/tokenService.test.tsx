@@ -1,4 +1,4 @@
-import useToken from "../../utils/tokenService";
+import tokenService from "../../utils/tokenService";
 
 const localStorageMock = (function () {
   const store: { [x: string]: string } = {};
@@ -18,7 +18,7 @@ const localStorageMock = (function () {
 
 Object.defineProperty(window, "localStorage", { value: localStorageMock });
 // eslint-disable-next-line react-hooks/rules-of-hooks
-const { setToken, getToken, checkTokenExpiration } = useToken();
+const { setToken, getToken, checkTokenExpiration } = tokenService();
 
 it("should store accessToken to localStorage", () => {
   setToken("accessToken");
@@ -32,7 +32,7 @@ it("should able to get accessToken from localStorage", () => {
 
 it("should token be checked as expired", () => {
   const pastToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmc2RhQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJTVEFGRiJ9XSwiU3RhZmZJZCI6MSwiaWF0IjoxNjY2MjIyOTE5LCJleHAiOjE2MzY1NzU2MzB9.ZuIEKHK1LXXcriPhK1StasuNI35nADRl3C9BsGuy8Ss";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MjA1NzI0MzB9.Vv0RJ2JwqbMx3eyheKeJVEbfosJcApQPAon29ollGms";
   setToken(pastToken);
-  expect(checkTokenExpiration()).toBe(true);
+  expect(checkTokenExpiration()).toBe(false);
 });

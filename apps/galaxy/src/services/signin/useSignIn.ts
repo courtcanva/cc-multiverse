@@ -15,9 +15,9 @@ export default function useSignIn() {
     try {
       const response = await axios.post("/staff/signin", data);
       if (response.status === 200) {
-        router.push("/");
         const token: string = response.headers.authorization;
         setToken(token);
+        router.push("/");
       }
     } catch (error) {
       const { response, message } = error as AxiosError;
