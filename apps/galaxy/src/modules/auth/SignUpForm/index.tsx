@@ -10,7 +10,7 @@ const SignUp = () => {
     "Please fill in your personal information",
   ];
   const stepPannelTitles: string[] = ["Step 1", "Step 2", "Step 3"];
-  const [formStep, setFormStep] = React.useState(1);
+  const [formStep, setFormStep] = React.useState(0);
 
   return (
     <VStack

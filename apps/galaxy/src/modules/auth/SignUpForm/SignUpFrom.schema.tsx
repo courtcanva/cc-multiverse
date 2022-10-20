@@ -48,6 +48,7 @@ export const SignUpFormInfoSchema = yup
       .min(10, "You need to provide a valid business address"),
     companyPostcode: yup
       .string()
+      .length(4, "The postcode does not match the required format. Example: 4000")
       .required("The postcode is required")
       .matches(postcodeRegex, "The postcode does not match the required format. Example: 4000"),
     companyState: yup.string().required("Please select a state").oneOf(stateList),
@@ -72,6 +73,7 @@ export const SignUpFormInfoSchema = yup
       .min(10, "You need to provide a valid residential address"),
     residentialPostcode: yup
       .string()
+      .length(4, "The postcode does not match the required format. Example: 4000")
       .required("The postcode is required")
       .matches(postcodeRegex, "The postcode does not match the required format. Example: 4000"),
     residentialState: yup.string().required("Please select a state").oneOf(stateList),

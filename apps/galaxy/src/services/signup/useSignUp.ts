@@ -13,9 +13,8 @@ export default function useSignUp() {
   const handleSignUpSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      console.log(data);
-      const response = await axios.post("/staff/signin", {
-        franchise: {
+      const response = await axios.post("/franchisee/signup", {
+        franchiseePostDto: {
           businessName: data.businessName,
           legalEntityName: data.legalEntityName,
           abn: data.abn,
@@ -24,7 +23,7 @@ export default function useSignUp() {
           state: data.companyState,
           postcode: data.companyPostcode,
         },
-        staff: {
+        staffPostDto: {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.username,
@@ -36,14 +35,22 @@ export default function useSignUp() {
         },
       });
       if (response.status === 200) {
-        router.push("/");
+        toast({
+          title: "Sign up success!",
+          description: "Username and password is not authenticated",
+          status: "success",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+        router.push("/sign-in");
       }
     } catch (error) {
       const { response, message } = error as AxiosError;
-      if (response?.status === 401) {
+      if (response?.status === 400) {
         toast({
-          title: "Sign in failed",
-          description: "Username and password is not authenticated",
+          title: "Sign up failed",
+          description: "Duplicated user",
           status: "error",
           duration: 6000,
           position: "top",

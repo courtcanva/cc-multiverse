@@ -53,11 +53,15 @@ const SignUpForm = (props: {
             </Button>
           )}
           {props.formStep == 2 ? (
-            <Button type="submit" flex={1} variant="secondary">
+            <Button type="submit" flex={1} variant="secondary" disabled={stepThreeVaild}>
               Submit
             </Button>
+          ) : props.formStep == 0 ? (
+            <Button flex={1} onClick={goNextFromStep} variant="secondary" disabled={stepOneVaild}>
+              Next
+            </Button>
           ) : (
-            <Button flex={1} onClick={goNextFromStep} variant="secondary">
+            <Button flex={1} onClick={goNextFromStep} variant="secondary" disabled={stepTwoVaild}>
               Next
             </Button>
           )}
@@ -83,12 +87,34 @@ const SignUpForm = (props: {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const { register, formState, handleSubmit } = useForm<FormData>({
-    mode: "all",
+  const { register, formState, getFieldState, handleSubmit } = useForm<FormData>({
+    mode: "onBlur",
     reValidateMode: "onChange",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
   const onSubmit = handleSubmit((data) => handleSignUpSubmit(data));
+  const stepOneVaild =
+    getFieldState("username").invalid ||
+    !getFieldState("username").isTouched ||
+    getFieldState("password").invalid ||
+    getFieldState("confirmPassword").invalid;
+  const stepTwoVaild =
+    getFieldState("businessName").invalid ||
+    !getFieldState("businessName").isTouched ||
+    getFieldState("legalEntityName").invalid ||
+    getFieldState("abn").invalid ||
+    getFieldState("contactNumber").invalid ||
+    getFieldState("companyState").invalid ||
+    getFieldState("companyPostcode").invalid ||
+    getFieldState("businessAddress").invalid;
+  const stepThreeVaild =
+    getFieldState("firstName").invalid ||
+    !getFieldState("firstName").isTouched ||
+    getFieldState("lastName").invalid ||
+    getFieldState("phoneNumber").invalid ||
+    getFieldState("residentialState").invalid ||
+    getFieldState("residentialPostcode").invalid ||
+    getFieldState("residentialAddress").invalid;
   return (
     <FormControl as="form" onSubmit={onSubmit}>
       <section>
