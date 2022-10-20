@@ -46,7 +46,7 @@ const SignUpForm = (props: {
   const renderButton = () => {
     return (
       <Flex direction="column" gap="16px">
-        <Stack marginTop="24px" direction="row" justifyContent="stretch">
+        <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
           {props.formStep != 0 && (
             <Button flex={1} onClick={goBackFromStep}>
               Back
@@ -83,23 +83,18 @@ const SignUpForm = (props: {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const { register, getFieldState, getValues, formState, handleSubmit } = useForm<FormData>({
+  const { register, formState, handleSubmit } = useForm<FormData>({
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
-  const fieldState = getFieldState("username").error;
   const onSubmit = handleSubmit((data) => handleSignUpSubmit(data));
-  React.useEffect(() => {
-    console.log(fieldState);
-    console.log("invalid", formState.isValid);
-  }, [formState]);
   return (
     <FormControl as="form" onSubmit={onSubmit}>
-      {props.formStep === 0 && (
-        <section>
-          <VStack align="start" alignItems="stretch" spacing="24px">
-            <Stack>
+      <section>
+        <VStack align="start" alignItems="stretch" spacing="24px">
+          {props.formStep === 0 && (
+            <>
               <FormInput
                 {...username}
                 {...register("username")}
@@ -115,84 +110,84 @@ const SignUpForm = (props: {
                 {...register("confirmPassword")}
                 errorMessage={formState.errors.confirmPassword?.message}
               />
-            </Stack>
-          </VStack>
-        </section>
-      )}
-      {props.formStep === 1 && (
-        <section>
-          <VStack align="start" alignItems="stretch" spacing="24px">
-            <FormInput
-              {...businessName}
-              {...register("businessName")}
-              errorMessage={formState.errors.businessName?.message}
-            />
-            <FormInput
-              {...legalEntityName}
-              {...register("legalEntityName")}
-              errorMessage={formState.errors.legalEntityName?.message}
-            />
-            <FormInput {...abn} {...register("abn")} errorMessage={formState.errors.abn?.message} />
-            <FormInput
-              {...contactNumber}
-              {...register("contactNumber")}
-              errorMessage={formState.errors.contactNumber?.message}
-            />
-            <FormSelect
-              {...companyState}
-              {...register("companyState")}
-              errorMessage={formState.errors.companyState?.message}
-            />
-            <FormInput
-              {...companyPostcode}
-              {...register("companyPostcode")}
-              errorMessage={formState.errors.companyPostcode?.message}
-            />
-            <FormInput
-              {...businessAddress}
-              {...register("businessAddress")}
-              errorMessage={formState.errors.businessAddress?.message}
-            />
-          </VStack>
-        </section>
-      )}
-      {props.formStep === 2 && (
-        <section>
-          <VStack align="start" alignItems="stretch" spacing="24px">
-            <FormInput
-              {...firstName}
-              {...register("firstName")}
-              errorMessage={formState.errors.firstName?.message}
-            />
-            <FormInput
-              {...lastName}
-              {...register("lastName")}
-              errorMessage={formState.errors.lastName?.message}
-            />
-            <FormInput
-              {...phoneNumber}
-              {...register("phoneNumber")}
-              errorMessage={formState.errors.phoneNumber?.message}
-            />
-            <FormSelect
-              {...residentialState}
-              {...register("residentialState")}
-              errorMessage={formState.errors.residentialState?.message}
-            />
-            <FormInput
-              {...residentialPostcode}
-              {...register("residentialPostcode")}
-              errorMessage={formState.errors.residentialPostcode?.message}
-            />
+            </>
+          )}
+          {props.formStep === 1 && (
+            <>
+              <FormInput
+                {...businessName}
+                {...register("businessName")}
+                errorMessage={formState.errors.businessName?.message}
+              />
+              <FormInput
+                {...legalEntityName}
+                {...register("legalEntityName")}
+                errorMessage={formState.errors.legalEntityName?.message}
+              />
+              <FormInput
+                {...abn}
+                {...register("abn")}
+                errorMessage={formState.errors.abn?.message}
+              />
+              <FormInput
+                {...contactNumber}
+                {...register("contactNumber")}
+                errorMessage={formState.errors.contactNumber?.message}
+              />
+              <FormSelect
+                {...companyState}
+                {...register("companyState")}
+                errorMessage={formState.errors.companyState?.message}
+              />
+              <FormInput
+                {...companyPostcode}
+                {...register("companyPostcode")}
+                errorMessage={formState.errors.companyPostcode?.message}
+              />
+              <FormInput
+                {...businessAddress}
+                {...register("businessAddress")}
+                errorMessage={formState.errors.businessAddress?.message}
+              />
+            </>
+          )}
+          {props.formStep === 2 && (
+            <>
+              <FormInput
+                {...firstName}
+                {...register("firstName")}
+                errorMessage={formState.errors.firstName?.message}
+              />
+              <FormInput
+                {...lastName}
+                {...register("lastName")}
+                errorMessage={formState.errors.lastName?.message}
+              />
+              <FormInput
+                {...phoneNumber}
+                {...register("phoneNumber")}
+                errorMessage={formState.errors.phoneNumber?.message}
+              />
+              <FormSelect
+                {...residentialState}
+                {...register("residentialState")}
+                errorMessage={formState.errors.residentialState?.message}
+              />
+              <FormInput
+                {...residentialPostcode}
+                {...register("residentialPostcode")}
+                errorMessage={formState.errors.residentialPostcode?.message}
+              />
 
-            <FormInput
-              {...residentialAddress}
-              {...register("residentialAddress")}
-              errorMessage={formState.errors.residentialAddress?.message}
-            />
-          </VStack>
-        </section>
-      )}
+              <FormInput
+                {...residentialAddress}
+                {...register("residentialAddress")}
+                errorMessage={formState.errors.residentialAddress?.message}
+              />
+            </>
+          )}
+        </VStack>
+      </section>
       {renderButton()}
     </FormControl>
   );

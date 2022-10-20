@@ -1,4 +1,4 @@
-import { Box } from "@cc/ui-chakra";
+import { Box, Wrap, WrapItem, Center } from "@cc/ui-chakra";
 
 export const FooterContent: {
   copyRight: string;
@@ -14,15 +14,23 @@ export const FooterContent: {
 
 const Footer = () => {
   return (
-    <Box as="footer" display="flex" height="30px" justifyContent="center" fontSize="sm" gap="80px">
-      <Box>
-        ©{new Date().getFullYear()}
-        {FooterContent.copyRight}
-      </Box>
-      <Box>{FooterContent.policy}</Box>
-      <Box>{FooterContent.conditions}</Box>
-      <Box>{FooterContent.contact}</Box>
-    </Box>
+    <Wrap as="footer" minHeight="30px" justify="center" spacingX={["20px", "80px"]}>
+      <WrapItem>
+        <Center>
+          ©{new Date().getFullYear()}
+          {FooterContent.copyRight}
+        </Center>
+      </WrapItem>
+      <WrapItem>
+        <Center>{FooterContent.policy}</Center>
+      </WrapItem>
+      <WrapItem>
+        <Center>{FooterContent.conditions}</Center>
+      </WrapItem>
+      <WrapItem>
+        <Center>{FooterContent.contact}</Center>
+      </WrapItem>
+    </Wrap>
   );
 };
 

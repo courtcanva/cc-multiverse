@@ -13,19 +13,18 @@ const SignUp = () => {
   const [formStep, setFormStep] = React.useState(1);
 
   return (
-    <VStack outline="7px solid black" width="clamp(90%, 752px, 1440px)" justifyContent="center">
-      {/* <Flex
-        width="500px"
-        margin="102px 0px"
-        flexDir="column"
-        justifyContent="center"
-        alignItems="center"
-      > */}
+    <VStack
+      alignItems="stretch"
+      paddingTop="10vh"
+      marginX={["16px", "200px"]}
+      width="clamp(62.5%, 752px, 100%)"
+      maxWidth="752px"
+    >
       <Logo />
-      <Text marginTop="24px" fontSize="16px" fontWeight="400">
+      <Text marginTop="24px" fontSize="16px" fontWeight="400" textAlign="center">
         {formTitles[formStep]}
       </Text>
-      <Tabs width="500px" size="md" isFitted align="center" index={formStep}>
+      <Tabs size="md" isFitted align="center" index={formStep}>
         <TabList border="hidden" margin="10.5px 5px 30.5px 5px">
           {stepPannelTitles.map((_step, index) => (
             <Tab
@@ -41,11 +40,8 @@ const SignUp = () => {
         </TabList>
         <TabPanels>{stepPannelTitles[formStep]}</TabPanels>
       </Tabs>
-      <Stack width="500px">
-        <SignUpForm formStep={formStep} setFormStep={setFormStep} />
-      </Stack>
 
-      {/* </Flex> */}
+      <SignUpForm formStep={formStep} setFormStep={setFormStep} />
     </VStack>
   );
 };
