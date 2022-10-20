@@ -1,4 +1,4 @@
-import { Box, Wrap, WrapItem, Center } from "@cc/ui-chakra";
+import { Wrap, WrapItem, Center } from "@cc/ui-chakra";
 
 export const FooterContent: {
   copyRight: string;

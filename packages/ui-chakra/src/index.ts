@@ -25,5 +25,5 @@ export {
   TabPanels,
   Wrap,
   WrapItem,
-  Center
+  Center,
 } from "@chakra-ui/react";

@@ -1,6 +1,6 @@
 import React from "react";
 import SignUpForm from "./SignUpForm";
-import { VStack, Stack, Flex, Text, Tab, Tabs, TabList, TabPanels } from "@cc/ui-chakra";
+import { VStack, Text, Tab, Tabs, TabList, TabPanels } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
 
 const SignUp = () => {
