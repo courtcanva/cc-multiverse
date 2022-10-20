@@ -1,4 +1,4 @@
-import { selectOptions } from "@src/constants";
+import { stateList } from "@src/constants";
 
 export const formConfig = {
   username: {
@@ -56,7 +56,7 @@ export const formConfig = {
     title: "State (AU only)",
     id: "companyState",
     placeholder: "Select from the state list",
-    options: selectOptions,
+    options: stateList,
   },
   firstName: {
     label: "First Name",
@@ -87,7 +87,6 @@ export const formConfig = {
     title: "State (AU only)",
     id: "residentialState",
     placeholder: "Select from the state list",
-    options: selectOptions,
+    options: stateList,
   },
-  selectOptions1: ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"],
 };

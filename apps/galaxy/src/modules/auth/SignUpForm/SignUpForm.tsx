@@ -1,23 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useSignUp from "@src/services/signup/useSignUp";
-import {
-  Button,
-  FormLabel,
-  FormControl,
-  Stack,
-  VStack,
-  Select,
-  Flex,
-  FormSelect,
-  FormInput,
-} from "@cc/ui-chakra";
+import { Button, FormControl, Stack, VStack, Flex, FormSelect, FormInput } from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
 import { StateEnum } from "@src/constants";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
 
-interface FormData {
+export interface FormData {
   username: "string";
   password: "string";
   confirmPassword: "string";
@@ -42,15 +32,14 @@ const SignUpForm = (props: {
 }) => {
   const { handleSignUpSubmit, checkEmailRequest, isEmailExists } = useSignUp();
   const goNextFromStep = () => {
-    // if (formStep == 0) {
-    //   checkEmailRequest(getValues("username"));
-    //   if (!isEmailExists) {
-    //     setFormStep((cur) => cur + 1);
-    //   }
-    // } else {
-    props.setFormStep((cur: number) => cur + 1);
+    props.formStep != 0 && props.setFormStep((cur: number) => cur + 1);
+    if (props.formStep == 0) {
+      // checkEmailRequest(getValues("username"));
+      // if (!isEmailExists) {
+      props.setFormStep((cur) => cur + 1);
+      // }
+    }
   };
-  // };
   const goBackFromStep = () => {
     props.setFormStep((cur: number) => cur - 1);
   };
@@ -94,13 +83,16 @@ const SignUpForm = (props: {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const { control, register, watch, formState, handleSubmit } = useForm<FormData>({
-    mode: "onBlur",
+  const { register, getFieldState, getValues, formState, handleSubmit } = useForm<FormData>({
+    mode: "all",
+    reValidateMode: "onChange",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const fieldState = getFieldState("username").error;
+  const onSubmit = handleSubmit((data) => handleSignUpSubmit(data));
   React.useEffect(() => {
-    console.log("errors", formState.errors);
+    console.log(fieldState);
+    console.log("invalid", formState.isValid);
   }, [formState]);
   return (
     <FormControl as="form" onSubmit={onSubmit}>

@@ -3,33 +3,38 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
+import { FormData } from "@src/modules/auth/SignUpForm/SignUpForm";
 
 export default function useSignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailExists, setIsEmailExists] = useState(true);
   const toast = useToast();
   const router = useRouter();
-  const handleSignUpSubmit = async (data: {
-    username: "string";
-    password: "string";
-    confirmPassword: "string";
-    businessName: "string";
-    legalEntityName: "string";
-    abn: "string";
-    contactNumber: "string";
-    businessAddress: "string";
-    companyPostcode: "string";
-    companyState: "string";
-    firstName: "string";
-    lastName: "string";
-    phoneNumber: "string";
-    residentialAddress: "string";
-    residentialPostcode: "string";
-    residentialState: "string";
-  }) => {
+  const handleSignUpSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("/staff/signin", data);
+      console.log(data);
+      const response = await axios.post("/staff/signin", {
+        franchise: {
+          businessName: data.businessName,
+          legalEntityName: data.legalEntityName,
+          abn: data.abn,
+          contactNumber: data.contactNumber,
+          businessAddress: data.businessAddress,
+          state: data.companyState,
+          postcode: data.companyPostcode,
+        },
+        staff: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.username,
+          residentialAddress: data.residentialAddress,
+          phoneNumber: data.phoneNumber,
+          postcode: data.residentialPostcode,
+          state: data.residentialState,
+          password: data.password,
+        },
+      });
       if (response.status === 200) {
         router.push("/");
       }

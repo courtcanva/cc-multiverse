@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Box } from "@cc/ui-chakra";
+import { Box, VStack, Flex } from "@cc/ui-chakra";
 import Footer from "./Footer";
 
 interface LayoutProps {
@@ -8,10 +8,12 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
-      <Box as="main">{children}</Box>
+    <VStack minHeight="100vh" minWidth="100vw">
+      <Flex flex={1} as="main" justifyContent="center" alignItems="center">
+        {children}
+      </Flex>
       <Footer />
-    </>
+    </VStack>
   );
 };
 export default Layout;

@@ -8,39 +8,6 @@ export enum StateEnum {
   NT = "NT",
   ACT = "ACT",
 }
-export const selectOptions = ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"];
-
-export const states = [
-  {
-    value: StateEnum.NSW,
-    label: StateEnum.NSW,
-  },
-  {
-    value: StateEnum.VIC,
-    label: StateEnum.VIC,
-  },
-  {
-    value: StateEnum.ACT,
-    label: StateEnum.ACT,
-  },
-  {
-    value: StateEnum.QLD,
-    label: StateEnum.QLD,
-  },
-  {
-    value: StateEnum.SA,
-    label: StateEnum.SA,
-  },
-  {
-    value: StateEnum.WA,
-    label: StateEnum.WA,
-  },
-  {
-    value: StateEnum.NT,
-    label: StateEnum.NT,
-  },
-  {
-    value: StateEnum.TAS,
-    label: StateEnum.TAS,
-  },
-];
+export const stateList = (Object.keys(StateEnum) as (keyof typeof StateEnum)[]).map((key) => {
+  return StateEnum[key];
+});
