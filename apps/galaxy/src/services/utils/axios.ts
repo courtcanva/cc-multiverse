@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import { environment } from "../constants/environment";
-import useToken from "@src/utils/useToken";
+import useToken from "@src/utils/tokenService";
 
 const { getToken } = useToken();
 

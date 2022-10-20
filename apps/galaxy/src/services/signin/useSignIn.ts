@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
-import tokenService from "@src/utils/useToken";
+import tokenService from "@src/utils/tokenService";
 
 export default function useSignIn() {
   const { setToken } = tokenService();
@@ -15,7 +15,7 @@ export default function useSignIn() {
     try {
       const response = await axios.post("/staff/signin", data);
       if (response.status === 200) {
-        // router.push("/");
+        router.push("/");
         const token: string = response.headers.authorization;
         setToken(token);
       }
