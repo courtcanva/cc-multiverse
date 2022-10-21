@@ -9,7 +9,8 @@ interface Suburb {
   value: number;
 }
 
-interface SuburbGroup {
+interface FormData {
+  filterMode: string;
   suburbs: Suburb[];
 }
 
@@ -36,7 +37,7 @@ export default function useGetSuburbs() {
     }
   };
 
-  const handleServiceAreaSubmit = async (data: SuburbGroup) => {
+  const handleServiceAreaSubmit = async (data: FormData) => {
     setIsLoading(true);
 
     try {
@@ -46,6 +47,7 @@ export default function useGetSuburbs() {
         };
       });
       const response = await axios.post("/franchisee/1/service_areas", {
+        filterMode: data.filterMode,
         suburbs: newData,
       });
       if (response.status === 200) {
