@@ -14,4 +14,7 @@ export {
   VStack,
   HStack,
   Select,
+  Wrap,
+  WrapItem,
+  Center,
 } from "@chakra-ui/react";
