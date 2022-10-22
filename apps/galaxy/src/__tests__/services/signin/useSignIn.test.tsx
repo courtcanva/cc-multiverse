@@ -20,7 +20,7 @@ describe("Sign in Page", () => {
   it("should form submit", async () => {
     renderWithMockedProvider(<SignIn />);
     const submitBtn = screen.getByRole("button", { name: /Sign In/i });
-    const usernameInput = screen.getByPlaceholderText("Enter email");
+    const usernameInput = screen.getByPlaceholderText("Enter username");
     const passwordInput = screen.getByPlaceholderText("Enter password");
     await user.type(usernameInput, account.username);
     await user.type(passwordInput, account.password);

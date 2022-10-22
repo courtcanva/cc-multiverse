@@ -11,7 +11,7 @@ interface FormData {
 
 const SignInForm = () => {
   const { isLoading, handleSignInSubmit } = useSignIn();
-  const { email, password } = formConfig;
+  const { username, password } = formConfig;
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit = handleSubmit((data) => handleSignInSubmit(data));
 
@@ -20,9 +20,9 @@ const SignInForm = () => {
       <VStack align="start" alignItems="stretch" spacing="24px">
         <Stack>
           <FormLabel htmlFor="username" fontWeight="600">
-            Email
+            Username
           </FormLabel>
-          <Input {...email} {...register("username")} isRequired={true} />
+          <Input {...username} {...register("username")} isRequired={true} />
         </Stack>
         <Stack>
           <FormLabel htmlFor="password" fontWeight="600">
