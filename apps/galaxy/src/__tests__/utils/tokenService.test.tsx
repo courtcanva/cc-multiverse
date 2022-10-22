@@ -32,5 +32,6 @@ it("should token be checked as expired", () => {
   const pastToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MjA1NzI0MzB9.Vv0RJ2JwqbMx3eyheKeJVEbfosJcApQPAon29ollGms";
   setToken(pastToken);
-  expect(checkTokenExpiration()).toBe(false);
+  expect(checkTokenExpiration(pastToken)).toBe(false);
+  expect(checkTokenExpiration(undefined)).toBe(true);
 });
