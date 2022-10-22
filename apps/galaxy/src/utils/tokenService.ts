@@ -14,11 +14,14 @@ export const getToken = () => {
   }
 };
 
-export const checkTokenExpiration = () => {
-  const token = getToken();
-  const parseToken: jwtToken = jwtDecode(token as string);
-  const utcTimestamp = new Date();
-  const exp = new Date(0);
-  exp.setUTCSeconds(parseToken?.exp as number);
-  return utcTimestamp > exp;
+export const checkTokenExpiration = (token: string | null | undefined) => {
+  if (token) {
+    const parseToken = jwtDecode<jwtToken>(token);
+    const currentTimestamp = new Date();
+    const expireTime = new Date(0);
+    expireTime.setUTCSeconds(parseToken.exp);
+    return currentTimestamp > expireTime;
+  } else {
+    return true;
+  }
 };

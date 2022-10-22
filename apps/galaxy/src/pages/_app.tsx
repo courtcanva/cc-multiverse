@@ -10,20 +10,22 @@ const App = ({ Component, pageProps }: AppProps) => {
   const randomTheme = {};
   const router = useRouter();
   const toast = useToast();
+  const token = getToken();
 
-  const tokenExpired = () => {
+  const tokenExpired = (token: string | null | undefined) => {
     router.push("/sign-in");
-    toast({
-      description: "Sign in time out, Please sign in again",
-      status: "error",
-      duration: 6000,
-      position: "top",
-      isClosable: true,
-    });
+    token &&
+      toast({
+        description: "Sign in time out, Please sign in again",
+        status: "error",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      });
   };
 
   useEffect(() => {
-    getToken() ? checkTokenExpiration() && tokenExpired() : router.push("/sign-in");
+    checkTokenExpiration(token) && tokenExpired(token);
   }, []);
 
   return (
