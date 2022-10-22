@@ -1,6 +1,6 @@
 export const formConfig = {
   email: {
-    id: "email",
+    id: "username",
     placeholder: "Enter email",
     type: "email",
   },

@@ -19,11 +19,15 @@ const SignInForm = () => {
     <FormControl as="form" onSubmit={onSubmit}>
       <VStack align="start" alignItems="stretch" spacing="24px">
         <Stack>
-          <FormLabel fontWeight="600">Email</FormLabel>
+          <FormLabel htmlFor="username" fontWeight="600">
+            Email
+          </FormLabel>
           <Input {...email} {...register("username")} isRequired={true} />
         </Stack>
         <Stack>
-          <FormLabel fontWeight="600">Password</FormLabel>
+          <FormLabel htmlFor="password" fontWeight="600">
+            Password
+          </FormLabel>
           <Input {...password} {...register("password")} isRequired={true} />
         </Stack>
       </VStack>
