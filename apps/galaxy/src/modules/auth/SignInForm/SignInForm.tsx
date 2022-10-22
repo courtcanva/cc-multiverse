@@ -28,7 +28,7 @@ const SignInForm = () => {
         </Stack>
       </VStack>
       <Stack marginTop="48px">
-        <Button role="signIn" variant="secondary" type="submit" isLoading={isLoading}>
+        <Button variant="secondary" type="submit" isLoading={isLoading}>
           Sign In
         </Button>
       </Stack>
