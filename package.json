@@ -32,10 +32,5 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "npm@8.5.0",
-  "dependencies": {
-    "@hookform/resolvers": "^2.9.9",
-    "yup": "^0.32.11",
-    "yup-password": "^0.2.2"
-  }
+  "packageManager": "npm@8.5.0"
 }

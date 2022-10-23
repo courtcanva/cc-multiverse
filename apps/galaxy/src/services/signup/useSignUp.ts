@@ -36,8 +36,8 @@ export default function useSignUp() {
       });
       if (response.status === 200) {
         toast({
-          title: "Sign up success!",
-          description: "Username and password is not authenticated",
+          title: "Registration completed successfully!",
+          description: "Please check your registered email for email verification",
           status: "success",
           duration: 6000,
           position: "top",
