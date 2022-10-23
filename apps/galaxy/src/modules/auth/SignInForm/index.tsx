@@ -4,10 +4,10 @@ import Logo from "@src/components/Logo";
 
 const SignIn = () => {
   return (
-    <Flex width="100%" height="100%" paddingTop="16px">
-      <VStack marginX={{ base: "16px", lg: "200px" }}>
+    <Flex alignItems="center" height="100%">
+      <VStack marginX={{ base: "16px", sm: "16px", md: "200px" }} width={{ lg: "428px" }}>
         <Logo />
-        <Text height="72px" fontSize="22" fontWeight="bold">
+        <Text height="72px" fontSize="22px" fontWeight="bold">
           Sign in to CourtCanva Franchisee
         </Text>
         <Stack width="100%">
