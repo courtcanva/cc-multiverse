@@ -27,48 +27,9 @@ export interface FormData {
 }
 
 const SignUpForm = (props: {
-  setFormStep: (arg0: { (cur: number): number; (cur: number): number }) => void;
+  setFormStep: React.Dispatch<React.SetStateAction<number>>;
   formStep: number;
 }) => {
-  const { handleSignUpSubmit, checkEmailRequest, isEmailExists } = useSignUp();
-  const goNextFromStep = () => {
-    props.formStep != 0 && props.setFormStep((cur: number) => cur + 1);
-    if (props.formStep == 0) {
-      // checkEmailRequest(getValues("username"));
-      // if (!isEmailExists) {
-      props.setFormStep((cur) => cur + 1);
-      // }
-    }
-  };
-  const goBackFromStep = () => {
-    props.setFormStep((cur: number) => cur - 1);
-  };
-  const renderButton = () => {
-    return (
-      <Flex direction="column" gap="16px">
-        <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
-          {props.formStep != 0 && (
-            <Button flex={1} onClick={goBackFromStep}>
-              Back
-            </Button>
-          )}
-          {props.formStep == 2 ? (
-            <Button type="submit" flex={1} variant="secondary" disabled={stepThreeVaild}>
-              Submit
-            </Button>
-          ) : props.formStep == 0 ? (
-            <Button flex={1} onClick={goNextFromStep} variant="secondary" disabled={stepOneVaild}>
-              Next
-            </Button>
-          ) : (
-            <Button flex={1} onClick={goNextFromStep} variant="secondary" disabled={stepTwoVaild}>
-              Next
-            </Button>
-          )}
-        </Stack>
-      </Flex>
-    );
-  };
   const {
     username,
     password,
@@ -87,11 +48,51 @@ const SignUpForm = (props: {
     residentialPostcode,
     residentialState,
   } = formConfig;
-  const { register, formState, getFieldState, handleSubmit } = useForm<FormData>({
+  const { register, formState, getFieldState, getValues, handleSubmit } = useForm<FormData>({
     mode: "onBlur",
     reValidateMode: "onChange",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
+  const { setFormStep, formStep } = props;
+  const { handleSignUpSubmit, checkEmailRequest, isEmailExists } = useSignUp();
+  const goNextFromStep = () => {
+    formStep !== 0 && setFormStep(formStep + 1);
+    if (formStep === 0) {
+      checkEmailRequest(getValues("username"));
+      if (!isEmailExists) {
+        setFormStep(formStep + 1);
+      }
+    }
+  };
+  const goBackFromStep = () => {
+    setFormStep(formStep - 1);
+  };
+  const renderButton = () => {
+    return (
+      <Flex direction="column" gap="16px">
+        <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
+          {formStep !== 0 && (
+            <Button flex={1} onClick={goBackFromStep}>
+              Back
+            </Button>
+          )}
+          {formStep === 2 ? (
+            <Button type="submit" flex={1} variant="secondary" disabled={stepThreeVaild}>
+              Submit
+            </Button>
+          ) : formStep === 0 ? (
+            <Button flex={1} onClick={goNextFromStep} variant="secondary" disabled={stepOneVaild}>
+              Next
+            </Button>
+          ) : (
+            <Button flex={1} onClick={goNextFromStep} variant="secondary" disabled={stepTwoVaild}>
+              Next
+            </Button>
+          )}
+        </Stack>
+      </Flex>
+    );
+  };
   const onSubmit = handleSubmit((data) => handleSignUpSubmit(data));
   const stepOneVaild =
     getFieldState("username").invalid ||
@@ -119,7 +120,7 @@ const SignUpForm = (props: {
     <FormControl as="form" onSubmit={onSubmit}>
       <section>
         <VStack align="start" alignItems="stretch" spacing="24px">
-          {props.formStep === 0 && (
+          {formStep === 0 && (
             <>
               <FormInput
                 {...username}
@@ -138,7 +139,7 @@ const SignUpForm = (props: {
               />
             </>
           )}
-          {props.formStep === 1 && (
+          {formStep === 1 && (
             <>
               <FormInput
                 {...businessName}
@@ -177,7 +178,7 @@ const SignUpForm = (props: {
               />
             </>
           )}
-          {props.formStep === 2 && (
+          {formStep === 2 && (
             <>
               <FormInput
                 {...firstName}

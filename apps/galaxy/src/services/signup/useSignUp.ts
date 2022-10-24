@@ -34,11 +34,11 @@ export default function useSignUp() {
           password: data.password,
         },
       });
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast({
           title: "Registration completed successfully!",
           description: "Please check your registered email for email verification",
-          status: "success",
+          status: "info",
           duration: 6000,
           position: "top",
           isClosable: true,
