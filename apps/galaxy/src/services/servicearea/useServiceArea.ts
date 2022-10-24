@@ -28,7 +28,6 @@ export default function useGetSuburbs() {
       const err = error as AxiosError;
       toast({
         title: err.message,
-        // description: ,
         status: "error",
         duration: 6000,
         position: "top",

@@ -13,7 +13,10 @@ import selectEvent from "react-select-event";
 import axios from "axios";
 
 describe("Service Area Selection Page", () => {
-  const mockedOptions = { suburbs: [{ value: 11344, label: "East Albury NSW, 2640" }] };
+  const mockedOptions = {
+    filterMode: "INCLUDE",
+    suburbs: [{ value: 11344, label: "East Albury NSW, 2640" }],
+  };
 
   const mockedSelection = [{ sscCode: 11344 }];
 
@@ -56,13 +59,6 @@ describe("Service Area Selection Page", () => {
     await waitFor(() => expect(result.current.isLoading).toBe(true));
     expect(await screen.findByRole("status")).toBeInTheDocument();
   });
-
-  //     it("should call onChange when the first option is selected", aysnc() => {
-  //     renderWithMockedProvider(<ServiceAreaSelection />);
-  //     const selectCompnent = screen.getByPlaceholderText("Please input your address or suburb");
-  //     const submitBtn = screen.getByText("Submit");
-
-  //   })
 
   it("should call suburbs api in success", async () => {
     renderWithMockedProvider(<ServiceAreaSelection />);

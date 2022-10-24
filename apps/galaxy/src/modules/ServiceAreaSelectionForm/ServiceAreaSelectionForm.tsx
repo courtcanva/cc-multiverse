@@ -1,12 +1,9 @@
-import { Button, HStack, Container, Select } from "@cc/ui-chakra";
+import { Button, HStack, Container, Select, FormControl, FormLabel } from "@cc/ui-chakra";
 import { useEffect, useState } from "react";
-// import SearchBar from "./SearchBar";
-import useGetSuburbs from "../../services/servicearea/useServiceArea";
-import { useForm, SubmitHandler } from "react-hook-form";
+import useServiceArea from "../../services/servicearea/useServiceArea";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Select as ReactSelect, createFilter } from "chakra-react-select";
-
-import { Controller } from "react-hook-form";
-import { FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import { ErrorMessage } from "@hookform/error-message";
 
 interface SuburbData {
   sscCode: number;
@@ -25,18 +22,35 @@ interface FormData {
   suburbs: SuburbGroup[];
 }
 
-const defaultValues: FormData = { filterMode: "", suburbs: [] };
+const defaultValues: FormData = { filterMode: "INCLUDE", suburbs: [] };
 
 const ServiceAreaSelection = () => {
   const [options, setOptions] = useState<SuburbGroup[]>([]);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const { isLoading, handleServiceAreaSubmit, getSuburbsInfo } = useGetSuburbs();
-  const { control, register, handleSubmit } = useForm<FormData>({
+  const { isLoading, handleServiceAreaSubmit, getSuburbsInfo } = useServiceArea();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
     defaultValues,
   });
 
   const submit: SubmitHandler<FormData> = (data) => {
     handleServiceAreaSubmit(data);
+  };
+
+  const handleInputChange = (e: string) => {
+    if (e) {
+      setMenuIsOpen(true);
+    } else {
+      setMenuIsOpen(false);
+    }
+  };
+
+  const renderErrorMessage = () => {
+    return <p style={{ color: "red" }}>Please select at least one option</p>;
   };
 
   useEffect(() => {
@@ -51,26 +65,24 @@ const ServiceAreaSelection = () => {
 
   return (
     <Container as="form" onSubmit={handleSubmit(submit)}>
-      {/* <SearchBar options={options} control={control} /> */}
       <FormControl>
         <FormLabel>Select Area Filter Mode</FormLabel>
 
-        <Select
-          {...register("filterMode", { required: true })}
-          placeholder="Please select filter mode"
-        >
+        <Select {...register("filterMode")} isRequired={true}>
           <option value="INCLUDE">Include Mode</option>
           <option value="EXCLUDE" disabled>
             Exclude Area
           </option>
         </Select>
-
-        <FormLabel marginTop="24px">Search Area</FormLabel>
-        <Controller
-          control={control}
-          name="suburbs"
-          rules={{ required: "Please select at least one suburb" }}
-          render={({ field: { onChange, value, name }, fieldState: { error } }) => (
+        <ErrorMessage errors={errors} name="filterMode" render={renderErrorMessage} />
+      </FormControl>
+      <FormLabel marginTop="24px">Search Area</FormLabel>
+      <Controller
+        control={control}
+        name="suburbs"
+        rules={{ required: true }}
+        render={({ field: { onChange, value, name } }) => (
+          <FormControl id="reactSelect">
             <ReactSelect
               isMulti
               instanceId="SuburbSelect"
@@ -78,23 +90,20 @@ const ServiceAreaSelection = () => {
               onChange={onChange}
               value={value}
               options={options}
+              errorBorderColor="red.500"
+              isInvalid={!!errors.suburbs}
               placeholder={"Please input your address or suburb"}
               components={{ DropdownIndicator: () => null }}
               closeMenuOnSelect={false}
-              onInputChange={(value) => {
-                if (value) {
-                  setMenuIsOpen(true);
-                } else {
-                  setMenuIsOpen(false);
-                }
-              }}
+              onInputChange={handleInputChange}
               menuIsOpen={menuIsOpen}
               filterOption={createFilter({ matchFrom: "start" })}
             />
-          )}
-        />
-        {/* <FormErrorMessage>{error && error.message}</FormErrorMessage> */}
-      </FormControl>
+            <ErrorMessage errors={errors} name="suburbs" render={renderErrorMessage} />
+          </FormControl>
+        )}
+      />
+
       <HStack marginTop="48px">
         <Button type="button" isLoading={isLoading} variant="secondary" width="50%">
           Back
