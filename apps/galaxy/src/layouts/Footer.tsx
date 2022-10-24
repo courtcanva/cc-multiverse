@@ -1,13 +1,20 @@
-import { HStack, Text } from "@cc/ui-chakra";
+import { Wrap, WrapItem, Center, Stack } from "@cc/ui-chakra";
 
 const Footer = () => {
   return (
-    <HStack as="footer" height="30px" justifyContent="center" fontSize="sm" spacing="80px">
-      <Text>©{new Date().getFullYear()} Courtcanva All rights reserved</Text>
-      <Text>Privacy policy</Text>
-      <Text>Terms & Conditions</Text>
-      <Text>Contact us</Text>
-    </HStack>
+    <Wrap
+      as="footer"
+      justify="center"
+      spacingX={{ base: "24px", lg: "32px" }}
+      maxWidth={{ base: "428px", lg: "100%" }}
+    >
+      <WrapItem order={{ lg: 2 }}>Privacy policy</WrapItem>
+      <WrapItem order={{ lg: 3 }}>Terms & Conditions</WrapItem>
+      <WrapItem order={{ lg: 4 }}>Contact us</WrapItem>
+      <WrapItem order={{ lg: 1 }}>
+        ©{new Date().getFullYear()} Courtcanva All rights reserved
+      </WrapItem>
+    </Wrap>
   );
 };
 
