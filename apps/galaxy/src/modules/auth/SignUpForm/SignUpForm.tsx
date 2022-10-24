@@ -6,6 +6,7 @@ import { formConfig } from "./formConfig";
 import { StateEnum } from "@src/constants";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
+import RegisterInfoPage from "./SignUpForm.RegisterInfoPage";
 
 export interface FormData {
   username: "string";
@@ -55,6 +56,7 @@ const SignUpForm = (props: {
   });
   const { setFormStep, formStep } = props;
   const { handleSignUpSubmit, checkEmailRequest, isEmailExists } = useSignUp();
+  const onSubmit = handleSubmit((data) => handleSignUpSubmit(data));
   const goNextFromStep = () => {
     formStep !== 0 && setFormStep(formStep + 1);
     if (formStep === 0) {
@@ -93,7 +95,6 @@ const SignUpForm = (props: {
       </Flex>
     );
   };
-  const onSubmit = handleSubmit((data) => handleSignUpSubmit(data));
   const stepOneVaild =
     getFieldState("username").invalid ||
     !getFieldState("username").isTouched ||
@@ -120,25 +121,7 @@ const SignUpForm = (props: {
     <FormControl as="form" onSubmit={onSubmit}>
       <section>
         <VStack align="start" alignItems="stretch" spacing="24px">
-          {formStep === 0 && (
-            <>
-              <FormInput
-                {...username}
-                {...register("username")}
-                errorMessage={formState.errors.username?.message}
-              />
-              <FormInput
-                {...password}
-                {...register("password")}
-                errorMessage={formState.errors.password?.message}
-              />
-              <FormInput
-                {...confirmPassword}
-                {...register("confirmPassword")}
-                errorMessage={formState.errors.confirmPassword?.message}
-              />
-            </>
-          )}
+          {formStep === 0 && <RegisterInfoPage />}
           {formStep === 1 && (
             <>
               <FormInput

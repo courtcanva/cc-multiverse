@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Button as CKButton } from "@chakra-ui/react";
 
 type ButtonVariant = "primary" | "secondary";
