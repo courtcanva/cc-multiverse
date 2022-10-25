@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
-import HeaderLayout from "../layouts/HeaderLayout";
+import Head from "../utils/Head";
 import SignIn from "../modules/auth/SignInForm/index";
 
 const SignInPage: NextPage = () => {
   return (
-    <HeaderLayout title="Sign In">
+    <Head title="Sign In">
       <SignIn />
-    </HeaderLayout>
+    </Head>
   );
 };
 

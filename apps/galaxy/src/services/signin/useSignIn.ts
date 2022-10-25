@@ -3,24 +3,24 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
+import { setToken } from "@src/utils/tokenService";
 
-export default function useSignIn() {
+const useSignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
-  const handleSignInSubmit = async (username: string, password: string) => {
+  const handleSignInSubmit = async (data: { username: string; password: string }) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("/staff/signin", {
-        username: username,
-        password: password,
-      });
+      const response = await axios.post("/staff/signin", data);
       if (response.status === 200) {
+        const token: string = response.headers.authorization;
+        setToken(token);
         router.push("/");
       }
     } catch (error) {
-      const err = error as AxiosError;
-      if (err.response?.status === 400) {
+      const { response, message } = error as AxiosError;
+      if (response?.status === 401) {
         toast({
           title: "Sign in failed",
           description: "Username and password is not authenticated",
@@ -31,7 +31,7 @@ export default function useSignIn() {
         });
       } else {
         toast({
-          title: err.message,
+          title: message,
           status: "error",
           duration: 6000,
           position: "top",
@@ -43,4 +43,6 @@ export default function useSignIn() {
   };
 
   return { isLoading, handleSignInSubmit };
-}
+};
+
+export default useSignIn;

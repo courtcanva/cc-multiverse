@@ -1,26 +1,26 @@
 import { ReactNode } from "react";
-import Head from "next/head";
+import NextHead from "next/head";
 
-interface HeaderLayoutProps {
+interface HeadProps {
   children: ReactNode;
   title?: string;
 }
 
-// pass title value to set the head title， e.g. In 404 page, write <HeaderLayout title="404"></HeaderLayout>
-const HeaderLayout: React.FC<HeaderLayoutProps> = ({ children, title }) => {
+// pass title value to set the head title， e.g. In 404 page, write <PageTitle title="404"></PageTitle>
+const Head = ({ children, title }: HeadProps) => {
   const headName = `${title} | CourtCanva`;
   return (
     <>
       {title && (
-        <Head>
+        <NextHead>
           <title>{headName}</title>
           <meta name="twitter:title" content={headName} />
           <meta property="og:title" content={headName} />
-        </Head>
+        </NextHead>
       )}
       {children}
     </>
   );
 };
 
-export default HeaderLayout;
+export default Head;
