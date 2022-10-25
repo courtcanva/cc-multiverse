@@ -35,6 +35,7 @@
   },
   "packageManager": "npm@8.5.0",
   "dependencies": {
+    "@hookform/error-message": "^2.0.0",
     "chakra-react-select": "^4.2.5"
   }
 }
