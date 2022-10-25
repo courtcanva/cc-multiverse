@@ -1,9 +1,9 @@
 import jwtDecode from "jwt-decode";
 
-type jwtToken = {
+export interface jwtToken {
   FranchiseeId: number;
   exp: number;
-};
+}
 
 export const setToken = (token: string) => {
   localStorage.setItem("accessToken", token);
@@ -24,14 +24,5 @@ export const checkTokenExpiration = (token: string | null | undefined) => {
     return currentTimestamp > expireTime;
   } else {
     return true;
-  }
-};
-
-export const getFranchiseeId = (token: string | null | undefined) => {
-  if (token) {
-    const parseToken = jwtDecode<jwtToken>(token);
-    return parseToken.FranchiseeId;
-  } else {
-    return 0;
   }
 };

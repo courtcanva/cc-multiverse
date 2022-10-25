@@ -3,7 +3,9 @@ import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { getToken, getFranchiseeId } from "@src/utils/tokenService";
+import { getToken } from "@src/utils/tokenService";
+import jwtDecode from "jwt-decode";
+import { jwtToken } from "@src/utils/tokenService";
 
 interface Suburb {
   label: string;
@@ -40,6 +42,8 @@ export default function useGetSuburbs() {
   const handleServiceAreaSubmit = async (data: FormData) => {
     setIsLoading(true);
 
+    const token = getToken() || "";
+    const franchiseeId = jwtDecode<jwtToken>(token).FranchiseeId;
     try {
       const newData = data.suburbs.map((val: Suburb) => {
         return {
@@ -47,10 +51,15 @@ export default function useGetSuburbs() {
         };
       });
       const response = await axios.post(
-        `/franchisee/${getFranchiseeId(getToken())}/service_areas`,
+        `/franchisee/${franchiseeId}/service_areas`,
         {
           filterMode: data.filterMode,
           suburbs: newData,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
         }
       );
       if (response.status === 200) {
