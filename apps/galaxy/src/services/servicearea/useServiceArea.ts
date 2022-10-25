@@ -3,6 +3,7 @@ import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 
 interface Suburb {
   label: string;
@@ -45,10 +46,13 @@ export default function useGetSuburbs() {
           sscCode: val.value,
         };
       });
-      const response = await axios.post("/franchisee/1/service_areas", {
-        filterMode: data.filterMode,
-        suburbs: newData,
-      });
+      const response = await axios.post(
+        `/franchisee/${getFranchiseeId(getToken())}/service_areas`,
+        {
+          filterMode: data.filterMode,
+          suburbs: newData,
+        }
+      );
       if (response.status === 200) {
         router.push("/");
       }

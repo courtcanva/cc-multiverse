@@ -16,7 +16,7 @@ const useSignIn = () => {
       if (response.status === 200) {
         const token: string = response.headers.authorization;
         setToken(token);
-        router.push("/");
+        router.push("/service-area-selection");
       }
     } catch (error) {
       const { response, message } = error as AxiosError;

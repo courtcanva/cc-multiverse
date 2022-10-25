@@ -13,8 +13,8 @@ export default function Galaxy() {
       {/* <h1>Galaxy</h1>
       <NoFoundIcon />
       <Button onClick={onToGalaxy}>To Galaxy... and Beyong!!</Button> */}
-      {/* <SignInPage></SignInPage> */}
-      <ServiceAreaSelectionPage />
+      <SignInPage></SignInPage>
+      {/* <ServiceAreaSelectionPage /> */}
     </Stack>
   );
 }
