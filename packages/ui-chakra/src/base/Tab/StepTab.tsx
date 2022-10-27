@@ -1,6 +1,6 @@
-// import React from "react";
-// import { Tab, Tabs, TabList, TabPanels } from "@chakra-ui/react";
-
+import React from "react";
+import { Tab, Tabs, TabList, TabPanels } from "@chakra-ui/react";
+const stepPannelTitles: string[] = ["Step 1", "Step 2", "Step 3"];
 // type SelectProps = {
 //   title: string;
 //   id: string;

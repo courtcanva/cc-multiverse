@@ -5,21 +5,18 @@ export const formConfig = {
     label: "Email",
     id: "username",
     placeholder: "Enter email",
-    role: "email",
     type: "email",
   },
   password: {
     label: "Password",
     id: "password",
     placeholder: "Enter password",
-    role: "password",
     type: "password",
   },
   confirmPassword: {
     label: "Confirm Password",
     id: "confirmPassword",
     placeholder: "Please Confirm your password",
-    role: "password",
     type: "password",
   },
   businessName: {

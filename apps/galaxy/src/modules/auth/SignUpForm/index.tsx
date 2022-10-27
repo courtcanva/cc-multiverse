@@ -1,7 +1,9 @@
 import React from "react";
-import SignUpForm from "./SignUpForm";
-import { VStack, Text } from "@cc/ui-chakra";
+import { VStack, Text, FormControl, Stack, Flex } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
+import RegisterInfoPage from "./SignUpForm.RegisterInfoPage";
+import CompanyInfoPage from "./SignUpForm.CompanyInfo";
+import StaffInfoPage from "./SignUpForm.StaffInfoPage";
 
 const SignUp = () => {
   const formTitles: string[] = [
@@ -9,8 +11,25 @@ const SignUp = () => {
     "Please Fill in your company information details",
     "Please fill in your personal information",
   ];
-  const stepPannelTitles: string[] = ["Step 1", "Step 2", "Step 3"];
   const [formStep, setFormStep] = React.useState(0);
+  const [data, setData] = React.useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    businessName: "",
+    legalEntityName: "",
+    abn: "",
+    contactNumber: "",
+    businessAddress: "",
+    companyPostcode: "",
+    companyState: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    residentialAddress: "",
+    residentialPostcode: "",
+    residentialState: "",
+  });
 
   return (
     <VStack
@@ -24,7 +43,20 @@ const SignUp = () => {
       <Text marginTop="24px" fontSize="16px" fontWeight="400" textAlign="center">
         {formTitles[formStep]}
       </Text>
-      <SignUpForm formStep={formStep} setFormStep={setFormStep} />
+      <FormControl as="form">
+        <VStack align="start" alignItems="stretch" spacing="24px">
+          {formStep === 0 && (
+            <RegisterInfoPage
+              formStep={formStep}
+              setFormStep={setFormStep}
+              data={data}
+              setData={setData}
+            />
+          )}
+          {formStep === 1 && <CompanyInfoPage formStep={formStep} setFormStep={setFormStep} />}
+          {formStep === 2 && <StaffInfoPage formStep={formStep} setFormStep={setFormStep} />}
+        </VStack>
+      </FormControl>
     </VStack>
   );
 };
