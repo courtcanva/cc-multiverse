@@ -31,15 +31,15 @@ const OpenOrders = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [details, setDetails] = useState("");
   const onOpenPopUp = async () => {
-    onOpen;
+    onOpen();
     setIsLoading(true);
     try {
       const response = await axios.post("/franchisee/1/accept_orders", {
-        body: { orders: [{ id: 1 }, { id: 2 }, { id: 3 }] },
+        orders: [{ id: 1 }, { id: 2 }, { id: 3 }],
       });
       if (response.status === 200) {
-        setDetails(JSON.stringify(response));
-        console.log("hello ------------------------ " + response);
+        setDetails(JSON.stringify(response.data));
+        console.log("hello ------------------------ " + details);
       }
     } catch (error) {
       console.log("error is here -------------------" + error);
@@ -92,7 +92,6 @@ const OpenOrders = () => {
           <ModalCloseButton />
           <ModalBody>
             <Text>Inside modalBody</Text>
-            <Text>is it loading? {isLoading}</Text>
             <Text>details here {details}</Text>
             <Box boxSize="sm">
               <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
