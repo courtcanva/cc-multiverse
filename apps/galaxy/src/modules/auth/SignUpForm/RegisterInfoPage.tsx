@@ -5,9 +5,9 @@ import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
 import { FormControl, FormInput, Stack, Flex, Button } from "@cc/ui-chakra";
 
 interface FormData {
-  username: "string";
-  password: "string";
-  confirmPassword: "string";
+  username: string;
+  password: string;
+  confirmPassword: string;
 }
 
 const RegisterInfoPage = (props: {
@@ -18,16 +18,19 @@ const RegisterInfoPage = (props: {
 }) => {
   const { formStep, setFormStep, data, setData } = props;
   const { username, password, confirmPassword } = formConfig;
-  const { register, formState } = useForm<FormData>({
+  const { register, formState, handleSubmit } = useForm<FormData>({
     mode: "onBlur",
     reValidateMode: "onChange",
     resolver: yupResolver(SignUpFormInfoSchema),
   });
-
+  const onSubmit = handleSubmit((formData) => setData({ ...formData, data }));
+  const goNextFromStep = () => {
+    formStep !== 0 && setFormStep(formStep + 1);
+  };
   return (
     <>
       <Stack>
-        <FormControl>
+        <FormControl as="form" onSubmit={onSubmit}>
           <FormInput
             {...username}
             {...register("username")}
@@ -46,21 +49,16 @@ const RegisterInfoPage = (props: {
         </FormControl>
       </Stack>
       <Flex direction="column" gap="16px">
-        <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
-          {formStep !== 0 && (
-            <Button flex={1} onClick={goBackFromStep}>
-              Back
-            </Button>
-          )}
-          {formStep === 2 ? (
-            <Button type="submit" flex={1} variant="secondary" disabled={false}>
-              Submit
-            </Button>
-          ) : (
-            <Button flex={1} onClick={goNextFromStep} variant="secondary" disabled={false}>
-              Next
-            </Button>
-          )}
+        <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
+          <Button
+            flex={1}
+            type="submit"
+            onClick={goNextFromStep}
+            variant="secondary"
+            disabled={!formState.isValid}
+          >
+            Next
+          </Button>
         </Stack>
       </Flex>
     </>

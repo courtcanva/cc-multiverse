@@ -1,9 +1,9 @@
 import React from "react";
-import { VStack, Text, FormControl, Stack, Flex } from "@cc/ui-chakra";
+import { VStack, Text, FormControl } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
-import RegisterInfoPage from "./SignUpForm.RegisterInfoPage";
-import CompanyInfoPage from "./SignUpForm.CompanyInfo";
-import StaffInfoPage from "./SignUpForm.StaffInfoPage";
+import RegisterInfoPage from "./RegisterInfoPage";
+import CompanyInfoPage from "./CompanyInfo";
+import StaffInfoPage from "./StaffInfoPage";
 
 const SignUp = () => {
   const formTitles: string[] = [
@@ -13,22 +13,22 @@ const SignUp = () => {
   ];
   const [formStep, setFormStep] = React.useState(0);
   const [data, setData] = React.useState({
-    username: "",
-    password: "",
-    confirmPassword: "",
-    businessName: "",
-    legalEntityName: "",
-    abn: "",
-    contactNumber: "",
-    businessAddress: "",
-    companyPostcode: "",
-    companyState: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    residentialAddress: "",
-    residentialPostcode: "",
-    residentialState: "",
+    // username: "",
+    // password: "",
+    // confirmPassword: "",
+    // businessName: "",
+    // legalEntityName: "",
+    // abn: "",
+    // contactNumber: "",
+    // businessAddress: "",
+    // companyPostcode: "",
+    // companyState: "",
+    // firstName: "",
+    // lastName: "",
+    // phoneNumber: "",
+    // residentialAddress: "",
+    // residentialPostcode: "",
+    // residentialState: "",
   });
 
   return (
@@ -53,8 +53,22 @@ const SignUp = () => {
               setData={setData}
             />
           )}
-          {formStep === 1 && <CompanyInfoPage formStep={formStep} setFormStep={setFormStep} />}
-          {formStep === 2 && <StaffInfoPage formStep={formStep} setFormStep={setFormStep} />}
+          {formStep === 1 && (
+            <CompanyInfoPage
+              formStep={formStep}
+              setFormStep={setFormStep}
+              data={data}
+              setData={setData}
+            />
+          )}
+          {formStep === 2 && (
+            <StaffInfoPage
+              formStep={formStep}
+              setFormStep={setFormStep}
+              data={data}
+              setData={setData}
+            />
+          )}
         </VStack>
       </FormControl>
     </VStack>
