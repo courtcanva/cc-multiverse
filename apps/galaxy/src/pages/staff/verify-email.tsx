@@ -3,6 +3,7 @@ import { isEmpty } from "lodash-es";
 import EmailVerification from "@src/modules/auth/EmailVerification";
 import { useVerifyEmail, VerifyEmailRequestData } from "@src/services/verify-email/useVerifyEmail";
 import { useRouter } from "next/router";
+import Head from "@src/utils/Head";
 
 export default function EmailVerificationPage() {
   const { verificationInfos, status, verifyEmail } = useVerifyEmail();
@@ -15,8 +16,8 @@ export default function EmailVerificationPage() {
   }, [router]);
 
   return (
-    <div>
+    <Head title="Email Verification">
       <EmailVerification {...verificationInfos[status]} />
-    </div>
+    </Head>
   );
 }

@@ -9,11 +9,13 @@ type EmailVerificationProps = {
 };
 export default function EmailVerification({ icon, message, action }: EmailVerificationProps) {
   return (
-    <VStack>
+    <VStack mt="10vh" spacing="48px">
       <Logo />
-      <Icon {...icon} boxSize="64px" />
-      <Text fontSize="24px">{message}</Text>
-      {action && <Button onClick={action}>Continue</Button>}
+      <VStack spacing="8px">
+        <Icon {...icon} boxSize="64px" />
+        <Text fontSize="24px">{message}</Text>
+        {action && <Button onClick={action}>Continue</Button>}
+      </VStack>
     </VStack>
   );
 }
