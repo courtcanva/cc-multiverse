@@ -3,7 +3,7 @@ import EmailVerificationPage from "@src/pages/staff/verify-email";
 import renderWithMockedProvider from "../testHelper";
 
 const mockAction = jest.fn();
-const verifications = {
+const mockVerificationInfos = {
   test: {
     icon: { variant: "loading" },
     message: "Testing email verification",
@@ -23,7 +23,7 @@ jest.mock("next/router", () => ({
 jest.mock("../../services/verify-email/useVerifyEmail", () => {
   return {
     useVerifyEmail: () => ({
-      verifications,
+      verificationInfos: mockVerificationInfos,
       status: "test",
       verifyEmail: jest.fn(),
     }),
@@ -33,7 +33,7 @@ jest.mock("../../services/verify-email/useVerifyEmail", () => {
 describe("Verify email page should", () => {
   it("show test verification info", async () => {
     renderWithMockedProvider(<EmailVerificationPage />);
-    await waitFor(() => expect(screen.getByText(verifications.test.message)).toBeVisible());
+    await waitFor(() => expect(screen.getByText(mockVerificationInfos.test.message)).toBeVisible());
     await waitFor(() => expect(screen.getByText(/continue/i)).toBeVisible());
   });
 });

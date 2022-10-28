@@ -5,12 +5,10 @@ import { useVerifyEmail, VerifyEmailRequestData } from "@src/services/verify-ema
 import { useRouter } from "next/router";
 
 export default function EmailVerificationPage() {
-  const { verifications, status, verifyEmail } = useVerifyEmail();
+  const { verificationInfos, status, verifyEmail } = useVerifyEmail();
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router);
-
     if (!isEmpty(router.query)) {
       verifyEmail(router.query as VerifyEmailRequestData);
     }
@@ -18,7 +16,7 @@ export default function EmailVerificationPage() {
 
   return (
     <div>
-      <EmailVerification {...verifications[status]} />
+      <EmailVerification {...verificationInfos[status]} />
     </div>
   );
 }

@@ -60,7 +60,7 @@ describe("useVerifyEmail hook", () => {
     act(() => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      result.current.verifications?.success?.action();
+      result.current.verificationInfos?.success?.action();
     });
 
     expect(mockPush).toHaveBeenCalledWith(realNextRoute);

@@ -25,7 +25,7 @@ export const useVerifyEmail = () => {
   const router = useRouter();
   const nextRoute = "/";
 
-  const verifications: VerificationInfo = {
+  const verificationInfos: VerificationInfo = {
     verifying: {
       icon: {
         variant: "loading",
@@ -68,5 +68,5 @@ export const useVerifyEmail = () => {
     }
   };
 
-  return { verifications, status, verifyEmail };
+  return { verificationInfos, status, verifyEmail };
 };
