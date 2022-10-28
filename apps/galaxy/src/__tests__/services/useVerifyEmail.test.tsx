@@ -1,54 +1,68 @@
-import customAxios from "@src/services/utils/axios";
-import MockAdapter from "axios-mock-adapter";
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { useVerifyEmail } from "@src/services/verify-email/useVerifyEmail";
+import { mockServer } from "@src/__tests__/mocks";
 
+const mockPush = jest.fn();
 jest.mock("next/router", () => ({
   useRouter: () => ({
-    push: jest.fn(),
+    push: mockPush,
   }),
 }));
-const mockAxios = new MockAdapter(customAxios, { onNoMatch: "throwException" });
 
-const verifyEmailPayload = {
-  token: "token",
-  email: "email@email.com",
+const realNextRoute = "/";
+const mockPayload = {
+  valid: {
+    token: "valid",
+    email: "email@email.com",
+  },
+  invalid: {
+    token: "invalid",
+    email: "email@email.com",
+  },
 };
 
-describe("useVerifyEmail hook should", () => {
-  beforeAll(() => mockAxios.reset());
-  beforeEach(() => jest.useFakeTimers());
-  afterEach(() => jest.useRealTimers());
+describe("useVerifyEmail hook", () => {
+  beforeAll(() => mockServer.listen());
+  beforeEach(() => {
+    mockServer.resetHandlers();
+    jest.useFakeTimers();
+  });
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+  afterAll(() => mockServer.close());
 
-  it("set status to success", async () => {
-    mockAxios.onPost("/staff/verify", verifyEmailPayload).reply(202);
+  it("should set status to success", async () => {
     const { result } = renderHook(() => useVerifyEmail());
 
     act(() => {
-      result.current.verifyEmail(verifyEmailPayload);
+      result.current.verifyEmail(mockPayload.valid);
     });
+    jest.runAllTimers();
 
     await waitFor(() => expect(result.current.status).toBe("success"));
   });
 
-  it("set verification status to fail", async () => {
-    mockAxios.onPost("/staff/verify", verifyEmailPayload).reply(401);
+  it("should set verification status to fail", async () => {
     const { result } = renderHook(() => useVerifyEmail());
 
     act(() => {
-      result.current.verifyEmail(verifyEmailPayload);
+      result.current.verifyEmail(mockPayload.invalid);
     });
 
     await waitFor(() => expect(result.current.status).toBe("fail"));
   });
 
-  it("route to next page when action is called after verification success", async () => {
-    mockAxios.onPost("/staff/verify", verifyEmailPayload).reply(202);
+  it("should execute action when verification is successfule", async () => {
     const { result } = renderHook(() => useVerifyEmail());
 
     act(() => {
-      result.current.verifyEmail(verifyEmailPayload);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      result.current.verifications?.success?.action();
     });
-    await waitFor(() => expect(result.current.status).toBe("success"));
+
+    expect(mockPush).toHaveBeenCalledWith(realNextRoute);
   });
 });
