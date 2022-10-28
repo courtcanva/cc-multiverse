@@ -1,36 +1,34 @@
 import { useForm } from "react-hook-form";
 import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SignUpFormInfoSchema } from "./SignUpFrom.schema";
+import { RegisterInfoFormSchema } from "./SignUpFrom.schema";
 import { FormControl, FormInput, Stack, Flex, Button } from "@cc/ui-chakra";
-
-interface FormData {
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
+import { Dispatch, SetStateAction } from "react";
 
 const RegisterInfoPage = (props: {
-  setFormStep: React.Dispatch<React.SetStateAction<number>>;
   formStep: number;
-  data: any;
-  setData: any;
+  setFormStep: React.Dispatch<React.SetStateAction<number>>;
+  data: SignUpFormData;
+  setData: Dispatch<SetStateAction<SignUpFormData>>;
 }) => {
   const { formStep, setFormStep, data, setData } = props;
   const { username, password, confirmPassword } = formConfig;
-  const { register, formState, handleSubmit } = useForm<FormData>({
+  const { register, formState, handleSubmit } = useForm<RegisterInfoFormData>({
     mode: "onBlur",
     reValidateMode: "onChange",
-    resolver: yupResolver(SignUpFormInfoSchema),
+    resolver: yupResolver(RegisterInfoFormSchema),
   });
-  const onSubmit = handleSubmit((formData) => setData({ ...formData, data }));
+  const onSubmit = handleSubmit((formData) => {
+    setData({ ...data, ...formData });
+    goNextFromStep();
+  });
   const goNextFromStep = () => {
-    formStep !== 0 && setFormStep(formStep + 1);
+    setFormStep((prevStep) => prevStep + 1);
   };
   return (
     <>
-      <Stack>
-        <FormControl as="form" onSubmit={onSubmit}>
+      <FormControl as="form" onSubmit={onSubmit}>
+        <Stack>
           <FormInput
             {...username}
             {...register("username")}
@@ -46,21 +44,15 @@ const RegisterInfoPage = (props: {
             {...register("confirmPassword")}
             errorMessage={formState.errors.confirmPassword?.message}
           />
-        </FormControl>
-      </Stack>
-      <Flex direction="column" gap="16px">
-        <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
-          <Button
-            flex={1}
-            type="submit"
-            onClick={goNextFromStep}
-            variant="secondary"
-            disabled={!formState.isValid}
-          >
-            Next
-          </Button>
         </Stack>
-      </Flex>
+        <Flex direction="column" gap="16px">
+          <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
+            <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
+              Next
+            </Button>
+          </Stack>
+        </Flex>
+      </FormControl>
     </>
   );
 };

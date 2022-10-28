@@ -25,7 +25,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   };
 
   useEffect(() => {
-    checkTokenExpiration(token) && tokenExpired(token);
+    // checkTokenExpiration(token) && tokenExpired(token);
   }, []);
 
   return (

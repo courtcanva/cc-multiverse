@@ -1,12 +1,10 @@
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import { phoneNumberRegex, postcodeRegex, abnRegex } from "@src/constants";
-
+import { phoneNumberRegex, postcodeRegex, abnRegex, stateList } from "@src/constants";
 // eslint-disable-next-line new-cap
 YupPassword(yup);
-const stateList = ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"];
 
-export const SignUpFormInfoSchema = yup
+export const RegisterInfoFormSchema = yup
   .object({
     username: yup.string().required("The email is required").email("Invalid email address"),
     password: yup
@@ -23,6 +21,11 @@ export const SignUpFormInfoSchema = yup
       .string()
       .required("The confirm password is required")
       .oneOf([yup.ref("password"), null], "Passwords don't match."),
+  })
+  .required();
+
+export const CompanyInfoFormSchema = yup
+  .object({
     businessName: yup
       .string()
       .required("The business name is required")
@@ -52,6 +55,11 @@ export const SignUpFormInfoSchema = yup
       .required("The postcode is required")
       .matches(postcodeRegex, "The postcode does not match the required format. Example: 4000"),
     companyState: yup.string().required("Please select a state").oneOf(stateList),
+  })
+  .required();
+
+export const StaffInfoFormSchema = yup
+  .object({
     firstName: yup
       .string()
       .required("The first name is required")

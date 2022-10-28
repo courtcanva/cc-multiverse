@@ -1,76 +1,69 @@
-import React from "react";
-import { VStack, Text, FormControl } from "@cc/ui-chakra";
+import React, { useState } from "react";
+import { VStack, Text, StepTab } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
 import RegisterInfoPage from "./RegisterInfoPage";
-import CompanyInfoPage from "./CompanyInfo";
+import CompanyInfoPage from "./CompanyInfoPage";
 import StaffInfoPage from "./StaffInfoPage";
 
 const SignUp = () => {
-  const formTitles: string[] = [
+  const [formStep, setFormStep] = useState(0);
+  const [data, setData] = useState<SignUpFormData>({
+    username: null,
+    password: null,
+    confirmPassword: null,
+    businessName: null,
+    legalEntityName: null,
+    abn: null,
+    contactNumber: null,
+    businessAddress: null,
+    companyPostcode: null,
+    companyState: null,
+    firstName: null,
+    lastName: null,
+    phoneNumber: null,
+    residentialAddress: null,
+    residentialPostcode: null,
+    residentialState: null,
+  });
+  const formTitles = [
     "Register with CourtCanva as our franchisee",
     "Please Fill in your company information details",
     "Please fill in your personal information",
   ];
-  const [formStep, setFormStep] = React.useState(0);
-  const [data, setData] = React.useState({
-    // username: "",
-    // password: "",
-    // confirmPassword: "",
-    // businessName: "",
-    // legalEntityName: "",
-    // abn: "",
-    // contactNumber: "",
-    // businessAddress: "",
-    // companyPostcode: "",
-    // companyState: "",
-    // firstName: "",
-    // lastName: "",
-    // phoneNumber: "",
-    // residentialAddress: "",
-    // residentialPostcode: "",
-    // residentialState: "",
-  });
 
   return (
-    <VStack
-      alignItems="stretch"
-      paddingTop="10vh"
-      marginX={["16px", "200px"]}
-      width="clamp(62.5%, 752px, 100%)"
-      maxWidth="752px"
-    >
+    <VStack alignItems="stretch" paddingTop="10vh" width="480px" maxWidth="752px">
       <Logo />
       <Text marginTop="24px" fontSize="16px" fontWeight="400" textAlign="center">
         {formTitles[formStep]}
       </Text>
-      <FormControl as="form">
-        <VStack align="start" alignItems="stretch" spacing="24px">
-          {formStep === 0 && (
-            <RegisterInfoPage
-              formStep={formStep}
-              setFormStep={setFormStep}
-              data={data}
-              setData={setData}
-            />
-          )}
-          {formStep === 1 && (
-            <CompanyInfoPage
-              formStep={formStep}
-              setFormStep={setFormStep}
-              data={data}
-              setData={setData}
-            />
-          )}
-          {formStep === 2 && (
-            <StaffInfoPage
-              formStep={formStep}
-              setFormStep={setFormStep}
-              data={data}
-              setData={setData}
-            />
-          )}
-        </VStack>
-      </FormControl>
+      <StepTab formStep={formStep} setFormStep={setFormStep} />
+      <VStack align="start" alignItems="stretch" spacing="24px">
+        {formStep === 0 && (
+          <RegisterInfoPage
+            formStep={formStep}
+            setFormStep={setFormStep}
+            data={data}
+            setData={setData}
+          />
+        )}
+        {formStep === 1 && (
+          <CompanyInfoPage
+            formStep={formStep}
+            setFormStep={setFormStep}
+            data={data}
+            setData={setData}
+          />
+        )}
+        {formStep === 2 && (
+          <StaffInfoPage
+            formStep={formStep}
+            setFormStep={setFormStep}
+            data={data}
+            setData={setData}
+          />
+        )}
+      </VStack>
     </VStack>
   );
 };

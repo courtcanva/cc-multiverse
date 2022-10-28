@@ -3,36 +3,56 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
-import { FormData } from "@src/modules/auth/SignUpForm/SignUpForm";
 
 export default function useSignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
-  const handleSignUpSubmit = async (data: FormData) => {
+  const signUp = async (data: SignUpFormData) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("/franchisee/signup", {
+      const {
+        username,
+        password,
+        confirmPassword,
+        businessName,
+        legalEntityName,
+        abn,
+        contactNumber,
+        businessAddress,
+        companyPostcode,
+        companyState,
+        firstName,
+        lastName,
+        phoneNumber,
+        residentialAddress,
+        residentialPostcode,
+        residentialState,
+      } = data;
+      const transformedData = {
         franchiseePostDto: {
-          businessName: data.businessName,
-          legalEntityName: data.legalEntityName,
-          abn: data.abn,
-          contactNumber: data.contactNumber,
-          businessAddress: data.businessAddress,
-          state: data.companyState,
-          postcode: data.companyPostcode,
+          businessName,
+          legalEntityName,
+          abn,
+          contactNumber,
+          businessAddress,
+          companyState,
+          companyPostcode,
         },
         staffPostDto: {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.username,
-          residentialAddress: data.residentialAddress,
-          phoneNumber: data.phoneNumber,
-          postcode: data.residentialPostcode,
-          state: data.residentialState,
-          password: data.password,
+          firstName,
+          lastName,
+          username,
+          residentialAddress,
+          phoneNumber,
+          residentialPostcode,
+          residentialState,
+          password,
         },
-      });
+      };
+      console.log(transformedData);
+
+      const response = await axios.post("/franchisee/signup", transformedData);
       if (response.status === 201) {
         toast({
           title: "Registration completed successfully!",
@@ -67,4 +87,5 @@ export default function useSignUp() {
     }
     setIsLoading(false);
   };
+  return { signUp, isLoading };
 }
