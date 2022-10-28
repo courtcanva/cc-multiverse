@@ -11,6 +11,7 @@
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "test": "jest --colors --config jest.config.js --maxWorkers=50%",
     "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
+    "test:watch-coverage": "jest --colors --config jest.config.js --maxWorkers=50% --watch --coverage",
     "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
   },
   "dependencies": {
