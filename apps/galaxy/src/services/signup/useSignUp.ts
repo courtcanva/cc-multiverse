@@ -50,8 +50,6 @@ export default function useSignUp() {
           password,
         },
       };
-      console.log(transformedData);
-
       const response = await axios.post("/franchisee/signup", transformedData);
       if (response.status === 201) {
         toast({
@@ -64,9 +62,9 @@ export default function useSignUp() {
         });
         router.push("/sign-in");
       }
+      throw new AxiosError("Bad Request Error");
     } catch (error) {
-      const { response, message } = error as AxiosError;
-      if (response?.status === 400) {
+      if (error instanceof AxiosError && error.response?.status === 400) {
         toast({
           title: "Sign up failed",
           description: "Duplicated user",
@@ -77,7 +75,8 @@ export default function useSignUp() {
         });
       } else {
         toast({
-          title: message,
+          title: "Sign up failed",
+          description: "Service not response",
           status: "error",
           duration: 6000,
           position: "top",

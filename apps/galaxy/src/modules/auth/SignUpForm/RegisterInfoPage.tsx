@@ -23,7 +23,7 @@ const RegisterInfoPage = (props: {
     goNextFromStep();
   });
   const goNextFromStep = () => {
-    setFormStep((prevStep) => prevStep + 1);
+    setFormStep(formStep + 1);
   };
   return (
     <>
