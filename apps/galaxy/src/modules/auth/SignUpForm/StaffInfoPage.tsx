@@ -12,7 +12,7 @@ const StaffInfoPage = (props: {
   data: SignUpFormData;
   setData: Dispatch<SetStateAction<SignUpFormData>>;
 }) => {
-  const { formStep, setFormStep, data, setData } = props;
+  const { formStep, setFormStep, data } = props;
   const {
     firstName,
     lastName,
@@ -26,7 +26,7 @@ const StaffInfoPage = (props: {
     reValidateMode: "onChange",
     resolver: yupResolver(StaffInfoFormSchema),
   });
-  const { signUp } = useSignUp();
+  const { signUp, isLoading } = useSignUp();
   const goBackFromStep = () => {
     setFormStep(formStep - 1);
   };
@@ -73,7 +73,13 @@ const StaffInfoPage = (props: {
             <Button flex={1} onClick={goBackFromStep}>
               Back
             </Button>
-            <Button type="submit" flex={1} variant="secondary" disabled={!formState.isValid}>
+            <Button
+              type="submit"
+              flex={1}
+              variant="secondary"
+              disabled={!formState.isValid}
+              isLoading={isLoading}
+            >
               Submit
             </Button>
           </Stack>

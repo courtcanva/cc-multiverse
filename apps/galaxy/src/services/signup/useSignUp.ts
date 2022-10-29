@@ -14,7 +14,6 @@ export default function useSignUp() {
       const {
         username,
         password,
-        confirmPassword,
         businessName,
         legalEntityName,
         abn,
