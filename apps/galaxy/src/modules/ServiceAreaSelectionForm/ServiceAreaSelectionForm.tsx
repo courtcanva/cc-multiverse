@@ -1,45 +1,20 @@
-import { Button, HStack, Container, Select, FormControl, FormLabel } from "@cc/ui-chakra";
-import { useEffect, useState } from "react";
-import useServiceArea from "../../services/servicearea/useServiceArea";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { Button, Stack, Container, Select, FormControl, FormLabel } from "@cc/ui-chakra";
+import { useState } from "react";
+import useServiceArea, { FormData } from "../../services/servicearea/useServiceArea";
+import { useForm, Controller } from "react-hook-form";
 import { Select as ReactSelect, createFilter } from "chakra-react-select";
 import { ErrorMessage } from "@hookform/error-message";
 
-interface SuburbData {
-  sscCode: number;
-  suburbName: string;
-  state: string;
-  postcode: number;
-}
-
-interface SuburbGroup {
-  label: string;
-  value: number;
-}
-
-interface FormData {
-  filterMode: string;
-  suburbs: SuburbGroup[];
-}
-
-const defaultValues: FormData = { filterMode: "INCLUDE", suburbs: [] };
-
 const ServiceAreaSelection = () => {
-  const [options, setOptions] = useState<SuburbGroup[]>([]);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const { isLoading, handleServiceAreaSubmit, getSuburbsInfo } = useServiceArea();
+  const { isLoading, handleServiceAreaSubmit, options } = useServiceArea();
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
-    defaultValues,
-  });
-
-  const submit: SubmitHandler<FormData> = (data) => {
-    handleServiceAreaSubmit(data);
-  };
+  } = useForm<FormData>();
+  const onSubmit = handleSubmit((data) => handleServiceAreaSubmit(data));
 
   const handleInputChange = (e: string) => {
     if (e) {
@@ -53,21 +28,10 @@ const ServiceAreaSelection = () => {
     return <p style={{ color: "red" }}>Please select at least one option</p>;
   };
 
-  useEffect(() => {
-    getSuburbsInfo().then((result) => {
-      const suburbsArr: SuburbGroup[] = (result as Array<SuburbData>)?.map((suburb) => {
-        const label = `${suburb.suburbName} ${suburb.state}, ${suburb.postcode}`;
-        return { value: suburb.sscCode, label: label };
-      });
-      setOptions(suburbsArr);
-    });
-  }, []);
-
   return (
-    <Container as="form" onSubmit={handleSubmit(submit)}>
+    <Container as="form" onSubmit={onSubmit}>
       <FormControl>
         <FormLabel>Select Area Filter Mode</FormLabel>
-
         <Select {...register("filterMode")} isRequired={true}>
           <option value="INCLUDE">Include Mode</option>
           <option value="EXCLUDE" disabled>
@@ -76,13 +40,16 @@ const ServiceAreaSelection = () => {
         </Select>
         <ErrorMessage errors={errors} name="filterMode" render={renderErrorMessage} />
       </FormControl>
-      <FormLabel marginTop="24px">Search Area</FormLabel>
+
       <Controller
         control={control}
         name="suburbs"
         rules={{ required: true }}
         render={({ field: { onChange, value, name } }) => (
-          <FormControl id="reactSelect">
+          <FormControl id="reactSelect" data-testid="serviceAreaSuburbSelect">
+            <FormLabel marginTop="24px" htmlFor="suburbs">
+              Search Area
+            </FormLabel>
             <ReactSelect
               isMulti
               instanceId="SuburbSelect"
@@ -104,14 +71,14 @@ const ServiceAreaSelection = () => {
         )}
       />
 
-      <HStack marginTop="48px">
-        <Button type="button" isLoading={isLoading} variant="secondary" width="50%">
+      <Stack direction={["column-reverse", "row"]} marginTop="48px" justifyContent="stretch">
+        <Button type="button" isLoading={isLoading} variant="secondary" width="100%">
           Back
         </Button>
-        <Button type="submit" isLoading={isLoading} variant="primary" width="50%">
+        <Button type="submit" isLoading={isLoading} variant="primary" width="100%">
           Submit
         </Button>
-      </HStack>
+      </Stack>
     </Container>
   );
 };

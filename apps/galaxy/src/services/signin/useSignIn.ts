@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
-import { getToken, setToken } from "@src/utils/tokenService";
+import { setToken } from "@src/utils/tokenService";
 
 const useSignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,11 +16,6 @@ const useSignIn = () => {
       if (response.status === 200) {
         const token: string = response.headers.authorization;
         setToken(token);
-
-        console.log(token);
-        console.log(getToken());
-        console.log(token === getToken());
-        router.push("/service-area-selection");
       }
     } catch (error) {
       const { response, message } = error as AxiosError;

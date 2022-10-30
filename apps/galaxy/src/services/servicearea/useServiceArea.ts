@@ -2,23 +2,29 @@ import axios from "../utils/axios";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { getToken } from "@src/utils/tokenService";
-import jwtDecode from "jwt-decode";
-import { jwtToken } from "@src/utils/tokenService";
+import { useState, useEffect } from "react";
+import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 
-interface Suburb {
+export interface Suburb {
   label: string;
   value: number;
 }
 
-interface FormData {
+export interface FormData {
   filterMode: string;
   suburbs: Suburb[];
 }
 
-export default function useGetSuburbs() {
+interface SuburbData {
+  sscCode: number;
+  suburbName: string;
+  state: string;
+  postcode: number;
+}
+
+export default function useServiceArea() {
   const [isLoading, setIsLoading] = useState(false);
+  const [options, setOptions] = useState<Suburb[]>([]);
   const toast = useToast();
   const router = useRouter();
 
@@ -26,7 +32,12 @@ export default function useGetSuburbs() {
     try {
       const response = await axios.get("/suburbs");
       const result = response.data.suburbs;
-      return result;
+      const suburbsArr: Suburb[] = (result as Array<SuburbData>)?.map((suburb) => {
+        const label = `${suburb.suburbName} ${suburb.state}, ${suburb.postcode}`;
+        return { value: suburb.sscCode, label: label };
+      });
+      setOptions(suburbsArr);
+      return options;
     } catch (error) {
       const err = error as AxiosError;
       toast({
@@ -39,11 +50,14 @@ export default function useGetSuburbs() {
     }
   };
 
+  useEffect(() => {
+    getSuburbsInfo();
+  }, []);
+
   const handleServiceAreaSubmit = async (data: FormData) => {
     setIsLoading(true);
-
     const token = getToken() || "";
-    const franchiseeId = jwtDecode<jwtToken>(token).FranchiseeId;
+
     try {
       const newData = data.suburbs.map((val: Suburb) => {
         return {
@@ -51,7 +65,7 @@ export default function useGetSuburbs() {
         };
       });
       const response = await axios.post(
-        `/franchisee/${franchiseeId}/service_areas`,
+        `/franchisee/${getFranchiseeId(token)}/service_areas`,
         {
           filterMode: data.filterMode,
           suburbs: newData,
@@ -63,13 +77,21 @@ export default function useGetSuburbs() {
         }
       );
       if (response.status === 200) {
+        toast({
+          title: "Service Area Selection Submit in Success",
+          status: "info",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
         router.push("/");
       }
+      throw new AxiosError("Bad Request Error");
     } catch (error) {
-      const err = error as AxiosError;
-      if (err.response?.status === 400) {
+      // const err = error as AxiosError;
+      if (error instanceof AxiosError && error.response?.status === 403) {
         toast({
-          title: "error",
+          title: "Authorization error",
           description: "Username and password is not authenticated",
           status: "error",
           duration: 6000,
@@ -78,7 +100,8 @@ export default function useGetSuburbs() {
         });
       } else {
         toast({
-          title: err.message,
+          title: "Submit Service Area Failed",
+          description: "Service not response",
           status: "error",
           duration: 6000,
           position: "top",
@@ -89,5 +112,5 @@ export default function useGetSuburbs() {
     setIsLoading(false);
   };
 
-  return { isLoading, handleServiceAreaSubmit, getSuburbsInfo };
+  return { isLoading, handleServiceAreaSubmit, options };
 }
