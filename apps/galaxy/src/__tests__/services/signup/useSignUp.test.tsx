@@ -1,17 +1,23 @@
-import React from "react";
 import axios from "@src/services/utils/axios";
 import MockAdapter from "axios-mock-adapter";
-import { renderHook, screen, waitFor } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import useSignUp from "@src/services/signup/useSignUp";
-import renderWithMockedProvider from "../../testHelper";
-// import user from "@testing-library/user-event";
-import SignUp from "@src/pages/sign-up";
 import { act } from "react-dom/test-utils";
 
 const mockAxios = new MockAdapter(axios, { onNoMatch: "throwException" });
+const mockToast = jest.fn();
+jest.mock("@cc/ui-chakra", () => ({
+  useToast: () => mockToast,
+}));
+const mockPush = jest.fn();
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    push: mockPush,
+  }),
+}));
 
 describe("Sign Up Page", () => {
-  const mockRegisterData = {
+  const mockSignUpFormData = {
     username: "Atester@gmail.com",
     password: "Azxc123123",
     confirmPassword: "Azxc123123",
@@ -29,24 +35,36 @@ describe("Sign Up Page", () => {
     residentialPostcode: "1235",
     residentialState: "NSW",
   };
+  const mockSignUpPaylod = {
+    franchiseePostDto: {
+      businessName: "Test Business Name",
+      legalEntityName: "Test Business Pty Ltd",
+      abn: "12345678909",
+      contactNumber: "0411111111",
+      businessAddress: "23 testing St, Mel",
+      companyPostcode: "1234",
+      companyState: "VIC",
+    },
+    staffPostDto: {
+      username: "Atester@gmail.com",
+      password: "Azxc123123",
+      firstName: "First",
+      lastName: "Last",
+      phoneNumber: "0422222222",
+      residentialAddress: "34 testing St, Mel",
+      residentialPostcode: "1235",
+      residentialState: "NSW",
+    },
+  };
 
   beforeAll(() => mockAxios.reset());
-  beforeEach(() => jest.useFakeTimers());
-  afterEach(() => jest.useRealTimers());
 
   it("should toast success message and route to /sign-in when response status is 201", async () => {
-    renderWithMockedProvider(<SignUp />);
-    const mockToast = jest.fn();
-    const mockPush = jest.fn();
-
-    mockAxios.onPost("/franchisee/signup", mockRegisterData).reply(201, mockRegisterData, {
-      authorization:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE5MjA1NzI0MzB9.Vv0RJ2JwqbMx3eyheKeJVEbfosJcApQPAon29ollGms",
-    });
+    mockAxios.onPost("/franchisee/signup", mockSignUpPaylod).reply(201);
     const { result } = renderHook(() => useSignUp());
 
     act(() => {
-      result.current.signUp(mockRegisterData);
+      result.current.signUp(mockSignUpFormData);
     });
 
     await waitFor(() =>
@@ -64,14 +82,11 @@ describe("Sign Up Page", () => {
   });
 
   it("should toast error with message of duplicate user when response status is 400", async () => {
-    renderWithMockedProvider(<SignUp />);
-    const mockToast = jest.fn();
-
-    mockAxios.onPost("/franchisee/signup", mockRegisterData).reply(400, mockRegisterData);
+    mockAxios.onPost("/franchisee/signup", mockSignUpPaylod).reply(400);
     const { result } = renderHook(() => useSignUp());
 
     act(() => {
-      result.current.signUp(mockRegisterData);
+      result.current.signUp(mockSignUpFormData);
     });
 
     await waitFor(() =>
@@ -85,19 +100,15 @@ describe("Sign Up Page", () => {
       })
     );
 
-    await waitFor(() => expect(result.current.isLoading).toBe(true));
-    expect(await screen.findByRole("status")).toBeInTheDocument();
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
 
   it("should toast error with message of service not response when response status is 4xx", async () => {
-    renderWithMockedProvider(<SignUp />);
-    const mockToast = jest.fn();
-
-    mockAxios.onPost("/franchisee/signup", mockRegisterData).reply(400, mockRegisterData);
+    mockAxios.onPost("/franchisee/signup", mockSignUpPaylod).reply(401);
     const { result } = renderHook(() => useSignUp());
 
     act(() => {
-      result.current.signUp(mockRegisterData);
+      result.current.signUp(mockSignUpFormData);
     });
 
     await waitFor(() =>
@@ -111,7 +122,6 @@ describe("Sign Up Page", () => {
       })
     );
 
-    await waitFor(() => expect(result.current.isLoading).toBe(true));
-    expect(await screen.findByRole("status")).toBeInTheDocument();
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
 });

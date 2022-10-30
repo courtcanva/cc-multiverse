@@ -7,3 +7,5 @@ import customAxios from "../../../../services/utils/axios";
 import MockAdapter from "axios-mock-adapter";
 import userSignUp from "../../../../services/signup/useSignUp";
 import { act } from "react-dom/test-utils";
+
+describe("SignUp", () => {});
