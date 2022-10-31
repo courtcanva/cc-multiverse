@@ -50,3 +50,7 @@ it("should decode franchisee id from token", () => {
   const parseToken = jwtDecode<jwtToken>(token);
   expect(getFranchiseeId(token)).toBe(parseToken.FranchiseeId);
 });
+
+it("should return true when token is null", () => {
+  expect(getFranchiseeId(null)).toBe(true);
+});

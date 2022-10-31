@@ -15,16 +15,18 @@ const mockAction = jest.fn();
 const mockedOptions = {
   suburbs: [{ value: 11344, label: "East Albury NSW, 2640" }],
 };
+const mockedSelection = [{ suburb: "Glenroy NSW" }];
+const mockAxios = new MockAdapter(customAxios, { onNoMatch: "throwException" });
+
 jest.mock("../../services/ServiceAreaSelection/useServiceArea.test.tsx", () => {
-  return {};
+  return {
+    useServiceArea: () => ({}),
+  };
 });
 
 describe("Service Area Selection Page", () => {
-  const mockedSelection = [{ suburb: "Glenroy NSW" }];
-  const mock = new MockAdapter(customAxios, { onNoMatch: "throwException" });
-
   beforeAll(() => {
-    mock.reset();
+    mockAxios.reset();
   });
 
   it("should render service area selection page success", () => {
@@ -41,6 +43,4 @@ describe("Service Area Selection Page", () => {
       expect(screen.getByText("Please select at least one option")).toBeVisible()
     );
   });
-
-  it("should call handleInputChange", async () => {});
 });

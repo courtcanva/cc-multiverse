@@ -30,8 +30,7 @@ export const checkTokenExpiration = (token: string | null | undefined) => {
 export const getFranchiseeId = (token: string | null | undefined) => {
   if (token) {
     const parseToken = jwtDecode<jwtToken>(token);
-    return parseToken.FranchiseeId;
-  } else {
-    return true;
+    const franchiseeId = parseToken.FranchiseeId;
+    return franchiseeId;
   }
 };

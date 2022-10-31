@@ -1,19 +1,34 @@
-import React from "react";
-import renderWithMockedProvider from "../../testHelper";
 import { renderHook, waitFor } from "@testing-library/react";
-import customAxios from "../../../services/utils/axios";
+import axios from "@src/services/utils/axios";
 import MockAdapter from "axios-mock-adapter";
 import useServiceArea from "@src/services/servicearea/useServiceArea";
 import { act } from "react-dom/test-utils";
-import ServiceAreaSelection from "@src/pages/service-area-selection";
-import { getFranchiseeId } from "@src/utils/tokenService";
-import Router from "next/router";
 
-const mockAxios = new MockAdapter(customAxios, { onNoMatch: "throwException" });
+const mockAxios = new MockAdapter(axios, { onNoMatch: "throwException" });
 
 const serviceAreaPayLoad = {
   filterMode: "INCLUDE",
   suburbs: [{ value: 11344, label: "East Albury NSW, 2640" }],
+};
+
+const serviceAreaSubmit = {
+  filterMode: "INCLUDE",
+  suburbs: [
+    {
+      sscCode: 11344,
+    },
+  ],
+};
+
+const suburbData = {
+  suburbs: [
+    {
+      sscCode: 11344,
+      suburbName: "East Albury",
+      postcode: 2640,
+      state: "NSW",
+    },
+  ],
 };
 
 const mockPush = jest.fn();
@@ -28,20 +43,44 @@ jest.mock("@cc/ui-chakra", () => ({
   useToast: () => mockToast,
 }));
 
+jest.mock("../../../utils/tokenService.ts", () => {
+  return {
+    getToken: jest.fn(),
+    getFranchiseeId: () => 1,
+  };
+});
+
 describe("useServiceArea hook", () => {
   beforeAll(() => mockAxios.reset());
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
   it("should get suburb info in success", async () => {
-    renderWithMockedProvider(<ServiceAreaSelection />);
-    mockAxios.onGet("/suburbs").reply(200);
-    const { result } = renderHook(() => useServiceArea());
-    await waitFor(() => expect(result.current.options.length).toBe(0));
+    mockAxios.onGet("/suburbs").reply(200, suburbData);
+    const result = await axios.get("/suburbs");
+    expect(result.data).toEqual(suburbData);
+  });
+
+  it("should get suburb info in fail", async () => {
+    mockAxios.onGet("/suburbs").reply(500, suburbData);
+    renderHook(() => useServiceArea());
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith({
+        title: "Server Error",
+        status: "error",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      })
+    );
   });
 
   it("should submit service area form in success", async () => {
-    mockAxios.onPost("/franchisee/1111/service_areas", serviceAreaPayLoad).reply(200);
+    mockAxios.onGet("/suburbs").reply(200, suburbData);
+    mockAxios
+      .onPost("/franchisee/1/service_areas", serviceAreaSubmit)
+      .reply(200, serviceAreaPayLoad);
+
     const { result } = renderHook(() => useServiceArea());
     act(() => {
       result.current.handleServiceAreaSubmit(serviceAreaPayLoad);
@@ -56,11 +95,14 @@ describe("useServiceArea hook", () => {
       })
     );
     await waitFor(() => expect(result.current.isLoading).toBe(false));
-    // expect(Router.push).toHaveBeenCalledWith("/");
+    expect(mockPush).toHaveBeenCalledWith("/");
   });
 
   it("should submit service area form in fail", async () => {
-    mockAxios.onPost("/franchisee/1111/service_areas", serviceAreaPayLoad).reply(401);
+    mockAxios.onGet("/suburbs").reply(200, suburbData);
+    mockAxios
+      .onPost("/franchisee/1/service_areas", serviceAreaSubmit)
+      .reply(400, serviceAreaPayLoad);
     const { result } = renderHook(() => useServiceArea());
     act(() => {
       result.current.handleServiceAreaSubmit(serviceAreaPayLoad);
@@ -68,7 +110,7 @@ describe("useServiceArea hook", () => {
 
     await waitFor(() =>
       expect(mockToast).toHaveBeenCalledWith({
-        title: "Submit Service Area Failed",
+        title: "Service Error",
         description: "Service not response",
         status: "error",
         duration: 6000,
@@ -78,8 +120,12 @@ describe("useServiceArea hook", () => {
     );
     await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
+
   it("should submit service area form in forbidden", async () => {
-    mockAxios.onPost("/franchisee/1111/service_areas", serviceAreaPayLoad).reply(403);
+    mockAxios.onGet("/suburbs").reply(200, suburbData);
+    mockAxios
+      .onPost("/franchisee/1/service_areas", serviceAreaSubmit)
+      .reply(403, serviceAreaPayLoad);
     const { result } = renderHook(() => useServiceArea());
     act(() => {
       result.current.handleServiceAreaSubmit(serviceAreaPayLoad);
