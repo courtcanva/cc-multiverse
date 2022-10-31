@@ -60,8 +60,9 @@ export default function useSignUp() {
           isClosable: true,
         });
         router.push("/sign-in");
+      } else {
+        throw new AxiosError("Bad Request Error");
       }
-      throw new AxiosError("Bad Request Error");
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 400) {
         toast({

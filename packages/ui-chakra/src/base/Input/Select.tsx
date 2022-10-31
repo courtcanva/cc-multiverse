@@ -31,7 +31,13 @@ export const FormSelect = React.forwardRef(function FormSelect(
   return (
     <FormControl isRequired={isRequired} isInvalid={errorMessage !== undefined}>
       <FormLabel>{title}</FormLabel>
-      <CKSelect variant="outline" placeholder={placeholder} {...selectProps} ref={ref}>
+      <CKSelect
+        variant="outline"
+        placeholder={placeholder}
+        {...selectProps}
+        ref={ref}
+        data-testid={title}
+      >
         {options.map((option, index) => (
           <option key={option + index} value={option}>
             {option}
@@ -39,7 +45,7 @@ export const FormSelect = React.forwardRef(function FormSelect(
         ))}
       </CKSelect>
       <FormHelperText>{helperText}</FormHelperText>
-      <FormErrorMessage>{errorMessage}</FormErrorMessage>
+      <FormErrorMessage role="error">{errorMessage}</FormErrorMessage>
     </FormControl>
   );
 });

@@ -24,9 +24,9 @@ export const FormInput = React.forwardRef(function FormInput(
   return (
     <FormControl isRequired={isRequired} isInvalid={errorMessage !== undefined}>
       <FormLabel>{label}</FormLabel>
-      <CKInput {...inputProps} ref={ref} />
+      <CKInput {...inputProps} ref={ref} data-testid={label} />
       <FormHelperText>{helperText}</FormHelperText>
-      <FormErrorMessage>{errorMessage}</FormErrorMessage>
+      <FormErrorMessage role="error">{errorMessage}</FormErrorMessage>
     </FormControl>
   );
 });

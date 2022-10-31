@@ -47,7 +47,13 @@ const RegisterInfoPage = (props: {
         </Stack>
         <Flex direction="column" gap="16px">
           <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
-            <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
+            <Button
+              flex={1}
+              type="submit"
+              variant="secondary"
+              disabled={!formState.isValid}
+              data-testid="step1NextBtn"
+            >
               Next
             </Button>
           </Stack>
