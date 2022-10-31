@@ -6,6 +6,7 @@ const mockPush = jest.fn();
 jest.mock("next/router", () => ({
   useRouter: () => ({
     push: mockPush,
+    query: mockPayload.valid,
   }),
 }));
 
@@ -58,6 +59,10 @@ describe("useVerifyEmail hook", () => {
     const { result } = renderHook(() => useVerifyEmail());
 
     act(() => {
+      // These lines exists here because `action` is an optional property of verificationInfos[key].
+      // Given `action` is optional, ts will prompt `Cannot invoke an object which is possibly 'undefined'.` error.
+      // But in the context of `verificationInfos.success`, action will definitely not be `undefined` (because I wrote this).
+      // Hence the below lines.
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       result.current.verificationInfos?.success?.action();

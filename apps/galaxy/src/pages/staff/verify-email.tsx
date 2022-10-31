@@ -1,19 +1,10 @@
-import React, { useEffect } from "react";
-import { isEmpty } from "lodash-es";
+import React from "react";
 import EmailVerification from "@src/modules/auth/EmailVerification";
-import { useVerifyEmail, VerifyEmailRequestData } from "@src/services/verify-email/useVerifyEmail";
-import { useRouter } from "next/router";
+import { useVerifyEmail } from "@src/services/verify-email/useVerifyEmail";
 import Head from "@src/utils/Head";
 
 export default function EmailVerificationPage() {
-  const { verificationInfos, status, verifyEmail } = useVerifyEmail();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isEmpty(router.query)) {
-      verifyEmail(router.query as VerifyEmailRequestData);
-    }
-  }, [router]);
+  const { verificationInfos, status } = useVerifyEmail();
 
   return (
     <Head title="Email Verification">

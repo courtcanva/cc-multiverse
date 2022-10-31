@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { IconVariants } from "@cc/ui-chakra";
+import { useEffect, useState } from "react";
+import { isEmpty } from "lodash-es";
 import { useRouter } from "next/router";
+import { IconVariants } from "@cc/ui-chakra";
 import customAxios from "../utils/axios";
 
 type VerificationStatus = "verifying" | "success" | "fail";
@@ -67,6 +68,12 @@ export const useVerifyEmail = () => {
       setStatus("fail");
     }
   };
+
+  useEffect(() => {
+    if (!isEmpty(router.query)) {
+      verifyEmail(router.query as VerifyEmailRequestData);
+    }
+  }, [router.query]);
 
   return { verificationInfos, status, verifyEmail };
 };
