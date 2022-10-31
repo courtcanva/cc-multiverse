@@ -39,14 +39,7 @@ export default function useServiceArea() {
       setOptions(suburbsArr);
       return options;
     } catch (error) {
-      const err = error as AxiosError;
-      toast({
-        title: err.message,
-        status: "error",
-        duration: 6000,
-        position: "top",
-        isClosable: true,
-      });
+      console.log(error);
     }
   };
 
@@ -78,7 +71,7 @@ export default function useServiceArea() {
       );
       if (response.status === 200) {
         toast({
-          title: "Service Area Selection Submit in Success",
+          title: "Submit Successfully",
           status: "info",
           duration: 6000,
           position: "top",
@@ -86,10 +79,9 @@ export default function useServiceArea() {
         });
         router.push("/");
       }
-      throw new AxiosError("Bad Request Error");
     } catch (error) {
-      // const err = error as AxiosError;
-      if (error instanceof AxiosError && error.response?.status === 403) {
+      const e = error as AxiosError;
+      if (e.response?.status === 403) {
         toast({
           title: "Authorization error",
           description: "Username and password is not authenticated",
