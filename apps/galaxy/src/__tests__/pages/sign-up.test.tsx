@@ -1,10 +1,10 @@
 import React from "react";
-import renderWithMockedProvider from "../../../testHelper";
+import renderWithMockedProvider from "../testHelper";
 import userEvent from "@testing-library/user-event";
 import { renderHook, screen, waitFor, fireEvent } from "@testing-library/react";
-import SignUp from "../../../../pages/sign-up";
+import SignUp from "../../pages/sign-up";
 import MockAdapter from "axios-mock-adapter";
-import userSignUp from "../../../../services/signup/useSignUp";
+import userSignUp from "../../services/signup/useSignUp";
 import { act } from "react-dom/test-utils";
 import { render } from "react-dom";
 
