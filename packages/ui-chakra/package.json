@@ -15,6 +15,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
+    "@cc/eslint-config": "*",
+    "@cc/tsconfig": "*",
     "@chakra-ui/react": "^2.3.4",
     "@chakra-ui/storybook-addon": "^4.0.11",
     "@emotion/react": "^11.10.4",
@@ -31,10 +33,9 @@
     "@types/react-dom": "^17.0.11",
     "babel-loader": "^8.2.5",
     "eslint": "^7.32.0",
-    "@cc/eslint-config": "*",
     "framer-motion": "^7.3.6",
     "react": "^18.2.0",
-    "@cc/tsconfig": "*",
+    "react-icons": "^4.6.0",
     "typescript": "^4.5.2",
     "webpack": "*"
   }

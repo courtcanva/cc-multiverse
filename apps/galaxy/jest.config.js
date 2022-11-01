@@ -2,6 +2,7 @@ module.exports = {
   ...require("@cc/jest-config/next"),
   rootDir: ".",
   moduleNameMapper: {
+    "^lodash-es$": "lodash",
     "\\.module\\.css$": "identity-obj-proxy",
     "\\.svg$": "<rootDir>/__mocks__/svgMock.js",
     "^@src/(.*)$": ["<rootDir>/src/$1"],
