@@ -6,14 +6,15 @@ import renderWithMockedProvider from "../../testHelper";
 import { screen, waitFor } from "@testing-library/react";
 import ServiceAreaSelection from "../../../pages/service-area-selection";
 
-const mockedOptions = { value: 11344, label: "East Albury NSW, 2640" };
+const mockedOptions = [{ value: 11344, label: "East Albury NSW, 2640" }];
 const mockAxios = new MockAdapter(customAxios, { onNoMatch: "throwException" });
 
+const handleServiceAreaSubmit = jest.fn();
 jest.mock("../../../services/servicearea/useServiceArea.ts", () => {
   return () => ({
     isLoading: false,
-    handleServiceAreaSubmit: jest.fn(),
-    options: () => mockedOptions,
+    handleServiceAreaSubmit,
+    options: mockedOptions,
   });
 });
 
@@ -39,8 +40,19 @@ describe("Service Area Selection Page", () => {
     renderWithMockedProvider(<ServiceAreaSelection />);
     const submitBtn = screen.getByRole("button", { name: /Submit/i });
     user.click(submitBtn);
+
+    expect(await screen.findByText("Please select at least one option")).toBeVisible();
+  });
+
+  it("should handle input change", async () => {
+    renderWithMockedProvider(<ServiceAreaSelection />);
+    const suburbInput = screen.getByRole("combobox", { name: "" });
+    user.type(suburbInput, "E");
+    expect(await screen.findByText("East Albury NSW, 2640")).toBeInTheDocument();
+
+    user.type(suburbInput, "{backspace}");
     await waitFor(() =>
-      expect(screen.getByText("Please select at least one option")).toBeVisible()
+      expect(screen.queryByText("East Albury NSW, 2640")).not.toBeInTheDocument()
     );
   });
 });

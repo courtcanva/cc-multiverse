@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 
-export interface Suburb {
+export interface SuburbOption {
   label: string;
   value: number;
 }
 
 export interface FormData {
   filterMode: string;
-  suburbs: Suburb[];
+  suburbs: SuburbOption[];
 }
 
 interface SuburbData {
@@ -24,17 +24,17 @@ interface SuburbData {
 
 export default function useServiceArea() {
   const [isLoading, setIsLoading] = useState(false);
-  const [options, setOptions] = useState<Suburb[]>([]);
+  const [options, setOptions] = useState<SuburbOption[]>([]);
   const toast = useToast();
   const router = useRouter();
 
   const getSuburbsInfo = async () => {
     try {
       const response = await axios.get("/suburbs");
-      const result = response.data.suburbs;
-      const suburbsArr: Suburb[] = (result as Array<SuburbData>)?.map((suburb) => {
-        const label = `${suburb.suburbName} ${suburb.state}, ${suburb.postcode}`;
-        return { value: suburb.sscCode, label: label };
+      const result: SuburbData[] = response.data.suburbs;
+      const suburbsArr = result.map(({ suburbName, sscCode, state, postcode }) => {
+        const label = `${suburbName} ${state}, ${postcode}`;
+        return { value: sscCode, label };
       });
       setOptions(suburbsArr);
       return options;
@@ -58,12 +58,8 @@ export default function useServiceArea() {
     const token = getToken() || "";
 
     try {
-      const newData = data.suburbs.map((val: Suburb) => {
-        return {
-          sscCode: val.value,
-        };
-      });
-      const response = await axios.post(
+      const newData = data.suburbs.map(({ value }) => ({ sscCode: value }));
+      await axios.post(
         `/franchisee/${getFranchiseeId(token)}/service_areas`,
         {
           filterMode: data.filterMode,
@@ -75,16 +71,14 @@ export default function useServiceArea() {
           },
         }
       );
-      if (response.status === 200) {
-        toast({
-          title: "Submit Successfully",
-          status: "info",
-          duration: 6000,
-          position: "top",
-          isClosable: true,
-        });
-        router.push("/");
-      }
+      toast({
+        title: "Submit Successfully",
+        status: "info",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      });
+      router.push("/");
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 403) {
         toast({

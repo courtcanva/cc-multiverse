@@ -6,7 +6,7 @@ import { Select as ReactSelect, createFilter } from "chakra-react-select";
 import { ErrorMessage } from "@hookform/error-message";
 
 const ServiceAreaSelection = () => {
-  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
   const { isLoading, handleServiceAreaSubmit, options } = useServiceArea();
   const {
     control,
@@ -45,7 +45,7 @@ const ServiceAreaSelection = () => {
         name="suburbs"
         rules={{ required: true }}
         render={({ field: { onChange, value, name } }) => (
-          <FormControl id="reactSelect" data-testid="serviceAreaSuburbSelect">
+          <FormControl id="reactSelect">
             <FormLabel marginTop="24px" htmlFor="suburbs">
               Search Area
             </FormLabel>
@@ -58,7 +58,7 @@ const ServiceAreaSelection = () => {
               options={options}
               errorBorderColor="red.500"
               isInvalid={!!errors.suburbs}
-              placeholder={"Please input your address or suburb"}
+              placeholder="Please input your address or suburb"
               components={{ DropdownIndicator: () => null }}
               closeMenuOnSelect={false}
               onInputChange={handleInputChange}
