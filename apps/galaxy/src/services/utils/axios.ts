@@ -9,9 +9,9 @@ const REQUEST_TIMEOUT = 2000;
 const customAxios = axios.create({
   baseURL: environment.API_BASE_URL,
   timeout: REQUEST_TIMEOUT,
-  // headers: {
-  //   Authorization: token,
-  // },
+  headers: {
+    Authorization: token,
+  },
 });
 
 export default customAxios;

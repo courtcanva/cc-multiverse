@@ -16,6 +16,7 @@ const useSignIn = () => {
       if (response.status === 200) {
         const token: string = response.headers.authorization;
         setToken(token);
+        router.push("/");
       }
     } catch (error) {
       const { response, message } = error as AxiosError;
