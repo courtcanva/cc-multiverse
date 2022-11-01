@@ -22,7 +22,7 @@ const CompanyInfoPage = (props: {
     businessAddress,
   } = formConfig;
   const { register, formState, handleSubmit } = useForm<CompanyInfoFormData>({
-    mode: "onBlur",
+    mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(CompanyInfoFormSchema),
   });

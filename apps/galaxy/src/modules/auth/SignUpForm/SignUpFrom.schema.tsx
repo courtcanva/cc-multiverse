@@ -1,6 +1,8 @@
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import { phoneNumberRegex, postcodeRegex, abnRegex, stateList } from "@src/constants";
+import "yup-phone-lite";
+import { stateList } from "@src/constants";
+
 // eslint-disable-next-line new-cap
 YupPassword(yup);
 
@@ -37,14 +39,12 @@ export const CompanyInfoFormSchema = yup
     abn: yup
       .string()
       .required("The ABN number is required")
-      .matches(abnRegex, "The ABN number should be 11 digit"),
+      .matches(/^[0-9]+$/, "The ABN must be only digits")
+      .length(11, "The ABN number must be 11 digits"),
     contactNumber: yup
       .string()
       .required("The contact number is required")
-      .matches(
-        phoneNumberRegex,
-        "The contact number does not match required format. Example: 0411111111"
-      ),
+      .phone("AU", "Please enter a valid AU phone number"),
     businessAddress: yup
       .string()
       .required("The business address is required")
@@ -53,7 +53,7 @@ export const CompanyInfoFormSchema = yup
       .string()
       .length(4, "The postcode does not match the required format. Example: 4000")
       .required("The postcode is required")
-      .matches(postcodeRegex, "The postcode does not match the required format. Example: 4000"),
+      .matches(/^[0-9]+$/, "The postcode must be only digits"),
     companyState: yup.string().required("Please select a state").oneOf(stateList),
   })
   .required();
@@ -71,10 +71,7 @@ export const StaffInfoFormSchema = yup
     phoneNumber: yup
       .string()
       .required("The contact number is required")
-      .matches(
-        phoneNumberRegex,
-        "The phone number does not match required format. Example: 0411111111"
-      ),
+      .phone("AU", "Please enter a valid AU phone number"),
     residentialAddress: yup
       .string()
       .required("The esidential address is required")
@@ -83,7 +80,7 @@ export const StaffInfoFormSchema = yup
       .string()
       .length(4, "The postcode does not match the required format. Example: 4000")
       .required("The postcode is required")
-      .matches(postcodeRegex, "The postcode does not match the required format. Example: 4000"),
+      .matches(/^[0-9]+$/, "The postcode must be only digits"),
     residentialState: yup.string().required("Please select a state").oneOf(stateList),
   })
   .required();

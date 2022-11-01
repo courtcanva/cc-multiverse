@@ -22,7 +22,7 @@ const StaffInfoPage = (props: {
     residentialAddress,
   } = formConfig;
   const { register, formState, handleSubmit } = useForm<StaffInfoFormData>({
-    mode: "onBlur",
+    mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(StaffInfoFormSchema),
   });
