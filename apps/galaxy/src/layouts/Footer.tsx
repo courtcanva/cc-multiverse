@@ -1,28 +1,20 @@
-import { Box } from "@cc/ui-chakra";
-
-export const FooterContent: {
-  copyRight: string;
-  policy: string;
-  conditions: string;
-  contact: string;
-} = {
-  copyRight: " Courtcanva All rights reserved",
-  policy: "Privacy policy",
-  conditions: "Terms & Conditions",
-  contact: "Contact us",
-};
+import { Wrap, WrapItem, Center, Stack } from "@cc/ui-chakra";
 
 const Footer = () => {
   return (
-    <Box as="footer" display="flex" height="30px" justifyContent="center" fontSize="sm" gap="80px">
-      <Box>
-        ©{new Date().getFullYear()}
-        {FooterContent.copyRight}
-      </Box>
-      <Box>{FooterContent.policy}</Box>
-      <Box>{FooterContent.conditions}</Box>
-      <Box>{FooterContent.contact}</Box>
-    </Box>
+    <Wrap
+      as="footer"
+      justify="center"
+      spacingX={{ base: "24px", lg: "32px" }}
+      maxWidth={{ base: "428px", lg: "100%" }}
+    >
+      <WrapItem order={{ lg: 2 }}>Privacy policy</WrapItem>
+      <WrapItem order={{ lg: 3 }}>Terms & Conditions</WrapItem>
+      <WrapItem order={{ lg: 4 }}>Contact us</WrapItem>
+      <WrapItem order={{ lg: 1 }}>
+        ©{new Date().getFullYear()} Courtcanva All rights reserved
+      </WrapItem>
+    </Wrap>
   );
 };
 

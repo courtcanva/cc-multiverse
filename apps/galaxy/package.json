@@ -5,18 +5,20 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:static": "next build && next export",
     "start": "next start",
     "eslint": "eslint . --ext .ts --ext tsx --ext js",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "test": "jest --colors --config jest.config.js --maxWorkers=50%",
     "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
-    "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage",
-    "test:ci": "CI=true jest --colors --config jest.config.js --runInBand --coverage"
+    "test:watch-coverage": "jest --colors --config jest.config.js --maxWorkers=50% --watch --coverage",
+    "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
   },
   "dependencies": {
     "@cc/ui-chakra": "*",
-    "@hookform/error-message": "^2.0.0",
     "axios": "^0.27.2",
+    "jwt-decode": "^3.1.2",
+    "lodash-es": "^4.17.21",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -28,6 +30,7 @@
     "@cc/jest-config": "*",
     "@cc/tsconfig": "*",
     "@svgr/webpack": "^6.2.1",
+    "@types/lodash-es": "^4.17.6",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",
     "axios-mock-adapter": "^1.21.2",
