@@ -52,5 +52,5 @@ it("should decode franchisee id from token", () => {
 });
 
 it("should return true when token is null", () => {
-  expect(getFranchiseeId(null)).toBe(true);
+  expect(getFranchiseeId(null)).toBe(undefined);
 });

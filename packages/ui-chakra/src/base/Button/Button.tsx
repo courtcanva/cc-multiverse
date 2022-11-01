@@ -15,6 +15,13 @@ export const Button = ({
   const buttonVariants = {
     primary: {
       bg: "#36495D",
+      _hover: {
+        background: "#36495D",
+        opacity: "0.82",
+      },
+      _active: {
+        background: "#36495D",
+      },
     },
     secondary: {
       bg: "#49B785",

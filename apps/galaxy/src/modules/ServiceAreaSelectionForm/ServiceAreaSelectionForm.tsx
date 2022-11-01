@@ -15,7 +15,6 @@ const ServiceAreaSelection = () => {
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = handleSubmit((data) => handleServiceAreaSubmit(data));
-
   const handleInputChange = (e: string) => {
     if (e) {
       setMenuIsOpen(true);
