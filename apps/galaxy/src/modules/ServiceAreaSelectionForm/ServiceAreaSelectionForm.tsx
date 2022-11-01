@@ -1,4 +1,4 @@
-import { Button, Stack, Container, Select, FormControl, FormLabel } from "@cc/ui-chakra";
+import { Button, HStack, Container, Select, FormControl, FormLabel } from "@cc/ui-chakra";
 import { useState } from "react";
 import useServiceArea, { FormData } from "../../services/servicearea/useServiceArea";
 import { useForm, Controller } from "react-hook-form";
@@ -70,14 +70,14 @@ const ServiceAreaSelection = () => {
         )}
       />
 
-      <Stack direction={["column-reverse", "row"]} marginTop="48px" justifyContent="stretch">
-        <Button type="button" isLoading={isLoading} variant="secondary" width="100%">
+      <HStack marginTop="48px">
+        <Button type="button" isLoading={isLoading} variant="secondary" flex={1}>
           Back
         </Button>
-        <Button type="submit" isLoading={isLoading} variant="primary" width="100%">
+        <Button type="submit" isLoading={isLoading} variant="primary" flex={1}>
           Submit
         </Button>
-      </Stack>
+      </HStack>
     </Container>
   );
 };

@@ -6,6 +6,7 @@ type ButtonVariant = "primary" | "secondary";
 type ButtonProps = {
   variant?: ButtonVariant;
   isLoading?: boolean;
+  flex?: number;
 };
 export const Button = ({
   variant = "primary",
