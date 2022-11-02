@@ -1,8 +1,8 @@
 import React from "react";
-import renderWithMockedProvider from "../testHelper";
+import renderWithMockedProvider from "../../../testHelper";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
-import SignUp from "../../pages/sign-up";
+import SignUp from "../../../../pages/sign-up";
 
 describe("SignUp", () => {
   jest.setTimeout(100000);
