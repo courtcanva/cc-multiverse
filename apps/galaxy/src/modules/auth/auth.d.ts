@@ -20,26 +20,26 @@ type SignUpFormData = {
 };
 
 interface RegisterInfoFormData {
-  username: string;
-  password: string;
-  confirmPassword: string;
+  username: string | null;
+  password: string | null;
+  confirmPassword: string | null;
 }
 
 interface CompanyInfoFormData {
-  businessName: string;
-  legalEntityName: string;
-  abn: string;
-  contactNumber: string;
-  businessAddress: string;
-  companyPostcode: string;
-  companyState: State;
+  businessName: string | null;
+  legalEntityName: string | null;
+  abn: string | null;
+  contactNumber: string | null;
+  businessAddress: string | null;
+  companyPostcode: string | null;
+  companyState: State | null;
 }
 
 interface StaffInfoFormData {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  residentialAddress: string;
-  residentialPostcode: string;
-  residentialState: State;
+  firstName: string | null;
+  lastName: string | null;
+  phoneNumber: string | null;
+  residentialAddress: string | null;
+  residentialPostcode: string | null;
+  residentialState: State | null;
 }
