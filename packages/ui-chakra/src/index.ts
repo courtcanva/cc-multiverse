@@ -18,4 +18,6 @@ export {
   Wrap,
   WrapItem,
   Center,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
