@@ -12,7 +12,12 @@ const App = ({ Component, pageProps }: AppProps) => {
   const toast = useToast();
   const token = getToken();
 
+  const pathWhitelist = ["/staff/verify-email"];
+
   const tokenExpired = (token: string | null | undefined) => {
+    const isWhiteListed = pathWhitelist.includes(router.pathname);
+    if (isWhiteListed) return;
+
     router.push("/sign-in");
     token &&
       toast({

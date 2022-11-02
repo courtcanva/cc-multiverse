@@ -4,7 +4,7 @@ import Logo from "@src/components/Logo";
 
 const SignIn = () => {
   return (
-    <Flex alignItems="center" height="100%">
+    <Flex mt="10vh">
       <VStack marginX={{ base: "16px", sm: "16px", md: "200px" }} width={{ lg: "428px" }}>
         <Logo />
         <Text height="72px" fontSize="22px" fontWeight="bold">
