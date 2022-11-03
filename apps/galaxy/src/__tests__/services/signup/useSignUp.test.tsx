@@ -3,7 +3,6 @@ import MockAdapter from "axios-mock-adapter";
 import { renderHook, waitFor } from "@testing-library/react";
 import useSignUp from "@src/services/signup/useSignUp";
 import { act } from "react-dom/test-utils";
-import { AxiosError } from "axios";
 
 const mockAxios = new MockAdapter(axios, { onNoMatch: "throwException" });
 const mockToast = jest.fn();
@@ -18,7 +17,7 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Sign Up Page", () => {
-  const mockSignUpFormData = {
+  const mockSignUpFormData: SignUpFormData = {
     username: "Atester@gmail.com",
     password: "Azxc123123",
     confirmPassword: "Azxc123123",
