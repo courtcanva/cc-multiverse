@@ -43,17 +43,17 @@ describe("Sign Up Page", () => {
       contactNumber: "0411111111",
       businessAddress: "23 testing St, Mel",
       companyPostcode: "1234",
-      companyState: "VIC",
+      state: "VIC",
     },
     staffPostDto: {
-      username: "Atester@gmail.com",
+      email: "Atester@gmail.com",
       password: "Azxc123123",
       firstName: "First",
       lastName: "Last",
       phoneNumber: "0422222222",
       residentialAddress: "34 testing St, Mel",
       residentialPostcode: "1235",
-      residentialState: "NSW",
+      state: "NSW",
     },
   };
 
