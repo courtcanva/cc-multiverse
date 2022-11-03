@@ -23,12 +23,12 @@ const StaffInfoPage = (props: {
   } = formConfig;
   const { register, formState, handleSubmit } = useForm<StaffInfoFormData>({
     defaultValues: {
-      firstName: null,
-      lastName: null,
-      phoneNumber: null,
-      residentialState: null,
-      residentialPostcode: null,
-      residentialAddress: null,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phoneNumber: data.phoneNumber,
+      residentialState: data.residentialState,
+      residentialPostcode: data.residentialPostcode,
+      residentialAddress: data.residentialAddress,
     },
     mode: "all",
     reValidateMode: "onChange",

@@ -6,7 +6,7 @@ type TabProps = {
   formStep: number;
   setFormStep: React.Dispatch<React.SetStateAction<number>>;
 };
-export const StepTab = function FormTabControl({ formStep, setFormStep }: TabProps) {
+export const StepTab = ({ formStep, setFormStep }: TabProps) => {
   return (
     <Tabs size="md" isFitted align="center" index={formStep}>
       <TabList border="hidden" margin="10.5px 5px 30.5px 5px">

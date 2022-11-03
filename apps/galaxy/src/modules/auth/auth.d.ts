@@ -10,13 +10,13 @@ type SignUpFormData = {
   contactNumber: string | null;
   businessAddress: string | null;
   companyPostcode: string | null;
-  companyState: string | null;
+  companyState: State | null;
   firstName: string | null;
   lastName: string | null;
   phoneNumber: string | null;
   residentialAddress: string | null;
   residentialPostcode: string | null;
-  residentialState: string | null;
+  residentialState: State | null;
 };
 
 interface RegisterInfoFormData {

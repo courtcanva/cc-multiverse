@@ -14,7 +14,11 @@ const RegisterInfoPage = (props: {
   const { formStep, setFormStep, data, setData } = props;
   const { username, password, confirmPassword } = formConfig;
   const { register, formState, handleSubmit } = useForm<RegisterInfoFormData>({
-    defaultValues: { username: null, password: null, confirmPassword: null },
+    defaultValues: {
+      username: data.username,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    },
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(RegisterInfoFormSchema),

@@ -21,15 +21,15 @@ const CompanyInfoPage = (props: {
     companyPostcode,
     businessAddress,
   } = formConfig;
-  const { register, control, formState, handleSubmit } = useForm<CompanyInfoFormData>({
+  const { register, formState, handleSubmit } = useForm<CompanyInfoFormData>({
     defaultValues: {
-      businessName: null,
-      legalEntityName: null,
-      abn: null,
-      contactNumber: null,
-      companyState: null,
-      companyPostcode: null,
-      businessAddress: null,
+      businessName: data.businessName,
+      legalEntityName: data.legalEntityName,
+      abn: data.abn,
+      contactNumber: data.contactNumber,
+      companyState: data.companyState,
+      companyPostcode: data.companyPostcode,
+      businessAddress: data.businessAddress,
     },
     mode: "all",
     reValidateMode: "onChange",
