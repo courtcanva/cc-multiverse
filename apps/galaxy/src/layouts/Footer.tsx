@@ -1,4 +1,4 @@
-import { Wrap, WrapItem, Center, Stack } from "@cc/ui-chakra";
+import { Wrap, WrapItem } from "@cc/ui-chakra";
 
 const Footer = () => {
   return (

@@ -12,7 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   const toast = useToast();
   const token = getToken();
 
-  const pathWhitelist = ["/staff/verify-email"];
+  const pathWhitelist = ["/staff/verify-email", "/sign-up"];
 
   const tokenExpired = (token: string | null | undefined) => {
     const isWhiteListed = pathWhitelist.includes(router.pathname);
@@ -31,7 +31,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     checkTokenExpiration(token) && tokenExpired(token);
-  }, []);
+  });
 
   return (
     <ThemeProvider theme={randomTheme}>
