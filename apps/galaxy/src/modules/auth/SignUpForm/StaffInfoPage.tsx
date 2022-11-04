@@ -7,12 +7,10 @@ import useSignUp from "@src/services/signup/useSignUp";
 import { Dispatch, SetStateAction } from "react";
 
 const StaffInfoPage = (props: {
-  formStep: number;
-  setFormStep: React.Dispatch<React.SetStateAction<number>>;
   data: SignUpFormData;
   setData: Dispatch<SetStateAction<SignUpFormData>>;
 }) => {
-  const { formStep, setFormStep, data } = props;
+  const { data } = props;
   const {
     firstName,
     lastName,

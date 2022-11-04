@@ -14,15 +14,15 @@ export const RegisterInfoFormSchema = yup
       .required("Please confirm your password")
       .min(
         8,
-        "password must contain 8 or more characters with at least one of each: uppercase, lowercase, number"
+        "password must contain 8 or more characters with at least one of each: uppercase, number"
       )
       .minUppercase(
         1,
-        "password must contain 8 or more characters with at least one of each: uppercase, lowercase, number"
+        "password must contain 8 or more characters with at least one of each: uppercase, number"
       )
       .minNumbers(
         1,
-        "password must contain 8 or more characters with at least one of each: uppercase, lowercase, number"
+        "password must contain 8 or more characters with at least one of each: uppercase, number"
       ),
     confirmPassword: yup
       .string()
