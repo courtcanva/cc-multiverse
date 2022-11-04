@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterInfoFormSchema } from "./SignUpFrom.schema";
+import useSignUp from "@src/services/signup/useSignUp";
 import { FormControl, FormInput, Stack, Flex, Button } from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
@@ -13,7 +14,8 @@ const RegisterInfoPage = (props: {
 }) => {
   const { formStep, setFormStep, data, setData } = props;
   const { username, password, confirmPassword } = formConfig;
-  const { register, formState, handleSubmit } = useForm<RegisterInfoFormData>({
+  const { checkEmail, isEmailExists } = useSignUp();
+  const { register, formState, getValues, handleSubmit } = useForm<RegisterInfoFormData>({
     defaultValues: {
       username: data.username,
       password: data.password,
@@ -28,7 +30,10 @@ const RegisterInfoPage = (props: {
     goNextFromStep();
   });
   const goNextFromStep = () => {
-    setFormStep(formStep + 1);
+    checkEmail(getValues("username"));
+    if (!isEmailExists) {
+      setFormStep(formStep + 1);
+    }
   };
   return (
     <>

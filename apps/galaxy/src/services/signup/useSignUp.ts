@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 
 export default function useSignUp() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isEmailExists, setIsEmailExists] = useState(true);
   const toast = useToast();
   const router = useRouter();
   const signUp = async (data: SignUpFormData) => {
@@ -84,5 +85,27 @@ export default function useSignUp() {
     }
     setIsLoading(false);
   };
-  return { signUp, isLoading };
+
+  const checkEmail = async (email: string | null | undefined) => {
+    try {
+      const response = await axios.get(`staff/emails/${email}`);
+      if (response.status === 200) {
+        setIsEmailExists(false);
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      if (err.response?.status === 400) {
+        setIsEmailExists(true);
+        toast({
+          title: "Email format invalid",
+          description: "Email format is invalid",
+          status: "error",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    }
+  };
+  return { signUp, isLoading, checkEmail, isEmailExists };
 }
