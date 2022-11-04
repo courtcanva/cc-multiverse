@@ -35,9 +35,6 @@ const StaffInfoPage = (props: {
     resolver: yupResolver(StaffInfoFormSchema),
   });
   const { signUp, isLoading } = useSignUp();
-  const goBackFromStep = () => {
-    setFormStep(formStep - 1);
-  };
   const onSubmit = handleSubmit((formData) => signUp({ ...data, ...formData }));
 
   return (
@@ -78,9 +75,6 @@ const StaffInfoPage = (props: {
         </Stack>
         <Flex direction="column" gap="16px">
           <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
-            <Button flex={1} onClick={goBackFromStep}>
-              Back
-            </Button>
             <Button
               type="submit"
               flex={1}

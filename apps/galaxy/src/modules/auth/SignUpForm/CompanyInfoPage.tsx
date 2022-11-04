@@ -42,9 +42,6 @@ const CompanyInfoPage = (props: {
   const goNextFromStep = () => {
     setFormStep(formStep + 1);
   };
-  const goBackFromStep = () => {
-    setFormStep(formStep - 1);
-  };
 
   return (
     <>
@@ -84,9 +81,6 @@ const CompanyInfoPage = (props: {
         </Stack>
         <Flex direction="column" gap="16px">
           <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
-            <Button flex={1} onClick={goBackFromStep}>
-              Back
-            </Button>
             <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
               Next
             </Button>
