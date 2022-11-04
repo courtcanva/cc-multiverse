@@ -36,56 +36,54 @@ const StaffInfoPage = (props: {
   const onSubmit = handleSubmit((formData) => signUp({ ...data, ...formData }));
 
   return (
-    <>
-      <FormControl as="form" onSubmit={onSubmit}>
-        <Stack>
-          <FormInput
-            {...firstName}
-            {...register("firstName")}
-            errorMessage={formState.errors.firstName?.message}
-          />
-          <FormInput
-            {...lastName}
-            {...register("lastName")}
-            errorMessage={formState.errors.lastName?.message}
-          />
-          <FormInput
-            {...phoneNumber}
-            {...register("phoneNumber")}
-            errorMessage={formState.errors.phoneNumber?.message}
-          />
-          <FormSelect
-            {...residentialState}
-            {...register("residentialState")}
-            errorMessage={formState.errors.residentialState?.message}
-          />
-          <FormInput
-            {...residentialPostcode}
-            {...register("residentialPostcode")}
-            errorMessage={formState.errors.residentialPostcode?.message}
-          />
+    <FormControl as="form" onSubmit={onSubmit}>
+      <Stack>
+        <FormInput
+          {...firstName}
+          {...register("firstName")}
+          errorMessage={formState.errors.firstName?.message}
+        />
+        <FormInput
+          {...lastName}
+          {...register("lastName")}
+          errorMessage={formState.errors.lastName?.message}
+        />
+        <FormInput
+          {...phoneNumber}
+          {...register("phoneNumber")}
+          errorMessage={formState.errors.phoneNumber?.message}
+        />
+        <FormSelect
+          {...residentialState}
+          {...register("residentialState")}
+          errorMessage={formState.errors.residentialState?.message}
+        />
+        <FormInput
+          {...residentialPostcode}
+          {...register("residentialPostcode")}
+          errorMessage={formState.errors.residentialPostcode?.message}
+        />
 
-          <FormInput
-            {...residentialAddress}
-            {...register("residentialAddress")}
-            errorMessage={formState.errors.residentialAddress?.message}
-          />
+        <FormInput
+          {...residentialAddress}
+          {...register("residentialAddress")}
+          errorMessage={formState.errors.residentialAddress?.message}
+        />
+      </Stack>
+      <Flex direction="column" gap="16px">
+        <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
+          <Button
+            type="submit"
+            flex={1}
+            variant="secondary"
+            disabled={!formState.isValid}
+            isLoading={isLoading}
+          >
+            Submit
+          </Button>
         </Stack>
-        <Flex direction="column" gap="16px">
-          <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
-            <Button
-              type="submit"
-              flex={1}
-              variant="secondary"
-              disabled={!formState.isValid}
-              isLoading={isLoading}
-            >
-              Submit
-            </Button>
-          </Stack>
-        </Flex>
-      </FormControl>
-    </>
+      </Flex>
+    </FormControl>
   );
 };
 

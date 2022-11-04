@@ -31,34 +31,32 @@ const RegisterInfoPage = (props: {
     setFormStep(formStep + 1);
   };
   return (
-    <>
-      <FormControl as="form" onSubmit={onSubmit}>
-        <Stack>
-          <FormInput
-            {...username}
-            {...register("username")}
-            errorMessage={formState.errors.username?.message}
-          />
-          <FormInput
-            {...password}
-            {...register("password")}
-            errorMessage={formState.errors.password?.message}
-          />
-          <FormInput
-            {...confirmPassword}
-            {...register("confirmPassword")}
-            errorMessage={formState.errors.confirmPassword?.message}
-          />
+    <FormControl as="form" onSubmit={onSubmit}>
+      <Stack>
+        <FormInput
+          {...username}
+          {...register("username")}
+          errorMessage={formState.errors.username?.message}
+        />
+        <FormInput
+          {...password}
+          {...register("password")}
+          errorMessage={formState.errors.password?.message}
+        />
+        <FormInput
+          {...confirmPassword}
+          {...register("confirmPassword")}
+          errorMessage={formState.errors.confirmPassword?.message}
+        />
+      </Stack>
+      <Flex direction="column" gap="16px">
+        <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
+          <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
+            Next
+          </Button>
         </Stack>
-        <Flex direction="column" gap="16px">
-          <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
-            <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
-              Next
-            </Button>
-          </Stack>
-        </Flex>
-      </FormControl>
-    </>
+      </Flex>
+    </FormControl>
   );
 };
 

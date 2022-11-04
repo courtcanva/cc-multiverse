@@ -44,50 +44,48 @@ const CompanyInfoPage = (props: {
   };
 
   return (
-    <>
-      <FormControl as="form" onSubmit={onSubmit}>
-        <Stack>
-          <FormInput
-            {...businessName}
-            {...register("businessName")}
-            errorMessage={formState.errors.businessName?.message}
-          />
-          <FormInput
-            {...legalEntityName}
-            {...register("legalEntityName")}
-            errorMessage={formState.errors.legalEntityName?.message}
-          />
-          <FormInput {...abn} {...register("abn")} errorMessage={formState.errors.abn?.message} />
-          <FormInput
-            {...contactNumber}
-            {...register("contactNumber")}
-            errorMessage={formState.errors.contactNumber?.message}
-          />
-          <FormSelect
-            {...companyState}
-            {...register("companyState")}
-            errorMessage={formState.errors.companyState?.message}
-          />
-          <FormInput
-            {...companyPostcode}
-            {...register("companyPostcode")}
-            errorMessage={formState.errors.companyPostcode?.message}
-          />
-          <FormInput
-            {...businessAddress}
-            {...register("businessAddress")}
-            errorMessage={formState.errors.businessAddress?.message}
-          />
+    <FormControl as="form" onSubmit={onSubmit}>
+      <Stack>
+        <FormInput
+          {...businessName}
+          {...register("businessName")}
+          errorMessage={formState.errors.businessName?.message}
+        />
+        <FormInput
+          {...legalEntityName}
+          {...register("legalEntityName")}
+          errorMessage={formState.errors.legalEntityName?.message}
+        />
+        <FormInput {...abn} {...register("abn")} errorMessage={formState.errors.abn?.message} />
+        <FormInput
+          {...contactNumber}
+          {...register("contactNumber")}
+          errorMessage={formState.errors.contactNumber?.message}
+        />
+        <FormSelect
+          {...companyState}
+          {...register("companyState")}
+          errorMessage={formState.errors.companyState?.message}
+        />
+        <FormInput
+          {...companyPostcode}
+          {...register("companyPostcode")}
+          errorMessage={formState.errors.companyPostcode?.message}
+        />
+        <FormInput
+          {...businessAddress}
+          {...register("businessAddress")}
+          errorMessage={formState.errors.businessAddress?.message}
+        />
+      </Stack>
+      <Flex direction="column" gap="16px">
+        <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
+          <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
+            Next
+          </Button>
         </Stack>
-        <Flex direction="column" gap="16px">
-          <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
-            <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
-              Next
-            </Button>
-          </Stack>
-        </Flex>
-      </FormControl>
-    </>
+      </Flex>
+    </FormControl>
   );
 };
 
