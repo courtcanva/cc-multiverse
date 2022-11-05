@@ -15,6 +15,9 @@ const SignInForm = () => {
   const { username, password } = formConfig;
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit = handleSubmit((data) => handleSignInSubmit(data));
+  const pushToSignUp = () => {
+    router.push("/sign-up");
+  };
 
   return (
     <FormControl as="form" onSubmit={onSubmit}>
@@ -36,7 +39,7 @@ const SignInForm = () => {
         <Button variant="secondary" type="submit" isLoading={isLoading}>
           Sign In
         </Button>
-        <Button onClick={() => router.push("/sign-up")} variant="hyperlink">
+        <Button onClick={pushToSignUp} variant="hyperlink">
           Do not have an account? Register here.
         </Button>
       </VStack>

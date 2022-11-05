@@ -27,6 +27,9 @@ const SignUp = () => {
     residentialState: null,
   });
   const router = useRouter();
+  const pushToSignIn = () => {
+    router.push("/sign-in");
+  };
   const formTitles = [
     "Register with CourtCanva as our franchisee",
     "Please Fill in your company information details",
@@ -58,7 +61,7 @@ const SignUp = () => {
           />
         )}
         {formStep === 2 && <StaffInfoPage data={data} setData={setData} />}
-        <Button onClick={() => router.push("/sign-in")} variant="hyperlink">
+        <Button onClick={pushToSignIn} variant="hyperlink">
           Already have an account? Login here.
         </Button>
       </VStack>
