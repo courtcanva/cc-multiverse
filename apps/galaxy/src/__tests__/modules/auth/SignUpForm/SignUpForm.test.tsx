@@ -3,7 +3,10 @@ import renderWithMockedProvider from "../../../testHelper";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
 import SignUp from "../../../../pages/sign-up";
+import MockAdapter from "axios-mock-adapter";
+import axios from "@src/services/utils/axios";
 
+const mockAxios = new MockAdapter(axios, { onNoMatch: "throwException" });
 describe("SignUp", () => {
   jest.setTimeout(100000);
 
@@ -17,6 +20,7 @@ describe("SignUp", () => {
   });
 
   it("should sign up succesfully when all input value is valid", async () => {
+    mockAxios.onGet("/staff/emails/tester@gmail.com").reply(200);
     renderWithMockedProvider(<SignUp />);
     const emailInput = screen.getByPlaceholderText("Enter email");
     const passwordInput = screen.getByPlaceholderText("Enter password");
