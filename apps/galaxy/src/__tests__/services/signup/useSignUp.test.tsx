@@ -124,4 +124,35 @@ describe("Sign Up Page", () => {
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
+
+  it("should get true value of is response status is 200", async () => {
+    mockAxios.onGet("/staff/emails/Atester@gmail.com").reply(200);
+    const { result } = renderHook(() => useSignUp());
+
+    act(() => {
+      result.current.checkEmail(mockSignUpFormData.username);
+    });
+
+    await waitFor(() => expect(result.current.isEmailExists).toBe(false));
+  });
+
+  it("should toast error with message of service not response when response status is 409", async () => {
+    mockAxios.onGet("/staff/emails/Atester@gmail.com").reply(409);
+    const { result } = renderHook(() => useSignUp());
+
+    act(() => {
+      result.current.checkEmail(mockSignUpFormData.username);
+    });
+
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith({
+        title: "Email format invalid",
+        description: "Email format is invalid",
+        status: "error",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      })
+    );
+  });
 });

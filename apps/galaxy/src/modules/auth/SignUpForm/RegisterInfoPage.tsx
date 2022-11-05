@@ -31,6 +31,7 @@ const RegisterInfoPage = (props: {
   });
   const goNextFromStep = () => {
     checkEmail(getValues("username"));
+    console.log(isEmailExists);
     if (!isEmailExists) {
       setFormStep(formStep + 1);
     }

@@ -94,7 +94,7 @@ export default function useSignUp() {
       }
     } catch (error) {
       const err = error as AxiosError;
-      if (err.response?.status === 400) {
+      if (err.response?.status === 409) {
         setIsEmailExists(true);
         toast({
           title: "Email format invalid",
