@@ -14,7 +14,7 @@ const RegisterInfoPage = (props: {
 }) => {
   const { formStep, setFormStep, data, setData } = props;
   const { username, password, confirmPassword } = formConfig;
-  const { checkEmail, isEmailExists } = useSignUp();
+  const { checkEmailIsExists } = useSignUp();
   const { register, formState, getValues, handleSubmit } = useForm<RegisterInfoFormData>({
     defaultValues: {
       username: data.username,
@@ -25,17 +25,16 @@ const RegisterInfoPage = (props: {
     reValidateMode: "onChange",
     resolver: yupResolver(RegisterInfoFormSchema),
   });
-  const onSubmit = handleSubmit((formData) => {
-    setData({ ...data, ...formData });
-    goNextFromStep();
-  });
-  const goNextFromStep = () => {
-    checkEmail(getValues("username"));
-    console.log(isEmailExists);
+  const goNextFromStep = async () => {
+    const isEmailExists = await checkEmailIsExists(getValues("username"));
     if (!isEmailExists) {
       setFormStep(formStep + 1);
     }
   };
+  const onSubmit = handleSubmit((formData) => {
+    setData({ ...data, ...formData });
+    goNextFromStep();
+  });
   return (
     <>
       <FormControl as="form" onSubmit={onSubmit}>
