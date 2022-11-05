@@ -3,7 +3,7 @@ import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterInfoFormSchema } from "./SignUpFrom.schema";
 import useSignUp from "@src/services/signup/useSignUp";
-import { FormControl, FormInput, Stack, Flex, Button } from "@cc/ui-chakra";
+import { FormControl, FormInput, Stack, Button, VStack } from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
 type SignUpProps = {
