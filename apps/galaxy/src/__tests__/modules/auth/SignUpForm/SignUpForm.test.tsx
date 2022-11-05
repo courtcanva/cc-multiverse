@@ -70,7 +70,5 @@ describe("SignUp", () => {
     await userEvent.type(residentialPostcodeInput, "2000");
     await userEvent.type(residentialAddressInput, "170 George St, SYD");
     await userEvent.dblClick(screen.getByRole("button", { name: /submit/i }));
-    await userEvent.dblClick(screen.getByRole("button", { name: /back/i }));
-    await userEvent.dblClick(screen.getByRole("button", { name: /back/i }));
   });
 });

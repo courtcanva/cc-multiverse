@@ -6,7 +6,7 @@ type TabProps = {
   formStep: number;
   setFormStep: React.Dispatch<React.SetStateAction<number>>;
 };
-export const StepTab = ({ formStep, setFormStep }: TabProps) => {
+export const StepTab = ({ formStep }: TabProps) => {
   return (
     <Tabs size="md" isFitted align="center" index={formStep}>
       <TabList border="hidden" margin="10.5px 5px 30.5px 5px">
@@ -17,8 +17,7 @@ export const StepTab = ({ formStep, setFormStep }: TabProps) => {
             color="rgba(43, 108, 176, 0.7)"
             margin="0px 5px"
             key={index}
-            isDisabled={index > formStep ? true : false}
-            onClick={() => setFormStep(index)}
+            isDisabled={index !== formStep ? true : false}
           >{`Step ${index + 1}`}</Tab>
         ))}
       </TabList>

@@ -6,13 +6,13 @@ import useSignUp from "@src/services/signup/useSignUp";
 import { FormControl, FormInput, Stack, Flex, Button } from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
-const RegisterInfoPage = (props: {
+type SignUpProps = {
   formStep: number;
   setFormStep: React.Dispatch<React.SetStateAction<number>>;
   data: SignUpFormData;
   setData: Dispatch<SetStateAction<SignUpFormData>>;
-}) => {
-  const { formStep, setFormStep, data, setData } = props;
+};
+const RegisterInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) => {
   const { username, password, confirmPassword } = formConfig;
   const { checkEmailIsExists } = useSignUp();
   const { register, formState, getValues, handleSubmit } = useForm<RegisterInfoFormData>({
@@ -36,8 +36,8 @@ const RegisterInfoPage = (props: {
     goNextFromStep();
   });
   return (
-    <>
-      <FormControl as="form" onSubmit={onSubmit}>
+    <FormControl as="form" onSubmit={onSubmit}>
+      <VStack spacing="24px" alignItems="stretch">
         <Stack>
           <FormInput
             {...username}
@@ -55,15 +55,11 @@ const RegisterInfoPage = (props: {
             errorMessage={formState.errors.confirmPassword?.message}
           />
         </Stack>
-        <Flex direction="column" gap="16px">
-          <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
-            <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
-              Next
-            </Button>
-          </Stack>
-        </Flex>
-      </FormControl>
-    </>
+        <Button type="submit" variant="secondary" disabled={!formState.isValid}>
+          Next
+        </Button>
+      </VStack>
+    </FormControl>
   );
 };
 

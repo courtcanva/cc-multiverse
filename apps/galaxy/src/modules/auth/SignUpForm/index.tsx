@@ -55,14 +55,7 @@ const SignUp = () => {
             setData={setData}
           />
         )}
-        {formStep === 2 && (
-          <StaffInfoPage
-            formStep={formStep}
-            setFormStep={setFormStep}
-            data={data}
-            setData={setData}
-          />
-        )}
+        {formStep === 2 && <StaffInfoPage data={data} setData={setData} />}
       </VStack>
     </VStack>
   );
