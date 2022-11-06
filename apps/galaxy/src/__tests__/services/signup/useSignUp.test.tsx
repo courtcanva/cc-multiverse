@@ -145,8 +145,8 @@ describe("Sign Up Page", () => {
 
     await waitFor(() =>
       expect(mockToast).toHaveBeenCalledWith({
-        title: "Email format invalid",
-        description: "Email format is invalid",
+        title: "That email has been used",
+        description: "That username is taken. Try another.",
         status: "error",
         duration: 6000,
         position: "top",
