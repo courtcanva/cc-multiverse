@@ -87,7 +87,7 @@ export default function useSignUp() {
 
   const checkEmailIsExists = async (email: string | null | undefined) => {
     try {
-      const response = await axios.get(`staff/emails/${email}`);
+      const response = await axios.get(`/staff/emails/${email}`);
       if (response.status === 200) {
         return false;
       }
