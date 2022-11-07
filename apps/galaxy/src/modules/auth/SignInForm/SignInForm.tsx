@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import useSignIn from "@src/services/signin/useSignIn";
 import { Button, FormLabel, FormControl, Input, Stack, VStack } from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
-
+import { useRouter } from "next/router";
 interface FormData {
   username: string;
   password: string;
@@ -11,9 +11,13 @@ interface FormData {
 
 const SignInForm = () => {
   const { isLoading, handleSignInSubmit } = useSignIn();
+  const router = useRouter();
   const { username, password } = formConfig;
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit = handleSubmit((data) => handleSignInSubmit(data));
+  const pushToSignUp = () => {
+    router.push("/sign-up");
+  };
 
   return (
     <FormControl as="form" onSubmit={onSubmit}>
@@ -31,11 +35,14 @@ const SignInForm = () => {
           <Input {...password} {...register("password")} isRequired={true} />
         </Stack>
       </VStack>
-      <Stack marginTop="48px">
+      <VStack marginTop="48px" spacing="24px" alignItems="stretch">
         <Button variant="secondary" type="submit" isLoading={isLoading}>
           Sign In
         </Button>
-      </Stack>
+        <Button onClick={pushToSignUp} variant="hyperlink">
+          Do not have an account? Register here.
+        </Button>
+      </VStack>
     </FormControl>
   );
 };

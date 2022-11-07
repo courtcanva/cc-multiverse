@@ -1,10 +1,17 @@
 import React from "react";
-import renderWithMockedProvider from "../../../testHelper";
+import renderWithMockedProvider from "@src/__tests__/testHelper";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
-import SignUp from "../../../../pages/sign-up";
 import MockAdapter from "axios-mock-adapter";
 import axios from "@src/services/utils/axios";
+import SignUp from "@src/pages/sign-up";
+
+const mockPush = jest.fn();
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    push: mockPush,
+  }),
+}));
 
 const mockAxios = new MockAdapter(axios, { onNoMatch: "throwException" });
 describe("SignUp", () => {
@@ -17,6 +24,14 @@ describe("SignUp", () => {
     expect(screen.getByRole("tab", { name: /step 1/i })).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: /step 2/i })).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: /step 3/i })).toBeInTheDocument();
+  });
+
+  it("should navigate to the login page", async () => {
+    renderWithMockedProvider(<SignUp />);
+    await userEvent.click(
+      screen.getByRole("button", { name: /already have an account\? login here\./i })
+    );
+    expect(mockPush).toHaveBeenCalledWith("/sign-in");
   });
 
   it("should sign up succesfully when all input value is valid", async () => {
