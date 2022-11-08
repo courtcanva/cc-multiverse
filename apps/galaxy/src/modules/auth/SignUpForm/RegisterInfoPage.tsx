@@ -14,11 +14,6 @@ type SignUpProps = {
 const RegisterInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) => {
   const { username, password, confirmPassword } = formConfig;
   const { register, formState, handleSubmit } = useForm<RegisterInfoFormData>({
-    defaultValues: {
-      username: data.username,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-    },
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(RegisterInfoFormSchema),
