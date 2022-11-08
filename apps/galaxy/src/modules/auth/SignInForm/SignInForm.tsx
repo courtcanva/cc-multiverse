@@ -1,9 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useSignIn from "@src/services/signin/useSignIn";
-import { Button, FormLabel, FormControl, Input, Stack, VStack } from "@cc/ui-chakra";
+import { Button, FormLabel, FormControl, Input, Stack, VStack, Center, Link } from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
-import { useRouter } from "next/router";
 interface FormData {
   username: string;
   password: string;
@@ -11,13 +10,9 @@ interface FormData {
 
 const SignInForm = () => {
   const { isLoading, handleSignInSubmit } = useSignIn();
-  const router = useRouter();
   const { username, password } = formConfig;
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit = handleSubmit((data) => handleSignInSubmit(data));
-  const pushToSignUp = () => {
-    router.push("/sign-up");
-  };
 
   return (
     <FormControl as="form" onSubmit={onSubmit}>
@@ -39,9 +34,12 @@ const SignInForm = () => {
         <Button variant="secondary" type="submit" isLoading={isLoading}>
           Sign In
         </Button>
-        <Button onClick={pushToSignUp} variant="hyperlink">
-          Do not have an account? Register here.
-        </Button>
+        <Center>
+          Don&lsquo;t have an account? &nbsp;
+          <Link color="blue" href={"/sign-up"}>
+            Register here.
+          </Link>
+        </Center>
       </VStack>
     </FormControl>
   );
