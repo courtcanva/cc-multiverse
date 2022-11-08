@@ -50,7 +50,7 @@ export const CompanyInfoFormSchema = yup
       .string()
       .required("The contact number is required")
       .phone("AU", "Please enter a valid AU phone number"),
-    businessAddress: yup.string(),
+    businessAddress: yup.string().optional(),
     companyPostcode: yup
       .string()
       .length(4, "The postcode does not match the required format. Example: 4000")
@@ -74,7 +74,7 @@ export const StaffInfoFormSchema = yup
       .string()
       .required("The contact number is required")
       .phone("AU", "Please enter a valid AU phone number"),
-    residentialAddress: yup.string(),
+    residentialAddress: yup.string().optional(),
     residentialPostcode: yup
       .string()
       .length(4, "The postcode does not match the required format. Example: 4000")
