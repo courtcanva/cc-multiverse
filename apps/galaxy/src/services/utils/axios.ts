@@ -9,7 +9,7 @@ type config = {
   url: string;
 };
 
-const urlWhiteList = ["/staff/signin", "/franchisee/signup"];
+const urlWhiteList = ["/staff/signin", "/franchisee/signup", "/staff/verify"];
 
 const customAxios = axios.create({
   baseURL: environment.API_BASE_URL,
