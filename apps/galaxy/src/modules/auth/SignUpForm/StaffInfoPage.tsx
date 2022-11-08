@@ -20,14 +20,6 @@ const StaffInfoPage = ({ data }: SignUpProps) => {
     residentialAddress,
   } = formConfig;
   const { register, formState, handleSubmit } = useForm<StaffInfoFormData>({
-    defaultValues: {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      phoneNumber: data.phoneNumber,
-      residentialState: data.residentialState,
-      residentialPostcode: data.residentialPostcode,
-      residentialAddress: data.residentialAddress,
-    },
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(StaffInfoFormSchema),
