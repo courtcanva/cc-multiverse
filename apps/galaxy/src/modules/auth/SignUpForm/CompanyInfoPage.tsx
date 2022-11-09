@@ -22,15 +22,6 @@ const CompanyInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) 
     businessAddress,
   } = formConfig;
   const { register, formState, handleSubmit } = useForm<CompanyInfoFormData>({
-    defaultValues: {
-      businessName: data.businessName,
-      legalEntityName: data.legalEntityName,
-      abn: data.abn,
-      contactNumber: data.contactNumber,
-      companyState: data.companyState,
-      companyPostcode: data.companyPostcode,
-      businessAddress: data.businessAddress,
-    },
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(CompanyInfoFormSchema),

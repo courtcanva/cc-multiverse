@@ -21,4 +21,5 @@ export {
   WrapItem,
   Center,
   Input,
+  Link,
 } from "@chakra-ui/react";

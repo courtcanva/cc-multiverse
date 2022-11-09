@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { VStack, Text, StepTab, Button } from "@cc/ui-chakra";
+import { VStack, Text, StepTab } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
 import RegisterInfoPage from "./RegisterInfoPage";
 import CompanyInfoPage from "./CompanyInfoPage";
 import StaffInfoPage from "./StaffInfoPage";
-import { useRouter } from "next/router";
 
 const SignUp = () => {
   const [formStep, setFormStep] = useState(0);
@@ -26,10 +25,6 @@ const SignUp = () => {
     residentialPostcode: null,
     residentialState: null,
   });
-  const router = useRouter();
-  const pushToSignIn = () => {
-    router.push("/sign-in");
-  };
   const formTitles = [
     "Register with CourtCanva as our franchisee",
     "Please Fill in your company information details",
@@ -61,9 +56,6 @@ const SignUp = () => {
           />
         )}
         {formStep === 2 && <StaffInfoPage data={data} setData={setData} />}
-        <Button onClick={pushToSignIn} variant="hyperlink">
-          Already have an account? Login here.
-        </Button>
       </VStack>
     </VStack>
   );

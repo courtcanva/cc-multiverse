@@ -3,7 +3,7 @@ const withTM = require("next-transpile-modules")(["@cc/ui-chakra"]);
 
 module.exports = withTM({
   reactStrictMode: true,
-
+  trailingSlash: true,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

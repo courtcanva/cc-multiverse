@@ -2,14 +2,6 @@ import React from "react";
 import renderWithMockedProvider from "@src/__tests__/testHelper";
 import { screen } from "@testing-library/react";
 import SignIn from "@src/pages/sign-in";
-import userEvent from "@testing-library/user-event";
-
-const mockPush = jest.fn();
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: mockPush,
-  }),
-}));
 
 describe("Sign in Page", () => {
   it("should render personal sign in page success", () => {
@@ -18,11 +10,11 @@ describe("Sign in Page", () => {
     expect(screen.getByText("Sign in to CourtCanva Franchisee")).toBeInTheDocument();
   });
 
-  it("should navigate to the login page", async () => {
+  it("should navigate to the login page when click on the link", async () => {
     renderWithMockedProvider(<SignIn />);
-    await userEvent.click(
-      screen.getByRole("button", { name: /do not have an account\? register here\./i })
+    expect(screen.getByRole("link", { name: /register here\./i })).toHaveAttribute(
+      "href",
+      "/sign-up"
     );
-    expect(mockPush).toHaveBeenCalledWith("/sign-up");
   });
 });

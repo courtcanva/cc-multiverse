@@ -6,13 +6,6 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "@src/services/utils/axios";
 import SignUp from "@src/pages/sign-up";
 
-const mockPush = jest.fn();
-jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: mockPush,
-  }),
-}));
-
 const mockAxios = new MockAdapter(axios, { onNoMatch: "throwException" });
 describe("SignUp", () => {
   jest.setTimeout(100000);
@@ -26,12 +19,9 @@ describe("SignUp", () => {
     expect(screen.getByRole("tab", { name: /step 3/i })).toBeInTheDocument();
   });
 
-  it("should navigate to the login page", async () => {
+  it("should navigate to the login page when click on the link", async () => {
     renderWithMockedProvider(<SignUp />);
-    await userEvent.click(
-      screen.getByRole("button", { name: /already have an account\? login here\./i })
-    );
-    expect(mockPush).toHaveBeenCalledWith("/sign-in");
+    expect(screen.getByRole("link", { name: /login here\./i })).toHaveAttribute("href", "/sign-in");
   });
 
   it("should sign up succesfully when all input value is valid", async () => {

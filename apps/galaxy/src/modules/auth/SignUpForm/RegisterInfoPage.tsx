@@ -3,7 +3,7 @@ import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterInfoFormSchema } from "./SignUpFrom.schema";
 import useSignUp from "@src/services/signup/useSignUp";
-import { FormControl, FormInput, Stack, Button, VStack } from "@cc/ui-chakra";
+import { FormControl, FormInput, Stack, VStack, Button, Center, Link } from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
 type SignUpProps = {
@@ -58,6 +58,12 @@ const RegisterInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps)
         <Button type="submit" variant="secondary" disabled={!formState.isValid}>
           Next
         </Button>
+        <Center>
+          Already have an account? &nbsp;
+          <Link color="blue" href={"/sign-in"}>
+            Login here.
+          </Link>
+        </Center>
       </VStack>
     </FormControl>
   );
