@@ -25,7 +25,7 @@ const AcceptOrders = () => {
   };
   const sub = () => {
     const orders: Array<OrderData> = checked.map((val) => ({ id: val }));
-    handleAcceptOrderSubmit(orders).then();
+    handleAcceptOrderSubmit(orders: OrderData).then();
   };
   useEffect(() => {
     getOpenOrders().then((res) => {
