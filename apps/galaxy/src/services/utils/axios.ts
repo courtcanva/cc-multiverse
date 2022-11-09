@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
-import { AxiosRequestConfig } from "axios";
 import { environment } from "../constants/environment";
 import { getToken } from "@src/utils/tokenService";
 
@@ -15,7 +14,7 @@ const customAxios = axios.create({
 
 customAxios.interceptors.request.use(
   function (config) {
-    const { url } = <AxiosRequestConfig>config;
+    const { url } = config;
     const token = getToken() || "";
     const customConfig = {
       ...config,
