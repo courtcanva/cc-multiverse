@@ -5,7 +5,7 @@ import { getToken } from "@src/utils/tokenService";
 
 const REQUEST_TIMEOUT = 2000;
 
-type config = {
+type Config = {
   url: string;
 };
 
@@ -18,7 +18,7 @@ const customAxios = axios.create({
 
 customAxios.interceptors.request.use(
   function (config) {
-    const { url } = <config>config;
+    const { url } = <Config>config;
     const token = getToken() || "";
     const customConfig = {
       ...config,
