@@ -3,7 +3,6 @@ import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 
 export interface SuburbOption {
   label: string;
@@ -27,6 +26,7 @@ export default function useServiceArea() {
   const [options, setOptions] = useState<SuburbOption[]>([]);
   const toast = useToast();
   const router = useRouter();
+  const { franchiseeId } = router.query;
 
   const getSuburbsInfo = async () => {
     try {
@@ -55,22 +55,13 @@ export default function useServiceArea() {
 
   const handleServiceAreaSubmit = async (data: FormData) => {
     setIsLoading(true);
-    const token = getToken() || "";
 
     try {
       const newData = data.suburbs.map(({ value }) => ({ sscCode: value }));
-      await axios.post(
-        `/franchisee/${getFranchiseeId(token)}/service_areas`,
-        {
-          filterMode: data.filterMode,
-          suburbs: newData,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      await axios.post(`/franchisee/${franchiseeId}/service_areas`, {
+        filterMode: data.filterMode,
+        suburbs: newData,
+      });
       toast({
         title: "Submit Successfully",
         status: "info",

@@ -5,7 +5,13 @@ import { getToken } from "@src/utils/tokenService";
 
 const REQUEST_TIMEOUT = 2000;
 
-const nonrestrictedURIs = ["/staff/signin", "/franchisee/signup", "/staff/verify"];
+const nonrestrictedURIs = [
+  "/staff/signin",
+  "/franchisee/signup",
+  "/staff/verify",
+  "/suburbs",
+  "/franchisee/*/service_areas",
+];
 
 const customAxios = axios.create({
   baseURL: environment.API_BASE_URL,
