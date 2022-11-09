@@ -9,7 +9,7 @@ type Config = {
   url: string;
 };
 
-const urlWhiteList = ["/staff/signin", "/franchisee/signup", "/staff/verify"];
+const nonrestrictedURIs = ["/staff/signin", "/franchisee/signup", "/staff/verify"];
 
 const customAxios = axios.create({
   baseURL: environment.API_BASE_URL,
@@ -24,7 +24,7 @@ customAxios.interceptors.request.use(
       ...config,
       headers: {
         ...config.headers,
-        Authorization: urlWhiteList.includes(url) ? "" : token,
+        Authorization: nonrestrictedURIs.includes(url) ? "" : token,
       },
     };
     return customConfig;
