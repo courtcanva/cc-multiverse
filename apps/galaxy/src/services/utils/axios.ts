@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
+import { AxiosRequestConfig } from "axios";
 import { environment } from "../constants/environment";
 import { getToken } from "@src/utils/tokenService";
 
 const REQUEST_TIMEOUT = 2000;
-
-type Config = {
-  url: string;
-};
 
 const nonrestrictedURIs = ["/staff/signin", "/franchisee/signup", "/staff/verify"];
 
@@ -18,13 +15,13 @@ const customAxios = axios.create({
 
 customAxios.interceptors.request.use(
   function (config) {
-    const { url } = <Config>config;
+    const { url } = <AxiosRequestConfig>config;
     const token = getToken() || "";
     const customConfig = {
       ...config,
       headers: {
         ...config.headers,
-        Authorization: nonrestrictedURIs.includes(url) ? "" : token,
+        Authorization: nonrestrictedURIs.includes(url || "") ? "" : token,
       },
     };
     return customConfig;
