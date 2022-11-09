@@ -13,7 +13,9 @@ const Layout = ({ children }: LayoutProps) => {
         <Stack flex={1} as="main">
           {children}
         </Stack>
-        <Footer />
+        <Stack>
+          <Footer />
+        </Stack>
       </VStack>
     </>
   );

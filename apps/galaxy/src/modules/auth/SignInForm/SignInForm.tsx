@@ -1,9 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useSignIn from "@src/services/signin/useSignIn";
-import { Button, FormLabel, FormControl, Input, Stack, VStack } from "@cc/ui-chakra";
+import { Button, FormLabel, FormControl, Input, Stack, VStack, Center, Link } from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
-
 interface FormData {
   username: string;
   password: string;
@@ -31,11 +30,17 @@ const SignInForm = () => {
           <Input {...password} {...register("password")} isRequired={true} />
         </Stack>
       </VStack>
-      <Stack marginTop="48px">
+      <VStack marginTop="48px" spacing="24px" alignItems="stretch">
         <Button variant="secondary" type="submit" isLoading={isLoading}>
           Sign In
         </Button>
-      </Stack>
+        <Center>
+          Don&lsquo;t have an account? &nbsp;
+          <Link color="blue" href={"/sign-up"}>
+            Register here.
+          </Link>
+        </Center>
+      </VStack>
     </FormControl>
   );
 };
