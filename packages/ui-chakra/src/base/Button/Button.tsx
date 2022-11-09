@@ -1,7 +1,7 @@
 import React from "react";
 import { Button as CKButton } from "@chakra-ui/react";
 
-type ButtonVariant = "primary" | "secondary" | "hyperlink";
+type ButtonVariant = "primary" | "secondary";
 type ButtonProps = {
   flex?: number;
   variant?: ButtonVariant;
@@ -26,13 +26,6 @@ export const Button = ({
       },
       _active: {
         background: "#49B785",
-      },
-    },
-    hyperlink: {
-      variant: "link",
-      color: "black",
-      _hover: {
-        color: "blue",
       },
     },
   };
