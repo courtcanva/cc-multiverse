@@ -43,23 +43,23 @@ describe("Sign Up Page", () => {
       contactNumber: "0411111111",
       businessAddress: "23 testing St, Mel",
       companyPostcode: "1234",
-      companyState: "VIC",
+      state: "VIC",
     },
     staffPostDto: {
-      username: "Atester@gmail.com",
+      email: "Atester@gmail.com",
       password: "Azxc123123",
       firstName: "First",
       lastName: "Last",
       phoneNumber: "0422222222",
       residentialAddress: "34 testing St, Mel",
       residentialPostcode: "1235",
-      residentialState: "NSW",
+      state: "NSW",
     },
   };
 
   beforeAll(() => mockAxios.reset());
 
-  it("should toast success message and route to /sign-in when response status is 201", async () => {
+  it("should toast success message and route to /service-area-selection when response status is 201", async () => {
     mockAxios.onPost("/franchisee/signup", mockSignUpPaylod).reply(201);
     const { result } = renderHook(() => useSignUp());
 
@@ -78,7 +78,6 @@ describe("Sign Up Page", () => {
       })
     );
     await waitFor(() => expect(result.current.isLoading).toBe(false));
-    expect(mockPush).toHaveBeenCalledWith("/sign-in");
   });
 
   it("should toast error with message of duplicate user when response status is 400", async () => {
@@ -123,5 +122,35 @@ describe("Sign Up Page", () => {
     );
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
+  });
+
+  it("should get true value of is response status is 200", async () => {
+    mockAxios.onGet("/staff/emails/Atester@gmail.com").reply(200);
+    const { result } = renderHook(() => useSignUp());
+    let isEmailExists: boolean;
+    await act(async () => {
+      isEmailExists = await result.current.checkEmailIsExists(mockSignUpFormData.username);
+    });
+
+    await waitFor(() => expect(isEmailExists).toBe(false));
+  });
+
+  it("should toast error with message of service not response when response status is 409", async () => {
+    mockAxios.onGet("/staff/emails/Atester@gmail.com").reply(409);
+    const { result } = renderHook(() => useSignUp());
+    await act(async () => {
+      await result.current.checkEmailIsExists(mockSignUpFormData.username);
+    });
+
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith({
+        title: "That email has been used",
+        description: "That username is taken. Try another.",
+        status: "error",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      })
+    );
   });
 });

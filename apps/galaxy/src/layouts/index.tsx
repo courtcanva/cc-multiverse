@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Stack, VStack } from "@cc/ui-chakra";
+import { Flex, Stack, VStack } from "@cc/ui-chakra";
 import Footer from "./Footer";
 
 interface LayoutProps {
@@ -10,9 +10,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <VStack height="100vh">
-        <Stack flex={1} as="main">
+        <Flex as="main" width="100%">
           {children}
-        </Stack>
+        </Flex>
         <Stack>
           <Footer />
         </Stack>

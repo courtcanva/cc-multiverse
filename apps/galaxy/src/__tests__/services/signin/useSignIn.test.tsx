@@ -2,10 +2,10 @@ import React from "react";
 import renderWithMockedProvider from "../../testHelper";
 import user from "@testing-library/user-event";
 import { renderHook, screen, waitFor } from "@testing-library/react";
-import SignIn from "../../../pages/sign-in";
-import customAxios from "../../../services/utils/axios";
+import SignIn from "@src/pages/sign-in";
+import customAxios from "@src/services/utils/axios";
 import MockAdapter from "axios-mock-adapter";
-import userSignIn from "../../../services/signin/useSignIn";
+import userSignIn from "@src/services/signin/useSignIn";
 import { act } from "react-dom/test-utils";
 
 const mock = new MockAdapter(customAxios, { onNoMatch: "throwException" });

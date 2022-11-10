@@ -2,16 +2,16 @@ import { useForm } from "react-hook-form";
 import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CompanyInfoFormSchema } from "./SignUpFrom.schema";
-import { FormControl, FormInput, FormSelect, Stack, Flex, Button } from "@cc/ui-chakra";
+import { FormControl, FormInput, FormSelect, Stack, VStack, Button } from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
-const CompanyInfoPage = (props: {
+type SignUpProps = {
   formStep: number;
   setFormStep: React.Dispatch<React.SetStateAction<number>>;
   data: SignUpFormData;
   setData: Dispatch<SetStateAction<SignUpFormData>>;
-}) => {
-  const { formStep, setFormStep, data, setData } = props;
+};
+const CompanyInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) => {
   const {
     businessName,
     legalEntityName,
@@ -22,15 +22,6 @@ const CompanyInfoPage = (props: {
     businessAddress,
   } = formConfig;
   const { register, formState, handleSubmit } = useForm<CompanyInfoFormData>({
-    defaultValues: {
-      businessName: data.businessName,
-      legalEntityName: data.legalEntityName,
-      abn: data.abn,
-      contactNumber: data.contactNumber,
-      companyState: data.companyState,
-      companyPostcode: data.companyPostcode,
-      businessAddress: data.businessAddress,
-    },
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(CompanyInfoFormSchema),
@@ -42,13 +33,10 @@ const CompanyInfoPage = (props: {
   const goNextFromStep = () => {
     setFormStep(formStep + 1);
   };
-  const goBackFromStep = () => {
-    setFormStep(formStep - 1);
-  };
 
   return (
-    <>
-      <FormControl as="form" onSubmit={onSubmit}>
+    <FormControl as="form" onSubmit={onSubmit}>
+      <VStack spacing="24px" alignItems="stretch">
         <Stack>
           <FormInput
             {...businessName}
@@ -82,18 +70,11 @@ const CompanyInfoPage = (props: {
             errorMessage={formState.errors.businessAddress?.message}
           />
         </Stack>
-        <Flex direction="column" gap="16px">
-          <Stack marginTop="24px" direction={["column", "row"]} justifyContent="stretch">
-            <Button flex={1} onClick={goBackFromStep}>
-              Back
-            </Button>
-            <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
-              Next
-            </Button>
-          </Stack>
-        </Flex>
-      </FormControl>
-    </>
+        <Button type="submit" variant="secondary" disabled={!formState.isValid}>
+          Next
+        </Button>
+      </VStack>
+    </FormControl>
   );
 };
 

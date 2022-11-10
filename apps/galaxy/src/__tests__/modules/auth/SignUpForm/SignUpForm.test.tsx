@@ -1,9 +1,12 @@
 import React from "react";
-import renderWithMockedProvider from "../../../testHelper";
+import renderWithMockedProvider from "@src/__tests__/testHelper";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
-import SignUp from "../../../../pages/sign-up";
+import MockAdapter from "axios-mock-adapter";
+import axios from "@src/services/utils/axios";
+import SignUp from "@src/pages/sign-up";
 
+const mockAxios = new MockAdapter(axios, { onNoMatch: "throwException" });
 describe("SignUp", () => {
   jest.setTimeout(100000);
 
@@ -16,7 +19,13 @@ describe("SignUp", () => {
     expect(screen.getByRole("tab", { name: /step 3/i })).toBeInTheDocument();
   });
 
+  it("should navigate to the login page when click on the link", async () => {
+    renderWithMockedProvider(<SignUp />);
+    expect(screen.getByRole("link", { name: /login here\./i })).toHaveAttribute("href", "/sign-in");
+  });
+
   it("should sign up succesfully when all input value is valid", async () => {
+    mockAxios.onGet("/staff/emails/tester@gmail.com").reply(200);
     renderWithMockedProvider(<SignUp />);
     const emailInput = screen.getByPlaceholderText("Enter email");
     const passwordInput = screen.getByPlaceholderText("Enter password");
@@ -66,7 +75,5 @@ describe("SignUp", () => {
     await userEvent.type(residentialPostcodeInput, "2000");
     await userEvent.type(residentialAddressInput, "170 George St, SYD");
     await userEvent.dblClick(screen.getByRole("button", { name: /submit/i }));
-    await userEvent.dblClick(screen.getByRole("button", { name: /back/i }));
-    await userEvent.dblClick(screen.getByRole("button", { name: /back/i }));
   });
 });

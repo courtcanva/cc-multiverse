@@ -35,17 +35,17 @@ export default function useSignUp() {
           abn,
           contactNumber,
           businessAddress,
-          companyState,
+          state: companyState,
           companyPostcode,
         },
         staffPostDto: {
           firstName,
           lastName,
-          username,
+          email: username,
           residentialAddress,
           phoneNumber,
           residentialPostcode,
-          residentialState,
+          state: residentialState,
           password,
         },
       };
@@ -59,7 +59,10 @@ export default function useSignUp() {
           position: "top",
           isClosable: true,
         });
-        router.push("/sign-in");
+        router.push({
+          pathname: "/service-area-selection",
+          query: { franchiseeId: response.data.franchiseeGetDto.franchiseeId },
+        });
       }
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 400) {
@@ -84,5 +87,26 @@ export default function useSignUp() {
     }
     setIsLoading(false);
   };
-  return { signUp, isLoading };
+
+  const checkEmailIsExists = async (email: string | null | undefined) => {
+    try {
+      const response = await axios.get(`/staff/emails/${email}`);
+      if (response.status === 200) {
+        return false;
+      }
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        toast({
+          title: "That email has been used",
+          description: "That username is taken. Try another.",
+          status: "error",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    }
+    return true;
+  };
+  return { signUp, isLoading, checkEmailIsExists };
 }

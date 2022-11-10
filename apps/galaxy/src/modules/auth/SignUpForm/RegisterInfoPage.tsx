@@ -2,18 +2,20 @@ import { useForm } from "react-hook-form";
 import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterInfoFormSchema } from "./SignUpFrom.schema";
-import { FormControl, FormInput, Stack, Flex, Button } from "@cc/ui-chakra";
+import useSignUp from "@src/services/signup/useSignUp";
+import { FormControl, FormInput, Stack, VStack, Button, Center, Link } from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
-const RegisterInfoPage = (props: {
+type SignUpProps = {
   formStep: number;
   setFormStep: React.Dispatch<React.SetStateAction<number>>;
   data: SignUpFormData;
   setData: Dispatch<SetStateAction<SignUpFormData>>;
-}) => {
-  const { formStep, setFormStep, data, setData } = props;
+};
+const RegisterInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) => {
   const { username, password, confirmPassword } = formConfig;
-  const { register, formState, handleSubmit } = useForm<RegisterInfoFormData>({
+  const { checkEmailIsExists } = useSignUp();
+  const { register, formState, getValues, handleSubmit } = useForm<RegisterInfoFormData>({
     defaultValues: {
       username: data.username,
       password: data.password,
@@ -23,16 +25,19 @@ const RegisterInfoPage = (props: {
     reValidateMode: "onChange",
     resolver: yupResolver(RegisterInfoFormSchema),
   });
+  const goNextFromStep = async () => {
+    const isEmailExists = await checkEmailIsExists(getValues("username"));
+    if (!isEmailExists) {
+      setFormStep(formStep + 1);
+    }
+  };
   const onSubmit = handleSubmit((formData) => {
     setData({ ...data, ...formData });
     goNextFromStep();
   });
-  const goNextFromStep = () => {
-    setFormStep(formStep + 1);
-  };
   return (
-    <>
-      <FormControl as="form" onSubmit={onSubmit}>
+    <FormControl as="form" onSubmit={onSubmit}>
+      <VStack spacing="24px" alignItems="stretch">
         <Stack>
           <FormInput
             {...username}
@@ -50,15 +55,17 @@ const RegisterInfoPage = (props: {
             errorMessage={formState.errors.confirmPassword?.message}
           />
         </Stack>
-        <Flex direction="column" gap="16px">
-          <Stack marginTop="24px" direction={"row"} justifyContent="stretch">
-            <Button flex={1} type="submit" variant="secondary" disabled={!formState.isValid}>
-              Next
-            </Button>
-          </Stack>
-        </Flex>
-      </FormControl>
-    </>
+        <Button type="submit" variant="secondary" disabled={!formState.isValid}>
+          Next
+        </Button>
+        <Center>
+          Already have an account? &nbsp;
+          <Link color="blue" href={"/sign-in"}>
+            Login here.
+          </Link>
+        </Center>
+      </VStack>
+    </FormControl>
   );
 };
 

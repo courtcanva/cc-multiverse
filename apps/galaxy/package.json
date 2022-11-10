@@ -9,7 +9,7 @@
     "start": "next start",
     "eslint": "eslint . --ext .ts --ext tsx --ext js",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "test": "jest --colors --config jest.config.js --maxWorkers=50%",
+    "test": "jest --colors --config jest.config.js --maxWorkers=50% --watch --coverage",
     "test:watch": "jest --colors --config jest.config.js --maxWorkers=50% --watch",
     "test:watch-coverage": "jest --colors --config jest.config.js --maxWorkers=50% --watch --coverage",
     "test:coverage": "jest --colors --config jest.config.js --maxWorkers=50% --coverage"
