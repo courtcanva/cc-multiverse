@@ -18,23 +18,16 @@ const customAxios = axios.create({
   timeout: REQUEST_TIMEOUT,
 });
 
-customAxios.interceptors.request.use(
-  function (config) {
-    const { url } = config;
-    const token = getToken() || "";
-    const customConfig = {
-      ...config,
-      headers: {
-        ...config.headers,
-        Authorization: nonrestrictedURIs.includes(url || "") ? "" : token,
-      },
-    };
-    return customConfig;
-  },
-
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
+customAxios.interceptors.request.use(function (config) {
+  const { url } = config;
+  const token = getToken() || "";
+  const customConfig = {
+    ...config,
+    headers: {
+      ...config.headers,
+      Authorization: nonrestrictedURIs.includes(url || "") ? "" : token,
+    },
+  };
+  return customConfig;
+});
 export default customAxios;

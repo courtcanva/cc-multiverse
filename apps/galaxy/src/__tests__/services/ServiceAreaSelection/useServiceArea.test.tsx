@@ -35,6 +35,7 @@ const mockPush = jest.fn();
 jest.mock("next/router", () => ({
   useRouter: () => ({
     push: mockPush,
+    query: { franchiseeId: 1 },
   }),
 }));
 
@@ -43,17 +44,8 @@ jest.mock("@cc/ui-chakra", () => ({
   useToast: () => mockToast,
 }));
 
-jest.mock("../../../utils/tokenService.ts", () => {
-  return {
-    getToken: jest.fn(),
-    getFranchiseeId: () => 1,
-  };
-});
-
 describe("useServiceArea hook", () => {
   beforeAll(() => mockAxios.reset());
-  beforeEach(() => jest.useFakeTimers());
-  afterEach(() => jest.useRealTimers());
 
   it("should get suburb info in success", async () => {
     mockAxios.onGet("/suburbs").reply(200, suburbData);
