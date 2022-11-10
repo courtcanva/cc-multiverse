@@ -2,8 +2,6 @@ import axios from "../utils/axios";
 import { useToast } from "@cc/ui-chakra";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-// import { result } from "lodash-es";
-// import { type } from "os";
 // import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 export interface Order {
   label: string;
@@ -26,16 +24,6 @@ interface OrderList {
 interface OrderIdList {
   id: string;
 }
-// interface OrderData {
-//   contactInformation: string;
-//   createdTime: string;
-//   customerId: string;
-//   id: number;
-//   orderId: string;
-//   postcode: string;
-//   status: string;
-//   totalAmount: number;
-// }
 
 export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
@@ -74,6 +62,7 @@ export default function useGetOrders() {
       await axios.post("/franchisee/1/accept_orders", {
         orders: data,
       });
+      getOpenOrders();
     } catch (error) {
       const err = error as AxiosError;
       if (err.response?.status === 400) {
