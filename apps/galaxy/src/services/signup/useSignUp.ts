@@ -92,8 +92,7 @@ export default function useSignUp() {
         return false;
       }
     } catch (error) {
-      const err = error as AxiosError;
-      if (err.response?.status === 409) {
+      if (error instanceof AxiosError && error.response?.status === 409) {
         toast({
           title: "That email has been used",
           description: "That username is taken. Try another.",
