@@ -10,7 +10,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <VStack height="100vh">
-        <Flex as="main">{children}</Flex>
+        <Flex as="main" width="100%">
+          {children}
+        </Flex>
         <Stack>
           <Footer />
         </Stack>

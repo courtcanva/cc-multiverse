@@ -32,8 +32,12 @@ const SignUp = () => {
   ];
 
   return (
-    <Flex mt="10vh">
-      <VStack marginX={{ base: "16px", sm: "16px", md: "200px" }} width={{ lg: "428px" }} mb="24px">
+    <Flex mt="10vh" width="100%">
+      <VStack
+        marginX={{ base: "16px", sm: "16px", md: "200px" }}
+        width={{ base: "100%", lg: "428px" }}
+        mb="24px"
+      >
         <Logo />
         <Text marginTop="24px" fontSize="16px" fontWeight="400" textAlign="center">
           {formTitles[formStep]}
