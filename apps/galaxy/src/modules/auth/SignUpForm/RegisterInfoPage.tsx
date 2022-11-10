@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterInfoFormSchema } from "./SignUpFrom.schema";
+import useSignUp from "@src/services/signup/useSignUp";
 import { FormControl, FormInput, Stack, VStack, Button, Center, Link } from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
@@ -13,18 +14,27 @@ type SignUpProps = {
 };
 const RegisterInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) => {
   const { username, password, confirmPassword } = formConfig;
-  const { register, formState, handleSubmit } = useForm<RegisterInfoFormData>({
+  const { checkEmailIsExists } = useSignUp();
+  const { register, formState, getValues, handleSubmit } = useForm<RegisterInfoFormData>({
+    defaultValues: {
+      username: data.username,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    },
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(RegisterInfoFormSchema),
   });
+  const goNextFromStep = async () => {
+    const isEmailExists = await checkEmailIsExists(getValues("username"));
+    if (!isEmailExists) {
+      setFormStep(formStep + 1);
+    }
+  };
   const onSubmit = handleSubmit((formData) => {
     setData({ ...data, ...formData });
     goNextFromStep();
   });
-  const goNextFromStep = () => {
-    setFormStep(formStep + 1);
-  };
   return (
     <FormControl as="form" onSubmit={onSubmit}>
       <VStack spacing="24px" alignItems="stretch">

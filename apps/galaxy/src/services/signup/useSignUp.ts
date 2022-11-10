@@ -84,5 +84,26 @@ export default function useSignUp() {
     }
     setIsLoading(false);
   };
-  return { signUp, isLoading };
+
+  const checkEmailIsExists = async (email: string | null | undefined) => {
+    try {
+      const response = await axios.get(`/staff/emails/${email}`);
+      if (response.status === 200) {
+        return false;
+      }
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        toast({
+          title: "That email has been used",
+          description: "That username is taken. Try another.",
+          status: "error",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    }
+    return true;
+  };
+  return { signUp, isLoading, checkEmailIsExists };
 }

@@ -124,4 +124,34 @@ describe("Sign Up Page", () => {
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
+
+  it("should get true value of is response status is 200", async () => {
+    mockAxios.onGet("/staff/emails/Atester@gmail.com").reply(200);
+    const { result } = renderHook(() => useSignUp());
+    let isEmailExists: boolean;
+    await act(async () => {
+      isEmailExists = await result.current.checkEmailIsExists(mockSignUpFormData.username);
+    });
+
+    await waitFor(() => expect(isEmailExists).toBe(false));
+  });
+
+  it("should toast error with message of service not response when response status is 409", async () => {
+    mockAxios.onGet("/staff/emails/Atester@gmail.com").reply(409);
+    const { result } = renderHook(() => useSignUp());
+    await act(async () => {
+      await result.current.checkEmailIsExists(mockSignUpFormData.username);
+    });
+
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith({
+        title: "That email has been used",
+        description: "That username is taken. Try another.",
+        status: "error",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      })
+    );
+  });
 });
