@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { VStack, Text, StepTab } from "@cc/ui-chakra";
+import { Stack, VStack, Text, StepTab, Flex } from "@cc/ui-chakra";
 import Logo from "@src/components/Logo";
 import RegisterInfoPage from "./RegisterInfoPage";
 import CompanyInfoPage from "./CompanyInfoPage";
@@ -32,32 +32,40 @@ const SignUp = () => {
   ];
 
   return (
-    <VStack alignItems="stretch" paddingTop="10vh" width="480px" maxWidth="752px">
-      <Logo />
-      <Text marginTop="24px" fontSize="16px" fontWeight="400" textAlign="center">
-        {formTitles[formStep]}
-      </Text>
-      <StepTab formStep={formStep} setFormStep={setFormStep} />
-      <VStack align="start" alignItems="stretch" spacing="24px">
-        {formStep === 0 && (
-          <RegisterInfoPage
-            formStep={formStep}
-            setFormStep={setFormStep}
-            data={data}
-            setData={setData}
-          />
-        )}
-        {formStep === 1 && (
-          <CompanyInfoPage
-            formStep={formStep}
-            setFormStep={setFormStep}
-            data={data}
-            setData={setData}
-          />
-        )}
-        {formStep === 2 && <StaffInfoPage data={data} setData={setData} />}
+    <Flex mt="10vh">
+      <VStack
+        marginX={{ base: "16px", sm: "16px", md: "200px" }}
+        width={{ lg: "428px" }}
+        marginBottom="48px"
+      >
+        <Logo />
+        <Text marginTop="24px" fontSize="16px" fontWeight="400" textAlign="center">
+          {formTitles[formStep]}
+        </Text>
+        <Stack width={{ base: "80px", sm: "80px", md: "428px" }}>
+          <StepTab formStep={formStep} setFormStep={setFormStep} />
+        </Stack>
+        <Stack width="100%">
+          {formStep === 0 && (
+            <RegisterInfoPage
+              formStep={formStep}
+              setFormStep={setFormStep}
+              data={data}
+              setData={setData}
+            />
+          )}
+          {formStep === 1 && (
+            <CompanyInfoPage
+              formStep={formStep}
+              setFormStep={setFormStep}
+              data={data}
+              setData={setData}
+            />
+          )}
+          {formStep === 2 && <StaffInfoPage data={data} setData={setData} />}
+        </Stack>
       </VStack>
-    </VStack>
+    </Flex>
   );
 };
 
