@@ -1,10 +1,6 @@
 import jwtDecode from "jwt-decode";
 
-<<<<<<< HEAD
-type jwtToken = {
-=======
 export interface jwtToken {
->>>>>>> origin/main
   FranchiseeId: number;
   exp: number;
 }
