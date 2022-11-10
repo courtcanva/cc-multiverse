@@ -59,7 +59,10 @@ export default function useSignUp() {
           position: "top",
           isClosable: true,
         });
-        router.push("/sign-in");
+        router.push({
+          pathname: "/service-area-selection",
+          query: { franchiseeId: response.data.franchiseeGetDto.franchiseeId },
+        });
       }
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 400) {

@@ -59,7 +59,7 @@ describe("Sign Up Page", () => {
 
   beforeAll(() => mockAxios.reset());
 
-  it("should toast success message and route to /sign-in when response status is 201", async () => {
+  it("should toast success message and route to /service-area-selection when response status is 201", async () => {
     mockAxios.onPost("/franchisee/signup", mockSignUpPaylod).reply(201);
     const { result } = renderHook(() => useSignUp());
 
@@ -78,7 +78,6 @@ describe("Sign Up Page", () => {
       })
     );
     await waitFor(() => expect(result.current.isLoading).toBe(false));
-    expect(mockPush).toHaveBeenCalledWith("/sign-in");
   });
 
   it("should toast error with message of duplicate user when response status is 400", async () => {
