@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import useGetOrders, { FormData } from "../../services/orders/useOrders";
 import {
   Checkbox,
   CheckboxGroup,
@@ -6,9 +9,6 @@ import {
   FormControl,
   Container,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import useGetOrders, { FormData } from "../../services/orders/useOrders";
 interface OrderData {
   id: number;
 }
@@ -20,12 +20,13 @@ const AcceptOrders = () => {
   const { handleSubmit } = useForm<FormData>({
     defaultValues,
   });
-  const change = (e: (string | number)[]) => {
+  const change = (e: Array<string | number>) => {
     setChecked(e);
   };
   const sub = () => {
-    const orders: Array<OrderData> = checked.map((val) => ({ id: val }));
-    handleAcceptOrderSubmit(orders: OrderData).then();
+    const orders = checked.map((val) => ({ id: val }));
+    handleAcceptOrderSubmit(orders).then();
+    document.location.reload();
   };
   useEffect(() => {
     getOpenOrders().then((res) => {

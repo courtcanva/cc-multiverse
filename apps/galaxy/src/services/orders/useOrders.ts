@@ -7,7 +7,7 @@ export interface Order {
   value: number;
 }
 export interface FormData {
-  orders: OrderData[];
+  orders: Order[];
 }
 
 interface OrderData {
@@ -21,7 +21,8 @@ export default function useGetOrders() {
   const getOpenOrders = async () => {
     try {
       const response = await axios.get("/api/franchisee/1/pending_orders");
-      const result = response.data;
+      // const response = await axios.get("/franchisee/1/pending_orders");
+      const result: OrderData = response.data;
       return result;
     } catch (error) {
       const err = error as AxiosError;
