@@ -32,7 +32,7 @@ const SignUp = () => {
   ];
 
   return (
-    <Flex mt="10vh" width="100%">
+    <Flex mt="10vh" width="100%" justifyContent="center">
       <VStack
         marginX={{ base: "16px", sm: "16px", md: "200px" }}
         width={{ base: "100%", lg: "428px" }}
