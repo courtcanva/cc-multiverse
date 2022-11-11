@@ -26,6 +26,8 @@ import { type } from "os";
 
 import { useState, useEffect } from "react";
 import axios from "../../services/utils/axios";
+import { useToast } from "@cc/ui-chakra";
+import { AxiosError } from "axios";
 
 type OrderDataType = {
   id: number;
@@ -35,87 +37,46 @@ type OrderDataType = {
 };
 
 const OpenOrders = ({ details }: any) => {
-  // const info = [
-  //   { id: 1, name: "Wasif", age: 21, email: "wasif@email.com" },
-  //   { id: 2, name: "Ali", age: 19, email: "ali@email.com" },
-  //   // { id: 3, name: "Saad", age: 16, email: "saad@email.com" },
-  //   // { id: 4, name: "Asad", age: 25, email: "asad@email.com" },
-  // ];
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [isLoading, setIsLoading] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
-
-  // const [tableInfo, setTableInfo] = useState<Array<TableData>>(info);
-  // const [details, setDetails] = useState<Array<OrderDataType>>();
+  const toast = useToast();
+  const [orders, setOrders] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        const response = await axios.post("/franchisee/" + "1" + "/accept_orders", {
+        const response = await axios.post("/franchisee/" + "3" + "/accept_orders", {
           orders: [{ id: 4 }, { id: 5 }, { id: 6 }],
         });
         if (response.status === 200) {
-          console.log(typeof response.data.orders);
-          setData(response.data.orders);
-          console.log("hello ------------------------ " + JSON.stringify(data));
+          setOrders(response.data.orders);
         }
       } catch (error) {
-        console.log("error is here -------------------" + error);
+        const err = error as AxiosError;
+        if (err.response?.status === 400) {
+          toast({
+            title: "Sign in failed",
+            description: "Username and password is not authenticated",
+            status: "error",
+            duration: 6000,
+            position: "top",
+            isClosable: true,
+          });
+        } else {
+          toast({
+            title: err.message,
+            status: "error",
+            duration: 6000,
+            position: "top",
+            isClosable: true,
+          });
+        }
       }
+      setLoading(false);
     };
     fetchData();
   }, []);
-
-  // const onOpenPopUp = async (franchiseId: number) => {
-  //   onOpen();
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await axios.post("/franchisee/" + franchiseId + "/accept_orders", {
-  //       orders: [{ id: 4 }, { id: 5 }, { id: 7 }],
-  //     });
-  //     if (response.status === 200) {
-  //       console.log(typeof response.data.orders);
-  //       // setDetails(response.data.orders);
-  //       console.log("hello ------------------------ " + JSON.stringify(details));
-  //     }
-  //   } catch (error) {
-  //     console.log("error is here -------------------" + error);
-  //     // const err = error as AxiosError;
-  //     // if (err.response?.status === 400) {
-  //     //   toast({
-  //     //     title: "Sign in failed",
-  //     //     description: "Username and password is not authenticated",
-  //     //     status: "error",
-  //     //     duration: 6000,
-  //     //     position: "top",
-  //     //     isClosable: true,
-  //     //   });
-  //     // } else {
-  //     //   toast({
-  //     //     title: err.message,
-  //     //     status: "error",
-  //     //     duration: 6000,
-  //     //     position: "top",
-  //     //     isClosable: true,
-  //     //   });
-  //     // }
-  //   }
-  //   setIsLoading(false);
-
-  //   // fetch("http://127.0.0.1:8080/api/v1/franchisee/1/accept_orders", {
-  //   //   body: {
-  //   //     orders: [{ id: 1 }, { id: 2 }, { id: 3 }],
-  //   //   },
-  //   //   content-type: "application/json; charset=utf8",
-  //   //   method: "POST",
-  //   // })
-  //   //   .then((res) => res.json())
-  //   //   .then((data) => {
-  //   //     setDetails(data);
-  //   //     console.log("hello --------------------- " + data);
-  //   //   });
-  // };
 
   return (
     <Flex>
@@ -131,52 +92,18 @@ const OpenOrders = ({ details }: any) => {
             </Tr>
           </Thead>
           <Tbody>
-            {/* {details.map((detail: any) => (
-              <Tr key={detail.id}>
-                <Td>{detail.id}</Td>
-                <Td>{detail.orderId}</Td>
-                <Td>{detail.status}</Td>
-                <Td>{JSON.stringify(detail.contactInformation)}</Td>
-                <Button onClick={() => onOpenPopUp(detail.id)}>Open Modal</Button>
+            {orders?.map((order: any) => (
+              <Tr key={order.id}>
+                <Td>{order.id}</Td>
+                <Td>{order.orderId}</Td>
+                <Td>{order.status}</Td>
+                <Td>{JSON.stringify(order.contactInformation)}</Td>
+                {/* <Button onClick={() => onOpenPopUp(order.id)}>Open Modal</Button> */}
               </Tr>
-            ))} */}
-            <Tr>
-              <Td>{JSON.stringify(details)}</Td>
-              <Td>{JSON.stringify(details)}</Td>
-              <Td>{JSON.stringify(details)}</Td>
-              <Td>{JSON.stringify(details)}</Td>
-            </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
-      {/* <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-              <Button onClick={onOpenPopUp}>Open Modal</Button>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-              <Button onClick={onOpenPopUp}>Open Modal</Button>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-              <Button onClick={onOpenPopUp}>Open Modal</Button>
-            </Tr> */}
-      {/* </Tbody> */}
-      {/* <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot> */}
-      {/* </Table>
-      </TableContainer> */}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -206,22 +133,3 @@ const OpenOrders = ({ details }: any) => {
   );
 };
 export default OpenOrders;
-
-// This function gets called at build time
-export async function getServerSideProps() {
-  console.log("inside static prop function");
-  // Call an external API endpoint to get posts
-  const res = await axios.post("/franchisee/" + "1" + "/accept_orders", {
-    orders: [{ id: 4 }, { id: 5 }, { id: 6 }],
-  });
-  const details = await res.data.orders;
-  console.log("inside static prop function");
-  console.log(JSON.stringify(details));
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      details,
-    },
-  };
-}
