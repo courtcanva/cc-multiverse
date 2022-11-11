@@ -22,4 +22,6 @@ export {
   Center,
   Input,
   Link,
+  InputGroup,
+  InputLeftAddon,
 } from "@chakra-ui/react";
