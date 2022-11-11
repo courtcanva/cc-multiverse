@@ -1,8 +1,11 @@
 import axios from "../utils/axios";
 import { useToast } from "@cc/ui-chakra";
+// import { useEffect, useState, useMemo } from "react";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-// import { getToken, getFranchiseeId } from "@src/utils/tokenService";
+// import { useRouter } from "next/router";
+// import router from "next/router";
+import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 export interface Order {
   label: string;
   value: number;
@@ -29,10 +32,17 @@ export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const [lists, setLists] = useState<OrderList[]>([]);
+  // const router = useRouter();
+  // // console.log(router);
+  // const { franchiseeId } = router.query;
 
   const getOpenOrders = async () => {
+    const token = getToken() || "";
     try {
-      const response = await axios.get("/franchisee/1/pending_orders");
+      // console.log(router);
+      // const { franchiseeId } = router.query;
+      // const response = await axios.get(`/franchisee/${franchiseeId}/pending_orders`);
+      const response = await axios.get(`/franchisee/${getFranchiseeId(token)}/pending_orders`);
       // console.log(response.data);
       const result: OrderList[] = response.data;
       setLists(result);
@@ -49,7 +59,10 @@ export default function useGetOrders() {
       });
     }
   };
-
+  // useMemo(() => {
+  //   if (!franchiseeId && franchiseeId !== 0) return;
+  //   getOpenOrders();
+  // }, [franchiseeId]);
   useEffect(() => {
     getOpenOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,9 +70,10 @@ export default function useGetOrders() {
 
   const handleAcceptOrderSubmit = async (data: OrderIdList[]) => {
     setIsLoading(true);
+    const token = getToken() || "";
 
     try {
-      await axios.post("/franchisee/1/accept_orders", {
+      await axios.post(`/franchisee/${getFranchiseeId(token)}/accept_orders`, {
         orders: data,
       });
       getOpenOrders();
