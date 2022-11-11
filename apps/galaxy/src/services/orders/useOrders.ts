@@ -1,10 +1,7 @@
 import axios from "../utils/axios";
 import { useToast } from "@cc/ui-chakra";
-// import { useEffect, useState, useMemo } from "react";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-// import { useRouter } from "next/router";
-// import router from "next/router";
 import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 export interface Order {
   label: string;
@@ -32,21 +29,13 @@ export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const [lists, setLists] = useState<OrderList[]>([]);
-  // const router = useRouter();
-  // // console.log(router);
-  // const { franchiseeId } = router.query;
 
   const getOpenOrders = async () => {
     const token = getToken() || "";
     try {
-      // console.log(router);
-      // const { franchiseeId } = router.query;
-      // const response = await axios.get(`/franchisee/${franchiseeId}/pending_orders`);
       const response = await axios.get(`/franchisee/${getFranchiseeId(token)}/pending_orders`);
-      // console.log(response.data);
       const result: OrderList[] = response.data;
       setLists(result);
-      // return lists;
     } catch (error) {
       const err = error as AxiosError;
       toast({
@@ -59,10 +48,7 @@ export default function useGetOrders() {
       });
     }
   };
-  // useMemo(() => {
-  //   if (!franchiseeId && franchiseeId !== 0) return;
-  //   getOpenOrders();
-  // }, [franchiseeId]);
+
   useEffect(() => {
     getOpenOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
