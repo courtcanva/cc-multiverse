@@ -3,7 +3,15 @@ import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CompanyInfoFormSchema } from "./SignUpFrom.schema";
 import useSignUp from "@src/services/signup/useSignUp";
-import { FormControl, FormInput, FormSelect, Stack, VStack, Button } from "@cc/ui-chakra";
+import {
+  FormControl,
+  FormInput,
+  FormSelect,
+  Stack,
+  VStack,
+  Button,
+  FormGroupInput,
+} from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
 type SignUpProps = {
@@ -54,7 +62,7 @@ const CompanyInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) 
             errorMessage={formState.errors.legalEntityName?.message}
           />
           <FormInput {...abn} {...register("abn")} errorMessage={formState.errors.abn?.message} />
-          <FormInput
+          <FormGroupInput
             {...contactNumber}
             {...register("contactNumber")}
             errorMessage={formState.errors.contactNumber?.message}

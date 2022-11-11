@@ -38,6 +38,7 @@ export const formConfig = {
     label: "Contact Number",
     id: "contactNumber",
     placeholder: "Enter contact number",
+    addon: "+61",
   },
   businessAddress: {
     label: "Company Address Details",
@@ -69,6 +70,7 @@ export const formConfig = {
     label: "Phone Number",
     id: "phoneNumber",
     placeholder: "Enter your phone number",
+    addon: "+61",
   },
   residentialAddress: {
     label: "Residential Address",
