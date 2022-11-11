@@ -1,11 +1,13 @@
 import React from "react";
-
 import { Button as CKButton } from "@chakra-ui/react";
 
 type ButtonVariant = "primary" | "secondary";
 type ButtonProps = {
   variant?: ButtonVariant;
+  width?: string;
+  marginTop?: string;
   isLoading?: boolean;
+  flex?: number;
 };
 export const Button = ({
   variant = "primary",
@@ -15,6 +17,13 @@ export const Button = ({
   const buttonVariants = {
     primary: {
       bg: "#36495D",
+      _hover: {
+        background: "#36495D",
+        opacity: "0.82",
+      },
+      _active: {
+        background: "#36495D",
+      },
     },
     secondary: {
       bg: "#49B785",
