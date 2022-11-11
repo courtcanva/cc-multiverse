@@ -1,11 +1,13 @@
-import React, { PureComponent } from "react";
+import Head from "../utils/Head";
+import { NextPage } from "next";
+import OpenOrders from "@src/modules/DisplayOrders/OpenOrders";
 
-class OpenOrders extends PureComponent {
-  render() {
-    return <div>order</div>;
-  }
-}
+const OpenOrdersPage: NextPage = () => {
+  return (
+    <Head title="OpenOrders">
+      <OpenOrders />
+    </Head>
+  );
+};
 
-// OpenOrders.propTypes = {};
-
-export default OpenOrders;
+export default OpenOrdersPage;
