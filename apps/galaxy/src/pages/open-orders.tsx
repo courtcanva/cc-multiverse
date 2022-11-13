@@ -1,6 +1,6 @@
 import Head from "../utils/Head";
 import { NextPage } from "next";
-import OpenOrders from "@src/modules/DisplayOrders/OpenOrders";
+import OpenOrders from "@src/modules/Orders/OpenOrders";
 
 const OpenOrdersPage: NextPage = () => {
   return (
