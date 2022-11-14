@@ -28,25 +28,32 @@ import { useState, useEffect } from "react";
 import axios from "../../services/utils/axios";
 import { useToast } from "@cc/ui-chakra";
 import { AxiosError } from "axios";
+import { getToken, getFranchiseeId } from "../../utils/tokenService";
+import { string } from "yup/lib/locale";
+import { optimize } from "webpack";
 
 type OrderDataType = {
   id: number;
-  orderId: number;
+  orderId: string;
   status: string;
-  contactInformation: object;
+  contactInformation: string;
 };
 
-const OpenOrders = ({ details }: any) => {
+const OpenOrders = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setLoading] = useState(false);
   const toast = useToast();
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState<Array<OrderDataType>>([
+    { id: -1, orderId: "", status: "", contactInformation: "" },
+  ]);
+  const [details, setDetails] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      const franchiseeId = getFranchiseeId(getToken());
       try {
-        const response = await axios.post("/franchisee/" + "3" + "/accept_orders", {
+        const response = await axios.post("/franchisee/" + franchiseeId + "/accept_orders", {
           orders: [{ id: 4 }, { id: 5 }, { id: 6 }],
         });
         if (response.status === 200) {
@@ -78,6 +85,14 @@ const OpenOrders = ({ details }: any) => {
     fetchData();
   }, []);
 
+  const onOpenPopUp = (id: number) => {
+    const order: OrderDataType | undefined = orders.find((order) => order.orderId == id.toString());
+    if (order != undefined) {
+      setDetails(order.contactInformation);
+    }
+    onOpen();
+  };
+
   return (
     <Flex>
       <TableContainer>
@@ -89,16 +104,19 @@ const OpenOrders = ({ details }: any) => {
               <Th>orderId</Th>
               <Th>status</Th>
               <Th>contactInformation</Th>
+              <Th>details</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {orders?.map((order: any) => (
+            {orders.map((order: OrderDataType) => (
               <Tr key={order.id}>
                 <Td>{order.id}</Td>
                 <Td>{order.orderId}</Td>
                 <Td>{order.status}</Td>
-                <Td>{JSON.stringify(order.contactInformation)}</Td>
-                {/* <Button onClick={() => onOpenPopUp(order.id)}>Open Modal</Button> */}
+                <Td>{order.contactInformation}</Td>
+                <Td>
+                  <Button onClick={() => onOpenPopUp(order.id)}>More Details</Button>
+                </Td>
               </Tr>
             ))}
           </Tbody>
@@ -108,17 +126,11 @@ const OpenOrders = ({ details }: any) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Inside modalBody</Text>
-            <Text>details here {JSON.stringify(details)}</Text>
-            <Box boxSize="sm">
-              <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
-            </Box>
-            <Box boxSize="sm">
-              <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
-            </Box>
+            <Text>details here {details}</Text>
+            <Text>design picture here</Text>
             <Box boxSize="sm">
               <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
             </Box>
