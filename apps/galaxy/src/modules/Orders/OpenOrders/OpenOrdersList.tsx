@@ -1,4 +1,16 @@
-import { Button, Checkbox, Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Checkbox,
+  Stack,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Text,
+} from "@chakra-ui/react";
 import useGetOrders, { FormData } from "@src/services/orders/useOrders";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -9,10 +21,10 @@ interface OrderIdList {
   id: string;
 }
 
-const defaultValues: FormData = {orders: []};
+const defaultValues: FormData = { orders: [] };
 
 const OpenOrdersList = () => {
-  const {isLoading, handleAcceptOrderSubmit, getOpenOrders, lists} = useGetOrders();
+  const { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists } = useGetOrders();
   const [checked, setChecked] = useState([""]);
   useForm<FormData>({
     defaultValues,

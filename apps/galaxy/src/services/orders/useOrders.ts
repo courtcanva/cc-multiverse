@@ -140,5 +140,5 @@ export default function useGetOrders() {
     setIsLoading(false);
   };
 
-  return {isLoading, handleAcceptOrderSubmit, getOpenOrders, lists};
+  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists };
 }
