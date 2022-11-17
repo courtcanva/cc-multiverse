@@ -29,9 +29,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       });
   };
 
-  useEffect(() => {
-    checkTokenExpiration(token) && tokenExpired(token);
-  }, []);
+  //   useEffect(() => {
+  //     checkTokenExpiration(token) && tokenExpired(token);
+  //   }, []);
 
   return (
     <ThemeProvider theme={randomTheme}>
