@@ -37,6 +37,7 @@ type OrderList = {
   customerId: string;
   id: number;
   orderId: string;
+  suburb: string;
   postcode: string;
   status: string;
   totalAmount: number;

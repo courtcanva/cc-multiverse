@@ -1,76 +1,99 @@
-import {
-  Button,
-  Checkbox,
-  Stack,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  Text,
-} from "@chakra-ui/react";
-import useGetOrders, { FormData } from "@src/services/orders/useOrders";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
+import React from "react";
+import { Button, ChakraProvider, Checkbox, Stack } from "@chakra-ui/react";
+import useGetOrders from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
-// import * as dayjs from "dayjs";
-
-interface OrderIdList {
-  id: string;
-}
-
-const defaultValues: FormData = { orders: [] };
+import { DataTable } from "./DataTable";
+import { createColumnHelper } from "@tanstack/react-table";
+import { info } from "next/dist/build/output/log";
 
 const OpenOrdersList = () => {
-  const { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists } = useGetOrders();
-  const [checked, setChecked] = useState([""]);
-  useForm<FormData>({
-    defaultValues,
-  });
+  const {lists} = useGetOrders();
 
-  const change = (e: string[]) => {
-    setChecked(e);
+  type Orders = {
+    id: number;
+    createdTime: string;
+    suburb: string;
+    postcode: string;
+    totalAmount: number;
+    designInformation: string;
   };
+
+  const columnHelper = createColumnHelper<Orders>();
+
+  const [checkedItems, setCheckedItems] = React.useState([false, false, false, false]);
+
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  const columns = [
+    columnHelper.accessor("id", {
+      cell: (info) => (
+        console.log("info=", info),
+          <Checkbox
+            isChecked = {checkedItems[info.row.index]}
+            onChange = (e) => (
+    let list = checkedItems
+  list[info.row.index] = e.target.checked
+  setCheckedItems(list)
+)
+  key={info.getValue()}
+  value={info.getValue()}
+  />
+)
+),
+  header
+    :
+    () => (
+      <Checkbox
+        isChecked={allChecked}
+        isIndeterminate={isIndeterminate}
+        onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
+      ></Checkbox>
+    ),
+}),
+  columnHelper.accessor("createdTime", {
+    cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
+    header: "date",
+  }),
+    columnHelper.accessor("suburb", {
+      cell: (info) => info.getValue(),
+      header: "suburb",
+    }),
+    columnHelper.accessor("postcode", {
+      cell: (info) => "$" + info.getValue(),
+      header: "postcode",
+      meta: {
+        isNumeric: true,
+      },
+    }),
+    columnHelper.accessor("totalAmount", {
+      cell: (info) => info.getValue(),
+      header: "total amount",
+      meta: {
+        isNumeric: true,
+      },
+    }),
+    columnHelper.accessor("designInformation", {
+      cell: (info) => (
+        <Button colorScheme="teal" size="sm" value={info.getValue()}>
+          detail
+        </Button>
+      ),
+      header: "details",
+    }),
+]
+  ;
 
   return (
     <Stack>
-      <TableContainer>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Checkbox</Th>
-              <Th>Date</Th>
-              <Th>Suburb</Th>
-              <Th isNumeric>Postcode</Th>
-              <Th isNumeric>Total</Th>
-              <Th>Details</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {lists.map((item) => (
-              <Tr key={item.id}>
-                <Td>
-                  <Checkbox key={item.id}></Checkbox>
-                </Td>
-                <Td>{dayjs(item.createdTime).format("YYYY/MM/DD")}</Td>
-                <Td>{"-suburb-"}</Td>
-                <Td isNumeric>{item.postcode}</Td>
-                <Td isNumeric>{item.totalAmount}</Td>
-                <Td>
-                  <Button colorScheme="teal" size="sm">
-                    detail
-                  </Button>
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <ChakraProvider>
+        <DataTable columns={columns} data={lists}/>
+      </ChakraProvider>
     </Stack>
-    // <Container name="openOrders" as="table">
-    // </Container>
   );
 };
 
