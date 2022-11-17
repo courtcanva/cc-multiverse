@@ -36,7 +36,6 @@ const OpenOrdersList = () => {
 
   return (
     <Stack>
-      <Text>hello js</Text>
       <TableContainer>
         <Table variant="simple">
           <Thead>
@@ -45,7 +44,7 @@ const OpenOrdersList = () => {
               <Th>Date</Th>
               <Th>Suburb</Th>
               <Th isNumeric>Postcode</Th>
-              <Th isNumeric>$ Total</Th>
+              <Th isNumeric>Total</Th>
               <Th>Details</Th>
             </Tr>
           </Thead>
@@ -55,7 +54,7 @@ const OpenOrdersList = () => {
                 <Td>
                   <Checkbox key={item.id}></Checkbox>
                 </Td>
-                <Td>{dayjs(item.createdTime).format("YYYY/MM/DD HH")}</Td>
+                <Td>{dayjs(item.createdTime).format("YYYY/MM/DD")}</Td>
                 <Td>{"-suburb-"}</Td>
                 <Td isNumeric>{item.postcode}</Td>
                 <Td isNumeric>{item.totalAmount}</Td>
