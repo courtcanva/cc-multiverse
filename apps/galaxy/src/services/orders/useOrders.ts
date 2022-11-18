@@ -10,8 +10,27 @@ export interface Order {
 export interface FormData {
   orders: Order[];
 }
-interface OrderList {
-  contactInformation: string;
+
+type OrderList = {
+  contactInformation: {
+    name: string;
+    phone: string;
+  };
+  designInformation: {
+    quotation: string;
+    constructionDraw: string;
+    isNeedLevelGround: boolean;
+    design: Design;
+    quotationDetails: QuotationDetails[];
+    constructionAddress: {
+      country: string;
+      state: string;
+      city: string;
+      line1: string;
+      line2: string;
+      postalCode: string;
+    };
+  };
   createdTime: string;
   customerId: string;
   id: number;
@@ -19,7 +38,49 @@ interface OrderList {
   postcode: string;
   status: string;
   totalAmount: number;
-}
+  checked: boolean;
+};
+
+type Design = {
+  designName: string;
+  tileColor: TileColor[];
+  courtSize: CourtSize;
+};
+
+type QuotationDetails = {
+  color: string;
+  quantity: number;
+};
+
+type TileColor = {
+  location: string;
+  color: string;
+};
+
+type CourtSize = {
+  name: string;
+  length: number;
+  width: number;
+  centreCircleRadius: number;
+  threePointRadius: number;
+  threePointLine: number;
+  lengthOfCorner: number;
+  restrictedAreaLength: number;
+  restrictedAreaWidth: number;
+  sideBorderWidth: number;
+  lineBorderWidth: number;
+};
+
+// interface OrderList {
+//   contactInformation: string;
+//   createdTime: string;
+//   customerId: string;
+//   id: number;
+//   orderId: string;
+//   postcode: string;
+//   status: string;
+//   totalAmount: number;
+// }
 
 interface OrderIdList {
   id: string;
@@ -35,7 +96,11 @@ export default function useGetOrders() {
     try {
       const response = await axios.get(`/franchisee/${getFranchiseeId(token)}/pending_orders`);
       const result: OrderList[] = response.data;
-      setLists(result);
+      const arr = result.map((val) => {
+        val.checked = false;
+        return val;
+      });
+      setLists(arr);
     } catch (error) {
       const err = error as AxiosError;
       toast({
@@ -57,18 +122,31 @@ export default function useGetOrders() {
   const handleAcceptOrderSubmit = async (data: OrderIdList[]) => {
     setIsLoading(true);
     const token = getToken() || "";
-
+    // const idArr = lists
+    //   .map((val) => {
+    //     if (val.checked) {
+    //       return val.id;
+    //     }
+    //   })  //  [1,undefined]
+    //   .filter((val) => val);
     try {
       await axios.post(`/franchisee/${getFranchiseeId(token)}/accept_orders`, {
         orders: data,
       });
+      toast({
+        title: "Accept Successfully",
+        status: "info",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      });
       getOpenOrders();
     } catch (error) {
       const err = error as AxiosError;
-      if (err.response?.status === 400) {
+      if (err.response?.status === 404) {
         toast({
           title: "error",
-          description: "Username and password is not authenticated",
+          description: "You have not selected any order",
           status: "error",
           duration: 6000,
           position: "top",
@@ -87,5 +165,5 @@ export default function useGetOrders() {
     setIsLoading(false);
   };
 
-  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists };
+  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists, setLists };
 }

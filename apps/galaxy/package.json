@@ -16,14 +16,14 @@
   },
   "dependencies": {
     "@cc/ui-chakra": "*",
+    "@hookform/resolvers": "^2.9.9",
     "axios": "^0.27.2",
     "jwt-decode": "^3.1.2",
     "lodash-es": "^4.17.21",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.36.1",
-    "@hookform/resolvers": "^2.9.9",
+    "react-hook-form": "^7.39.4",
     "yup": "^0.32.11",
     "yup-password": "^0.2.2"
   },

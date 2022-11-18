@@ -1,165 +1,258 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import useGetOrders, { FormData } from "../../services/orders/useOrders";
-import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
+import React from "react";
+import { Button, ChakraProvider, Checkbox, Stack } from "@chakra-ui/react";
+import useGetOrders from "@src/services/orders/useOrders";
+// import dayjs from "dayjs";
+import { DataTable } from "./DataTable";
+import { createColumnHelper, RowSelection } from "@tanstack/react-table";
+import { info } from "next/dist/build/output/log";
+import { boolean } from "yup";
 
-import {
-  Flex,
-  // Button,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-  Button,
-  // Container,
-  // Button,
-  // FormControl,
-  // FormLabel,
-} from "@cc/ui-chakra";
+const OpenOrdersList = () => {
+  //   const { lists } = useGetOrders();
 
-interface OrderIdList {
-  id: string;
-}
+  // const lists = [
+  //   {
+  //     id: 11,
+  //     orderId: "110",
+  //     customerId: "103",
+  //     status: "ASSIGNED_PENDING",
+  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+  //     designInformation:
+  //       '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
+  //     createdTime: "2022-10-01T20:01:16.395+10:00",
+  //     postcode: "3000",
+  //     totalAmount: 999.0,
+  //     suburb: null,
+  //   },
+  //   {
+  //     id: 10,
+  //     orderId: "109",
+  //     customerId: "102",
+  //     status: "ASSIGNED_PENDING",
+  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+  //     designInformation: '{"name": "draft 1"}',
+  //     createdTime: "2022-11-09T21:01:16.395+11:00",
+  //     postcode: "3003",
+  //     totalAmount: 999.0,
+  //     suburb: null,
+  //   },
+  //   {
+  //     id: 12,
+  //     orderId: "111",
+  //     customerId: "103",
+  //     status: "ASSIGNED_PENDING",
+  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+  //     designInformation:
+  //       '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
+  //     createdTime: "2022-10-01T20:01:16.395+10:00",
+  //     postcode: "3000",
+  //     totalAmount: 999.0,
+  //     suburb: null,
+  //   },
+  //   {
+  //     id: 9,
+  //     orderId: "108",
+  //     customerId: "102",
+  //     status: "ASSIGNED_PENDING",
+  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+  //     designInformation:
+  //       '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
+  //     createdTime: "2022-10-10T21:01:16.395+11:00",
+  //     postcode: "3003",
+  //     totalAmount: 999.0,
+  //     suburb: null,
+  //   },
+  // ];
 
-const AcceptOrder = () => {
-  const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
-  const [checked, setChecked] = useState([""]);
-
-  const change = (e: string[]) => {
-    setChecked(e);
+  type Orders = {
+    id: number;
+    createdTime: string;
+    suburb: string;
+    postcode: string;
+    totalAmount: number;
+    designInformation: string;
   };
 
+  const columnHelper = createColumnHelper<Orders>();
+  const { isLoading, handleAcceptOrderSubmit, lists, setLists } = useGetOrders();
+
+  const [checkedItems, setCheckedItems] = React.useState([false]);
+  React.useEffect(() => {
+    (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
+  }, []);
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+  const columns = [
+    columnHelper.accessor("id", {
+      cell: (info) => (
+        <Checkbox
+          onChange={(e) => {
+            const list = checkedItems;
+            checkedItems[info.row.index] = e.target.checked;
+            setCheckedItems([...list]);
+          }}
+          isChecked={checkedItems[info.row.index]}
+        ></Checkbox>
+      ),
+      header: () => (
+        <Checkbox
+          isChecked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={(e) => {
+            setCheckedItems([...checkedItems.fill(e.target.checked, 0, lists.length)]);
+          }}
+        ></Checkbox>
+      ),
+    }),
+    columnHelper.accessor("createdTime", {
+      // cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
+      header: "date",
+    }),
+    columnHelper.accessor("suburb", {
+      cell: (info) => info.getValue(),
+      header: "suburb",
+    }),
+    columnHelper.accessor("postcode", {
+      cell: (info) => "$" + info.getValue(),
+      header: "postcode",
+      meta: {
+        isNumeric: true,
+      },
+    }),
+    columnHelper.accessor("totalAmount", {
+      cell: (info) => info.getValue(),
+      header: "total amount",
+      meta: {
+        isNumeric: true,
+      },
+    }),
+    columnHelper.accessor("designInformation", {
+      cell: (info) => (
+        <Button colorScheme="teal" size="sm" value={info.getValue()}>
+          detail
+        </Button>
+      ),
+      header: "details",
+    }),
+  ];
   const sub = () => {
-    const orders: OrderIdList[] = checked.map((val) => ({ id: val }));
-    handleAcceptOrderSubmit(orders);
+    const arr = checkedItems
+      .map((val, i) => {
+
+        if (val) return i;
+      })
+      .filter((val) => val !== undefined);
+    const idArr = lists
+      .map((val, i) => {
+        const bool = arr.find((val) => val == i);
+        // console.log(bool)
+        if (bool != undefined) {
+          return val.id; //  {id:val.}
+        }
+      })
+      .filter((val) => val);
+    // console.log(arr);
+    handleAcceptOrderSubmit(idArr);
+    (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };
   return (
-    <Flex>
-      <TableContainer>
-        <Table variant="simple">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>id</Th>
-              <Th>orderId</Th>
-              <Th>status</Th>
-              <Th>contactInformation</Th>
-              <Th>details</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {lists.map((val) => (
-              <Tr key={val.id}>
-                <Td>
-                  <CheckboxGroup value={checked} onChange={change}>
-                    <Checkbox key={val.id} value={val.id + ""}>
-                      {val.id}
-                    </Checkbox>
-                  </CheckboxGroup>
-                </Td>
-                <Td> {val.orderId}</Td>
-                <Td>{val.status}</Td>
-                <Td>{val.contactInformation}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-          <Button onClick={sub} isLoading={isLoading}>
-            submit
-          </Button>
-        </Table>
-      </TableContainer>
-    </Flex>
+    <Stack>
+      <ChakraProvider>
+        <DataTable columns={columns} data={lists} />
+        <Button onClick={sub} isLoading={isLoading}>
+          submit
+        </Button>
+      </ChakraProvider>
+    </Stack>
   );
 };
 
-//   return (
-//     <Container name="suburbs" as="form" onSubmit={handleSubmit(sub)}>
-//       <FormControl>
-//         <FormLabel>Select orders</FormLabel>
-//         <CheckboxGroup value={checked} onChange={change}>
-//           {lists.map((val) => (
-//             <Checkbox key={val.id} value={val.id + ""}>
-//               {val.id}
-//             </Checkbox>
-//           ))}
-//         </CheckboxGroup>
-//       </FormControl>
+export default OpenOrdersList;
 
-//       <Button onClick={sub} isLoading={isLoading}>
-//         submit
-//       </Button>
-//     </Container>
-//   );
-// };
+// import React from "react";
+// import { Button, ChakraProvider, Checkbox, Stack } from "@chakra-ui/react";
+// import useGetOrders from "@src/services/orders/useOrders";
+// // import dayjs from "dayjs";
+// import { DataTable } from "./DataTable";
+// import { createColumnHelper, RowSelection } from "@tanstack/react-table";
+// import { info } from "next/dist/build/output/log";
 
-export default AcceptOrder;
-
-// import { SetStateAction, useState } from "react";
-// import { useForm } from "react-hook-form";
-// import useGetOrders, { FormData } from "../../services/orders/useOrders";
-// import {
-//   Checkbox,
-//   CheckboxGroup,
-//   Button,
-//   FormLabel,
-//   FormControl,
-//   Container,
-// } from "@chakra-ui/react";
-
-// interface OrderIdList {
-//   id: string;
-// }
-
-// const defaultValues: FormData = { orders: [] };
 // const AcceptOrders = () => {
-//   const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
-//   // const [checked, setChecked] = useState([""]);
-//   const [checkedItems, setCheckedItems] = useState([false, false]);
-//   const { handleSubmit } = useForm<FormData>({
-//     defaultValues,
-//   });
-
-//   const allChecked = checkedItems.every(Boolean);
-//   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
-
-//   // const change = (e: string[]) => {
-//   //   setChecked(e);
-//   // };
-//   const change = (e) => {
-//     setCheckedItems(e);
-//   };
-
-//   const sub = () => {
-//     const orders: OrderIdList[] = checkedItems.map((val) => ({ id: val }));
-//     handleAcceptOrderSubmit(orders);
-//   };
-
+//   const columnHelper = createColumnHelper();
+//   const { isLoading, handleAcceptOrderSubmit, lists, setLists } = useGetOrders();
+//   // const [checkedItems, setCheckedItems] = React.useState([false, false, false, false]);
+//   // const allChecked = checkedItems.every(Boolean);
+//   // const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+//   const [isAllChecked, setAllChecked] = React.useState(false);
+//   React.useMemo(() => {
+//     const allBool = lists.every((val) => val.checked === true);
+//     setAllChecked(allBool);
+//   }, [lists]);
+//   const columns = [
+//     columnHelper.accessor("id", {
+//       cell: (info) => (
+//         <Checkbox
+//           onChange={(e) => {
+//             lists[info.row.index].checked = e.target.checked;
+//             // checkedItems[info.row.index] = e.target.checked;
+//             setLists([...lists]);
+//           }}
+//           isChecked={lists[info.row.index].checked}
+//         ></Checkbox>
+//       ),
+//       header: () => (
+//         <Checkbox
+//           isChecked={isAllChecked}
+//           onChange={(e) => {
+//             const arr = lists.map((val) => {
+//               val.checked = e.target.checked;
+//               return val;
+//             });
+//             setLists([...arr]);
+//           }}
+//         ></Checkbox>
+//       ),
+//     }),
+//     // columnHelper.accessor("createdTime", {
+//     //   cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
+//     //   header: "date",
+//     // }),
+//     columnHelper.accessor("suburb", {
+//       cell: (info) => info.getValue(),
+//       header: "suburb",
+//     }),
+//     columnHelper.accessor("postcode", {
+//       cell: (info) => "$" + info.getValue(),
+//       header: "postcode",
+//       meta: {
+//         isNumeric: true,
+//       },
+//     }),
+//     columnHelper.accessor("totalAmount", {
+//       cell: (info) => info.getValue(),
+//       header: "total amount",
+//       meta: {
+//         isNumeric: true,
+//       },
+//     }),
+//     columnHelper.accessor("designInformation", {
+//       cell: (info) => (
+//         <Button colorScheme="teal" size="sm" value={info.getValue()}>
+//           detail
+//         </Button>
+//       ),
+//       header: "details",
+//     }),
+//   ];
 //   return (
-//     <Container name="suburbs" as="form" onSubmit={handleSubmit(sub)}>
-//       <FormControl>
-//         <FormLabel>Select orders</FormLabel>
-//         <Checkbox isChecked={allChecked} isIndeterminate={isIndeterminate} onChange={change}>
-//           {lists.map((val) => (
-//             <Checkbox
-//               key={val.id}
-//               value={val.id + ""}
-//               isChecked={checkedItems[0]}
-//               onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
-//             >
-//               {val.id}
-//             </Checkbox>
-//           ))}
-//         </Checkbox>
-//       </FormControl>
-
-//       <Button onClick={sub} isLoading={isLoading}>
-//         submit
-//       </Button>
-//     </Container>
+//     <Stack>
+//       <ChakraProvider>
+//         <DataTable columns={columns} data={lists} />
+//         <Button onClick={handleAcceptOrderSubmit} isLoading={isLoading}>
+//           submit
+//         </Button>
+//       </ChakraProvider>
+//     </Stack>
 //   );
 // };
 
