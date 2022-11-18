@@ -4,7 +4,7 @@ import Logo from "@src/components/Logo";
 
 const SelectServiceArea = () => {
   return (
-    <Flex alignItems="center" height="100%">
+    <Flex justifyContent="center" alignItems="center" height="100%">
       <VStack marginX={{ base: "16px", sm: "16px", md: "200px" }} width={{ lg: "428px" }}>
         <Logo />
         <Text height="72px" fontSize="16px" fontWeight="bold">

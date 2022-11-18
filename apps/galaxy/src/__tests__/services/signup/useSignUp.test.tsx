@@ -124,7 +124,7 @@ describe("Sign Up Page", () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false));
   });
 
-  it("should get true value of is response status is 200", async () => {
+  it("should get true value of email check response when status is 200", async () => {
     mockAxios.onGet("/staff/emails/Atester@gmail.com").reply(200);
     const { result } = renderHook(() => useSignUp());
     let isEmailExists: boolean;
@@ -146,6 +146,36 @@ describe("Sign Up Page", () => {
       expect(mockToast).toHaveBeenCalledWith({
         title: "That email has been used",
         description: "That username is taken. Try another.",
+        status: "error",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      })
+    );
+  });
+
+  it("should get true value when abn check response status is 200", async () => {
+    mockAxios.onGet("/franchisee/abn/12345678909").reply(200);
+    const { result } = renderHook(() => useSignUp());
+    let isAbnUnique: boolean;
+    await act(async () => {
+      isAbnUnique = await result.current.checkDuplicateABN(mockSignUpFormData.abn);
+    });
+
+    await waitFor(() => expect(isAbnUnique).toBe(false));
+  });
+
+  it("should toast error with duplicate abn when response status is 409", async () => {
+    mockAxios.onGet("/franchisee/abn/12345678909").reply(409);
+    const { result } = renderHook(() => useSignUp());
+    await act(async () => {
+      await result.current.checkDuplicateABN(mockSignUpFormData.abn);
+    });
+
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith({
+        title: "Duplicate ABN number",
+        description: "This ABN number is already registered, please check again.",
         status: "error",
         duration: 6000,
         position: "top",
