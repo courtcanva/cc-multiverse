@@ -6,7 +6,7 @@ import { DataTable } from "./DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const OpenOrdersList = () => {
-  const { lists } = useGetOrders();
+  const { lists } = useGetOrders("pending_orders");
 
   type Orders = {
     id: number;
@@ -18,39 +18,11 @@ const OpenOrdersList = () => {
   };
 
   const columnHelper = createColumnHelper<Orders>();
-  const [checkedItems, setCheckedItems] = React.useState([false, false, false, false]);
-  const allChecked = checkedItems.every(Boolean);
-  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
   const columns = [
     columnHelper.accessor("id", {
-      cell: (info) => (
-        <Checkbox
-          onChange={(e) => {
-            const list = checkedItems;
-            list[info.row.index] = e.target.checked;
-            checkedItems[info.row.index] = e.target.checked;
-            setCheckedItems([...list]);
-          }}
-          isChecked={checkedItems[info.row.index]}
-          key={info.getValue()}
-          value={info.getValue()}
-        ></Checkbox>
-      ),
-      header: () => (
-        <Checkbox
-          isChecked={allChecked}
-          isIndeterminate={isIndeterminate}
-          onChange={(e) => {
-            setCheckedItems([
-              e.target.checked,
-              e.target.checked,
-              e.target.checked,
-              e.target.checked,
-            ]);
-          }}
-        ></Checkbox>
-      ),
+      cell: (info) => <Checkbox key={info.getValue()} value={info.getValue()}></Checkbox>,
+      header: () => <Checkbox></Checkbox>,
     }),
     columnHelper.accessor("createdTime", {
       cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
@@ -61,14 +33,14 @@ const OpenOrdersList = () => {
       header: "suburb",
     }),
     columnHelper.accessor("postcode", {
-      cell: (info) => "$" + info.getValue(),
+      cell: (info) => info.getValue(),
       header: "postcode",
       meta: {
         isNumeric: true,
       },
     }),
     columnHelper.accessor("totalAmount", {
-      cell: (info) => info.getValue(),
+      cell: (info) => "$" + info.getValue(),
       header: "total amount",
       meta: {
         isNumeric: true,

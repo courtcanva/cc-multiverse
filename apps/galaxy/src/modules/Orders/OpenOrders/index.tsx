@@ -12,7 +12,7 @@ const OpenOrders = () => {
       {/* <Text fontSize="20" fontWeight="bold"> */}
       {/*   Open Orders List */}
       {/* </Text> */}
-      <Logo showText={false} />
+      {/* <Logo showText={false} /> */}
       {/* <Text height="72px" fontSize="22px" fontWeight="bold"> */}
       {/*   CourtCanva */}
       {/* </Text> */}

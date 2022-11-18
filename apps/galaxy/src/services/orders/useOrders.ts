@@ -9,10 +9,6 @@ export interface Order {
   value: number;
 }
 
-export interface FormData {
-  orders: Order[];
-}
-
 type OrderList = {
   contactInformation: {
     name: string;
@@ -79,20 +75,16 @@ type OrderIdList = {
   id: string;
 };
 
-export default function useGetOrders() {
+export default function useGetOrders(endpoint: string) {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const [lists, setLists] = useState<OrderList[]>([]);
 
   const getOpenOrders = async () => {
     try {
-      // todo load value to here
       const franchiseeId = getFranchiseeId(getToken());
-      const response = await axios.get(`/franchisee/${franchiseeId}/pending_orders`);
-      console.log(response.data);
-      console.log(response.data[3].designInformation);
+      const response = await axios.get(`/franchisee/${franchiseeId}/${endpoint}`);
       setLists(response.data);
-      // return lists;
     } catch (error) {
       const err = error as AxiosError;
       toast({
@@ -110,37 +102,5 @@ export default function useGetOrders() {
     getOpenOrders();
   }, []);
 
-  const handleAcceptOrderSubmit = async (data: OrderIdList[]) => {
-    setIsLoading(true);
-
-    try {
-      await axios.post("/franchisee/1/accept_orders", {
-        orders: data,
-      });
-      getOpenOrders();
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response?.status === 400) {
-        toast({
-          title: "error",
-          description: "Username and password is not authenticated",
-          status: "error",
-          duration: 6000,
-          position: "top",
-          isClosable: true,
-        });
-      } else {
-        toast({
-          title: err.message,
-          status: "error",
-          duration: 6000,
-          position: "top",
-          isClosable: true,
-        });
-      }
-    }
-    setIsLoading(false);
-  };
-
-  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists };
+  return { isLoading, getOpenOrders, lists };
 }
