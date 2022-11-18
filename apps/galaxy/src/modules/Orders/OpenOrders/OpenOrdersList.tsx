@@ -18,9 +18,7 @@ const OpenOrdersList = () => {
   };
 
   const columnHelper = createColumnHelper<Orders>();
-
   const [checkedItems, setCheckedItems] = React.useState([false, false, false, false]);
-
   const allChecked = checkedItems.every(Boolean);
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
@@ -28,12 +26,13 @@ const OpenOrdersList = () => {
     columnHelper.accessor("id", {
       cell: (info) => (
         <Checkbox
-          isChecked={checkedItems[info.row.index]}
           onChange={(e) => {
             const list = checkedItems;
             list[info.row.index] = e.target.checked;
-            setCheckedItems(list);
+            checkedItems[info.row.index] = e.target.checked;
+            setCheckedItems([...list]);
           }}
+          isChecked={checkedItems[info.row.index]}
           key={info.getValue()}
           value={info.getValue()}
         ></Checkbox>
@@ -42,7 +41,14 @@ const OpenOrdersList = () => {
         <Checkbox
           isChecked={allChecked}
           isIndeterminate={isIndeterminate}
-          onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
+          onChange={(e) => {
+            setCheckedItems([
+              e.target.checked,
+              e.target.checked,
+              e.target.checked,
+              e.target.checked,
+            ]);
+          }}
         ></Checkbox>
       ),
     }),
@@ -70,7 +76,7 @@ const OpenOrdersList = () => {
     }),
     columnHelper.accessor("designInformation", {
       cell: (info) => (
-        <Button colorScheme="teal" size="sm" value={info.getValue().toString()}>
+        <Button colorScheme="teal" size="sm" value={info.getValue()}>
           detail
         </Button>
       ),
