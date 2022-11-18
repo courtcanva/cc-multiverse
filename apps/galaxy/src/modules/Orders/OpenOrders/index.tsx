@@ -8,14 +8,6 @@ const OpenOrders = () => {
       <Stack width="300px">
         <Text>Sidebar</Text>
       </Stack>
-
-      {/* <Text fontSize="20" fontWeight="bold"> */}
-      {/*   Open Orders List */}
-      {/* </Text> */}
-      {/* <Logo showText={false} /> */}
-      {/* <Text height="72px" fontSize="22px" fontWeight="bold"> */}
-      {/*   CourtCanva */}
-      {/* </Text> */}
       <OpenOrdersList />
     </Flex>
   );
