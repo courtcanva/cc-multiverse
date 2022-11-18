@@ -26,7 +26,6 @@ describe("SignUp", () => {
 
   it("should sign up succesfully when all input value is valid", async () => {
     mockAxios.onGet("/staff/emails/tester@gmail.com").reply(200);
-    mockAxios.onGet("/staff/abn/12345678900").reply(200);
     renderWithMockedProvider(<SignUp />);
     const emailInput = screen.getByPlaceholderText("Enter email");
     const passwordInput = screen.getByPlaceholderText("Enter password");
@@ -45,6 +44,7 @@ describe("SignUp", () => {
     const companyStateSelect = screen.getByRole("combobox");
     const companyPostCodeInput = screen.getByPlaceholderText("Enter postcode");
     const companyAddressInput = screen.getByPlaceholderText("Enter your business address");
+    mockAxios.onGet("/franchisee/abn/12345678900").reply(200);
     expect(screen.getByText("Please Fill in your company information details")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /next/i })).toBeDisabled();
     await userEvent.type(businessNameInput, "tester Industry");
