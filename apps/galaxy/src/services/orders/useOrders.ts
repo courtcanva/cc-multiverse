@@ -18,21 +18,7 @@ type OrderList = {
     name: string;
     phone: string;
   };
-  designInformation: {
-    quotation: string;
-    constructionDraw: string;
-    isNeedLevelGround: boolean;
-    design: Design;
-    quotationDetails: QuotationDetails[];
-    constructionAddress: {
-      country: string;
-      state: string;
-      city: string;
-      line1: string;
-      line2: string;
-      postalCode: string;
-    };
-  };
+  designInformation: string;
   createdTime: string;
   customerId: string;
   id: number;
@@ -41,6 +27,22 @@ type OrderList = {
   postcode: string;
   status: string;
   totalAmount: number;
+};
+
+export type DesignInformation = {
+  quotation: string;
+  constructionDraw: string;
+  isNeedLevelGround: boolean;
+  design: Design;
+  quotationDetails: QuotationDetails[];
+  constructionAddress: {
+    country: string;
+    state: string;
+    city: string;
+    line1: string;
+    line2: string;
+    postalCode: string;
+  };
 };
 
 type Design = {
