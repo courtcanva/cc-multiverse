@@ -5,8 +5,8 @@ import React from "react";
 const OpenOrders = () => {
   return (
     <Flex w="100%">
-      <Stack width="200px">
-        <Box bg="red" h="100vh">
+      <Stack width="200px" height="calc(100vh-64px)">
+        <Box bg="red" height={"100%"}>
           Sidebar
         </Box>
       </Stack>

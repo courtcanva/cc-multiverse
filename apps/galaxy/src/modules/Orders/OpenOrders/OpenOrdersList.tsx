@@ -56,7 +56,13 @@ const OpenOrdersList = () => {
     }),
   ];
   return (
-    <Stack padding="1px" border="2px" borderColor="#E2E8F0" borderRadius="lg">
+    <Stack
+      border="1px"
+      borderBottom="0px"
+      borderColor="gray.200"
+      borderRadius="lg"
+      overflow="hidden"
+    >
       <DataTable columns={columns} data={lists} />
     </Stack>
   );

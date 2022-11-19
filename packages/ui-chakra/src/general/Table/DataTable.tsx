@@ -30,7 +30,7 @@ export function DataTable<Data extends object>({ data, columns }: DataTableProps
 
   return (
     <Table>
-      <Thead bg="#F7FAFC">
+      <Thead bg="gray.50">
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
