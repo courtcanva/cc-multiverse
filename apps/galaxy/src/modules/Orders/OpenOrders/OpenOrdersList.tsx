@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Checkbox, Stack } from "@cc/ui-chakra";
 import useGetOrders from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
+// import { DataTable } from "../../../../../../packages/ui-chakra/src/general/Table/DataTable";
 import { DataTable } from "@cc/ui-chakra";
 import { createColumnHelper } from "@tanstack/react-table";
 
@@ -56,7 +57,7 @@ const OpenOrdersList = () => {
     }),
   ];
   return (
-    <Stack>
+    <Stack padding="1px" border="2px" borderColor="#E2E8F0" borderRadius="lg">
       <DataTable columns={columns} data={lists} />
     </Stack>
   );
