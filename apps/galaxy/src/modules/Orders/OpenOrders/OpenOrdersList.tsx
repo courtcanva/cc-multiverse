@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, ChakraProvider, Checkbox, Stack } from "@chakra-ui/react";
+import { Button, Checkbox, Stack } from "@cc/ui-chakra";
 import useGetOrders from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
-import { DataTable } from "./DataTable";
+import { DataTable } from "@cc/ui-chakra";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const OpenOrdersList = () => {
@@ -48,7 +48,7 @@ const OpenOrdersList = () => {
     }),
     columnHelper.accessor("designInformation", {
       cell: (info) => (
-        <Button colorScheme="teal" size="sm" value={info.getValue()}>
+        <Button variant="secondary" value={info.getValue()}>
           detail
         </Button>
       ),
@@ -57,9 +57,7 @@ const OpenOrdersList = () => {
   ];
   return (
     <Stack>
-      <ChakraProvider>
-        <DataTable columns={columns} data={lists} />
-      </ChakraProvider>
+      <DataTable columns={columns} data={lists} />
     </Stack>
   );
 };

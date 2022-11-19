@@ -30,13 +30,14 @@ export function DataTable<Data extends object>({ data, columns }: DataTableProps
 
   return (
     <Table>
-      <Thead>
+      <Thead bg="green">
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
               const meta: any = header.column.columnDef.meta;
               return (
                 <Th
+                  textAlign="center"
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
                   isNumeric={meta?.isNumeric}
