@@ -87,7 +87,7 @@ describe("useServiceArea hook", () => {
       })
     );
     await waitFor(() => expect(result.current.isLoading).toBe(false));
-    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(mockPush).toHaveBeenCalledWith("/sign-in");
   });
 
   it("should submit service area form in fail", async () => {
