@@ -13,9 +13,8 @@ export default function Galaxy() {
   };
 
   return (
-    <Stack minH="100vh" justifyContent="center" alignItems="center" spacing="1.6rem">
+    <Stack minH="100vh" justifyContent="center" alignItems="center" spacing="1.6rem" width="100%">
       <h1>Galaxy</h1>
-      <NoFoundIcon />
       <Button onClick={onToGalaxy}>To Galaxy... and Beyong!!</Button>
       <Button onClick={signOut}>Sign Out</Button>
     </Stack>
