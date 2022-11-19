@@ -36,12 +36,7 @@ export function DataTable<Data extends object>({ data, columns }: DataTableProps
             {headerGroup.headers.map((header) => {
               const meta: any = header.column.columnDef.meta;
               return (
-                <Th
-                  // textAlign="center"
-                  key={header.id}
-                  onClick={header.column.getToggleSortingHandler()}
-                  isNumeric={meta?.isNumeric}
-                >
+                <Th key={header.id} isNumeric={meta?.isNumeric}>
                   <Center>{flexRender(header.column.columnDef.header, header.getContext())}</Center>
                 </Th>
               );

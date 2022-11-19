@@ -5,7 +5,7 @@ import React from "react";
 const OpenOrders = () => {
   return (
     <Flex w="100%">
-      <Stack width="200px" h="100vh">
+      <Stack width="200px">
         <Box bg="red" h="100vh">
           Sidebar
         </Box>
