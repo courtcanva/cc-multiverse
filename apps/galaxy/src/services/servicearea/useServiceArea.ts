@@ -69,7 +69,7 @@ export default function useServiceArea() {
         position: "top",
         isClosable: true,
       });
-      router.push("/");
+      router.push("/sign-in");
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 403) {
         toast({

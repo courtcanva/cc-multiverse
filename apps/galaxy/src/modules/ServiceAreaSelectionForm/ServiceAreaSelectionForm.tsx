@@ -71,9 +71,6 @@ const ServiceAreaSelection = () => {
       />
 
       <HStack marginTop="48px">
-        <Button type="button" isLoading={isLoading} variant="secondary" flex={1}>
-          Back
-        </Button>
         <Button type="submit" isLoading={isLoading} variant="primary" flex={1}>
           Submit
         </Button>

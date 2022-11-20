@@ -36,7 +36,7 @@ export default function useSignUp() {
           contactNumber,
           businessAddress,
           state: companyState,
-          companyPostcode,
+          postcode: companyPostcode,
         },
         staffPostDto: {
           firstName,
@@ -44,7 +44,7 @@ export default function useSignUp() {
           email: username,
           residentialAddress,
           phoneNumber,
-          residentialPostcode,
+          postcode: residentialPostcode,
           state: residentialState,
           password,
         },

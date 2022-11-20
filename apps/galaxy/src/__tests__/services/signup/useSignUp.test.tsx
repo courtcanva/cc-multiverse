@@ -42,7 +42,7 @@ describe("Sign Up Page", () => {
       abn: "12345678909",
       contactNumber: "0411111111",
       businessAddress: "23 testing St, Mel",
-      companyPostcode: "1234",
+      postcode: "1234",
       state: "VIC",
     },
     staffPostDto: {
@@ -52,7 +52,7 @@ describe("Sign Up Page", () => {
       lastName: "Last",
       phoneNumber: "0422222222",
       residentialAddress: "34 testing St, Mel",
-      residentialPostcode: "1235",
+      postcode: "1235",
       state: "NSW",
     },
   };
