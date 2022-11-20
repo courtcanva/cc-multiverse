@@ -12,33 +12,36 @@ export interface FormData {
 }
 
 type OrderList = {
+  checked: boolean;
   contactInformation: {
     name: string;
     phone: string;
   };
-  designInformation: {
-    quotation: string;
-    constructionDraw: string;
-    isNeedLevelGround: boolean;
-    design: Design;
-    quotationDetails: QuotationDetails[];
-    constructionAddress: {
-      country: string;
-      state: string;
-      city: string;
-      line1: string;
-      line2: string;
-      postalCode: string;
-    };
-  };
+  designInformation: string;
   createdTime: string;
   customerId: string;
   id: number;
   orderId: string;
+  suburb: string;
   postcode: string;
   status: string;
   totalAmount: number;
-  checked: boolean;
+};
+
+export type DesignInformation = {
+  quotation: string;
+  constructionDraw: string;
+  isNeedLevelGround: boolean;
+  design: Design;
+  quotationDetails: QuotationDetails[];
+  constructionAddress: {
+    country: string;
+    state: string;
+    city: string;
+    line1: string;
+    line2: string;
+    postalCode: string;
+  };
 };
 
 type Design = {
@@ -82,8 +85,8 @@ type CourtSize = {
 //   totalAmount: number;
 // }
 
-interface OrderIdList {
-  id: string;
+export interface OrderIdList {
+  id: number | undefined;
 }
 
 export default function useGetOrders() {

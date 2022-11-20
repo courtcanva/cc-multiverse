@@ -1,57 +1,26 @@
 import AcceptOrders from "./AcceptOrdersForm";
-import { Text, Stack, Flex } from "@cc/ui-chakra";
+import { Box, Flex, HStack, Image, Stack, Text, VStack } from "@cc/ui-chakra";
 const AcceptedOrders = () => {
   return (
-    // <Grid
-    //   templateAreas={`"header header"
-    //               "nav main"`}
-    //   gridTemplateRows={"112px 808px"}
-    //   gridTemplateColumns={"263px 945px"}
-    //   h="920px"
-    //   gap="1"
-    //   // color="blackAlpha.700"
-    //   fontWeight="bold"
-    // >
-    //   <GridItem pl="5px" bg="rgba(54, 73, 93, 0.16)" area={"header"}>
-    //     Header
-    //   </GridItem>
-    //   <GridItem pl="5px" bg="rgba(54, 73, 93, 0.16)" area={"nav"}>
-    //     Nav
-    //   </GridItem>
-    //   <GridItem pl="5px" bg="green.300" area={"main"}>
-    //     <AcceptOrders />
-    //   </GridItem>
-    // </Grid>
-    // // <Flex>
-    // //   <Text fontSize="23" fontWeight="bold">
-    // //     Open Orders
-    // //   </Text>
-    // //   <OpenOrders />
-    // // </Flex>
-    // // <Flex>
-    // //   <Flex>
-    // //   </Flex>
-    // //   <Flex></Flex>
-    // // </Flex>
-
-    <Flex>
-      <Stack width="300px">
-        <Text>Sidebar</Text>
+    <Flex w="100%">
+      <Stack width="200px" height="calc(100vh-64px)">
+        <Box bg="red" height={"100%"}>
+          Sidebar
+        </Box>
       </Stack>
 
-      {/* <Text fontSize="20" fontWeight="bold"> */}
-      {/*   Open Orders List */}
-      {/* </Text> */}
-      <AcceptOrders />
+      <VStack w="100%" marginX={{ base: "16px", sm: "16px", md: "20px" }}>
+        <HStack spacing="20px" alignItems="center" marginY="20px">
+          <Image
+            boxSize="64px"
+            alt="dashboard-logo-192x192"
+            src="/assets/dashboard-logo-192x192.png"
+          />
+          <Text fontSize="1.5rem">CourtCanva</Text>
+        </HStack>
+        <AcceptOrders />
+      </VStack>
     </Flex>
   );
-  // return (
-  //   <>
-  //     <Text fontSize="23" fontWeight="bold">
-  //       Open Orders
-  //     </Text>
-  //     <AcceptOrders />
-  //   </>
-  // );
 };
 export default AcceptedOrders;
