@@ -82,8 +82,8 @@ type CourtSize = {
 //   totalAmount: number;
 // }
 
-interface OrderIdList {
-  id: string;
+export interface OrderIdList {
+  id?: string;
 }
 
 export default function useGetOrders() {

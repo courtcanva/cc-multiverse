@@ -6,75 +6,80 @@ import { DataTable } from "./DataTable";
 import { createColumnHelper, RowSelection } from "@tanstack/react-table";
 import { info } from "next/dist/build/output/log";
 import { boolean } from "yup";
+import { OrderIdList } from "@src/services/orders/useOrders";
 
 const OpenOrdersList = () => {
   //   const { lists } = useGetOrders();
 
-  // const lists = [
-  //   {
-  //     id: 11,
-  //     orderId: "110",
-  //     customerId: "103",
-  //     status: "ASSIGNED_PENDING",
-  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
-  //     designInformation:
-  //       '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
-  //     createdTime: "2022-10-01T20:01:16.395+10:00",
-  //     postcode: "3000",
-  //     totalAmount: 999.0,
-  //     suburb: null,
-  //   },
-  //   {
-  //     id: 10,
-  //     orderId: "109",
-  //     customerId: "102",
-  //     status: "ASSIGNED_PENDING",
-  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
-  //     designInformation: '{"name": "draft 1"}',
-  //     createdTime: "2022-11-09T21:01:16.395+11:00",
-  //     postcode: "3003",
-  //     totalAmount: 999.0,
-  //     suburb: null,
-  //   },
-  //   {
-  //     id: 12,
-  //     orderId: "111",
-  //     customerId: "103",
-  //     status: "ASSIGNED_PENDING",
-  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
-  //     designInformation:
-  //       '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
-  //     createdTime: "2022-10-01T20:01:16.395+10:00",
-  //     postcode: "3000",
-  //     totalAmount: 999.0,
-  //     suburb: null,
-  //   },
-  //   {
-  //     id: 9,
-  //     orderId: "108",
-  //     customerId: "102",
-  //     status: "ASSIGNED_PENDING",
-  //     contactInformation: '{"name": "Alex", "phone": "0404123456"}',
-  //     designInformation:
-  //       '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
-  //     createdTime: "2022-10-10T21:01:16.395+11:00",
-  //     postcode: "3003",
-  //     totalAmount: 999.0,
-  //     suburb: null,
-  //   },
-  // ];
+  const lists = [
+    {
+      id: 11,
+      orderId: "110",
+      customerId: "103",
+      status: "ASSIGNED_PENDING",
+      contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+      designInformation:
+        '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
+      createdTime: "2022-10-01T20:01:16.395+10:00",
+      postcode: "3000",
+      totalAmount: 999.0,
+      suburb: null,
+    },
+    {
+      id: 10,
+      orderId: "109",
+      customerId: "102",
+      status: "ASSIGNED_PENDING",
+      contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+      designInformation: '{"name": "draft 1"}',
+      createdTime: "2022-11-09T21:01:16.395+11:00",
+      postcode: "3003",
+      totalAmount: 999.0,
+      suburb: null,
+    },
+    {
+      id: 12,
+      orderId: "111",
+      customerId: "103",
+      status: "ASSIGNED_PENDING",
+      contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+      designInformation:
+        '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
+      createdTime: "2022-10-01T20:01:16.395+10:00",
+      postcode: "3000",
+      totalAmount: 999.0,
+      suburb: null,
+    },
+    {
+      id: 9,
+      orderId: "108",
+      customerId: "102",
+      status: "ASSIGNED_PENDING",
+      contactInformation: '{"name": "Alex", "phone": "0404123456"}',
+      designInformation:
+        '{"design": {"courtSize": {"name": "court size", "width": 50, "length": 100, "lengthOfCorner": 2, "threePointLine": 3, "lineBorderWidth": 3, "sideBorderWidth": 3, "threePointRadius": 5, "centreCircleRadius": 10, "restrictedAreaWidth": 3, "restrictedAreaLength": 3}, "tileColor": [{"color": "red", "location": "l"}], "designName": "design name 1"}, "quotation": "quotation", "constructionDraw": "https://url", "quotationDetails": [{"color": "red", "quantity": 1}], "isNeedLevelGround": true, "constructionAddress": {"city": "Melbourne", "line1": "1/10 Collins Street", "line2": "", "state": "VIC", "country": "Australia", "postalCode": "3000"}}',
+      createdTime: "2022-10-10T21:01:16.395+11:00",
+      postcode: "3003",
+      totalAmount: 999.0,
+      suburb: null,
+    },
+  ];
 
   type Orders = {
     id: number;
+    orderId: string;
+    customerId: string;
+    status: string;
+    contactInformation: string;
+    designInformation: string;
     createdTime: string;
-    suburb: string;
     postcode: string;
     totalAmount: number;
-    designInformation: string;
+    suburb: null;
   };
 
   const columnHelper = createColumnHelper<Orders>();
-  const { isLoading, handleAcceptOrderSubmit, lists, setLists } = useGetOrders();
+  const { isLoading, handleAcceptOrderSubmit, setLists } = useGetOrders();
 
   const [checkedItems, setCheckedItems] = React.useState([false]);
   React.useEffect(() => {
@@ -138,20 +143,18 @@ const OpenOrdersList = () => {
   const sub = () => {
     const arr = checkedItems
       .map((val, i) => {
-
         if (val) return i;
       })
       .filter((val) => val !== undefined);
     const idArr = lists
-      .map((val, i) => {
+      ?.map((val: any, i: any) => {
         const bool = arr.find((val) => val == i);
         // console.log(bool)
         if (bool != undefined) {
           return val.id; //  {id:val.}
         }
       })
-      .filter((val) => val);
-    // console.log(arr);
+      .filter((val: any) => val);
     handleAcceptOrderSubmit(idArr);
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };
