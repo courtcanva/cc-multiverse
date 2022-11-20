@@ -14,7 +14,7 @@ type OrderList = {
     name: string;
     phone: string;
   };
-  designInformation: string;
+  designInformation: DesignInformation;
   createdTime: string;
   customerId: string;
   id: number;
@@ -25,12 +25,16 @@ type OrderList = {
   totalAmount: number;
 };
 
+export type Test = {
+  quotation: string;
+  constructionDraw: string;
+  isNeedLevelGround: boolean;
+};
+
 export type DesignInformation = {
   quotation: string;
   constructionDraw: string;
   isNeedLevelGround: boolean;
-  design: Design;
-  quotationDetails: QuotationDetails[];
   constructionAddress: {
     country: string;
     state: string;
@@ -38,6 +42,9 @@ export type DesignInformation = {
     line1: string;
     line2: string;
     postalCode: string;
+    // uncomment following if need these attribute
+    // design: Design;
+    // quotationDetails: QuotationDetails[];
   };
 };
 
@@ -69,10 +76,6 @@ type CourtSize = {
   restrictedAreaWidth: number;
   sideBorderWidth: number;
   lineBorderWidth: number;
-};
-
-type OrderIdList = {
-  id: string;
 };
 
 export default function useGetOrders(endpoint: string) {

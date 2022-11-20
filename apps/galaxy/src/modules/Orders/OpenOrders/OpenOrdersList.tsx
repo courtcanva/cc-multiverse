@@ -1,8 +1,7 @@
 import React from "react";
-import { Button, Checkbox, Stack } from "@cc/ui-chakra";
-import useGetOrders from "@src/services/orders/useOrders";
+import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
+import useGetOrders, { DesignInformation } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
-import { DataTable } from "@cc/ui-chakra";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const OpenOrdersList = () => {
@@ -11,10 +10,9 @@ const OpenOrdersList = () => {
   type Orders = {
     id: number;
     createdTime: string;
-    suburb: string;
     postcode: string;
     totalAmount: number;
-    designInformation: string;
+    designInformation: DesignInformation;
   };
 
   const columnHelper = createColumnHelper<Orders>();
@@ -28,8 +26,8 @@ const OpenOrdersList = () => {
       cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
       header: "date",
     }),
-    columnHelper.accessor("suburb", {
-      cell: (info) => info.getValue(),
+    columnHelper.accessor("designInformation", {
+      cell: (info) => info.getValue().constructionAddress?.city,
       header: "suburb",
     }),
     columnHelper.accessor("postcode", {
@@ -47,12 +45,9 @@ const OpenOrdersList = () => {
       },
     }),
     columnHelper.accessor("designInformation", {
-      cell: (info) => (
-        <Button variant="secondary" value={info.getValue()}>
-          detail
-        </Button>
-      ),
+      cell: () => <Button variant="secondary">detail</Button>,
       header: "details",
+      id: "details",
     }),
   ];
   return (
