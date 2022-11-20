@@ -8,19 +8,25 @@ import { DataTable } from "@cc/ui-chakra/src/general/Table/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const OpenOrdersList = () => {
-  const columnHelper = createColumnHelper<Orders>();
   const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
   type Orders = {
-    id: number;
+    checked: boolean;
+    contactInformation: string;
+    designInformation: string;
     createdTime: string;
+    customerId: string;
+    id: number;
+    orderId: string;
     suburb: string;
     postcode: string;
+    status: string;
     totalAmount: number;
-    designInformation: string;
   };
+  const columnHelper = createColumnHelper<Orders>();
   const [checkedItems, setCheckedItems] = React.useState([false]);
   React.useEffect(() => {
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lists]);
   const allChecked = checkedItems.every(Boolean);
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;

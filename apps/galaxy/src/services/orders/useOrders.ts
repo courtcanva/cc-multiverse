@@ -13,10 +13,7 @@ export interface FormData {
 
 type OrderList = {
   checked: boolean;
-  contactInformation: {
-    name: string;
-    phone: string;
-  };
+  contactInformation: string;
   designInformation: string;
   createdTime: string;
   customerId: string;
