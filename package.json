@@ -37,6 +37,7 @@
     "@hookform/error-message": "^2.0.0",
     "@tanstack/react-table": "^8.5.30",
     "chakra-react-select": "^4.2.5",
+    "dayjs": "^1.11.6",
     "yup-phone-lite": "^1.1.2"
   }
 }

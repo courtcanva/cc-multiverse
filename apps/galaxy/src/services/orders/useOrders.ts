@@ -71,19 +71,8 @@ type CourtSize = {
   lineBorderWidth: number;
 };
 
-// interface OrderList {
-//   contactInformation: string;
-//   createdTime: string;
-//   customerId: string;
-//   id: number;
-//   orderId: string;
-//   postcode: string;
-//   status: string;
-//   totalAmount: number;
-// }
-
 export interface OrderIdList {
-  id: number | undefined;
+  id: number;
 }
 
 export default function useGetOrders() {
@@ -122,13 +111,6 @@ export default function useGetOrders() {
   const handleAcceptOrderSubmit = async (data: OrderIdList[]) => {
     setIsLoading(true);
     const token = getToken() || "";
-    // const idArr = lists
-    //   .map((val) => {
-    //     if (val.checked) {
-    //       return val.id;
-    //     }
-    //   })  //  [1,undefined]
-    //   .filter((val) => val);
     try {
       await axios.post(`/franchisee/${getFranchiseeId(token)}/accept_orders`, {
         orders: data,
