@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "npx husky install",
     "build": "turbo run build",
     "build:static": "turbo run build:static",
     "dev": "turbo run dev --parallel",
