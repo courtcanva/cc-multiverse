@@ -26,7 +26,7 @@ module.exports = withTM({
   async headers() {
     return [
       {
-        source: "/about",
+        source: "/:path*",
         headers: [
           {
             key: "x-custom-header",
