@@ -41,6 +41,7 @@ const OpenOrdersList = () => {
       id: "details",
     }),
   ];
+
   return (
     <Stack
       border="1px"

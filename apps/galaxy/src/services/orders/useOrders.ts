@@ -26,7 +26,7 @@ export type DesignInformation = {
   };
 };
 
-export default function useGetOrders() {
+const useGetOrders = () => {
   const toast = useToast();
   const [lists, setLists] = useState<Order[]>([]);
 
@@ -52,5 +52,7 @@ export default function useGetOrders() {
     getOpenOrders();
   }, []);
 
-  return { getOpenOrders, lists };
-}
+  return { lists };
+};
+
+export default useGetOrders;
