@@ -4,31 +4,12 @@ import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import { getFranchiseeId, getToken } from "@src/utils/tokenService";
 
-export interface Order {
-  label: string;
-  value: number;
-}
-
-type OrderList = {
-  contactInformation: {
-    name: string;
-    phone: string;
-  };
-  designInformation: DesignInformation;
-  createdTime: string;
-  customerId: string;
+export type Order = {
   id: number;
-  orderId: string;
-  suburb: string;
+  createdTime: string;
   postcode: string;
-  status: string;
   totalAmount: number;
-};
-
-export type Test = {
-  quotation: string;
-  constructionDraw: string;
-  isNeedLevelGround: boolean;
+  designInformation: DesignInformation;
 };
 
 export type DesignInformation = {
@@ -42,51 +23,17 @@ export type DesignInformation = {
     line1: string;
     line2: string;
     postalCode: string;
-    // uncomment following if need these attribute
-    // design: Design;
-    // quotationDetails: QuotationDetails[];
   };
 };
 
-type Design = {
-  designName: string;
-  tileColor: TileColor[];
-  courtSize: CourtSize;
-};
-
-type QuotationDetails = {
-  color: string;
-  quantity: number;
-};
-
-type TileColor = {
-  location: string;
-  color: string;
-};
-
-type CourtSize = {
-  name: string;
-  length: number;
-  width: number;
-  centreCircleRadius: number;
-  threePointRadius: number;
-  threePointLine: number;
-  lengthOfCorner: number;
-  restrictedAreaLength: number;
-  restrictedAreaWidth: number;
-  sideBorderWidth: number;
-  lineBorderWidth: number;
-};
-
-export default function useGetOrders(endpoint: string) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function useGetOrders() {
   const toast = useToast();
-  const [lists, setLists] = useState<OrderList[]>([]);
+  const [lists, setLists] = useState<Order[]>([]);
 
   const getOpenOrders = async () => {
     try {
       const franchiseeId = getFranchiseeId(getToken());
-      const response = await axios.get(`/franchisee/${franchiseeId}/${endpoint}`);
+      const response = await axios.get(`/franchisee/${franchiseeId}/pending_orders`);
       setLists(response.data);
     } catch (error) {
       const err = error as AxiosError;
@@ -105,5 +52,5 @@ export default function useGetOrders(endpoint: string) {
     getOpenOrders();
   }, []);
 
-  return { isLoading, getOpenOrders, lists };
+  return { getOpenOrders, lists };
 }

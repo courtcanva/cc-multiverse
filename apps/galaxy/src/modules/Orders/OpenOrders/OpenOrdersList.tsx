@@ -1,21 +1,12 @@
 import React from "react";
 import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
-import useGetOrders, { DesignInformation } from "@src/services/orders/useOrders";
+import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const OpenOrdersList = () => {
-  const { lists } = useGetOrders("pending_orders");
-
-  type Orders = {
-    id: number;
-    createdTime: string;
-    postcode: string;
-    totalAmount: number;
-    designInformation: DesignInformation;
-  };
-
-  const columnHelper = createColumnHelper<Orders>();
+  const { lists } = useGetOrders();
+  const columnHelper = createColumnHelper<Order>();
 
   const columns = [
     columnHelper.accessor("id", {
