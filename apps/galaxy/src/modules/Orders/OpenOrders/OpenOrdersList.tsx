@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
 import useGetOrders, { DesignInformation } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
+import ViewDetails from "./ViewDetails";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 const OpenOrdersList = () => {
   const { lists } = useGetOrders("pending_orders");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { designInfo, setDesignInfo } = useState<DesignInformation>();
 
   type Orders = {
     id: number;
@@ -45,7 +58,11 @@ const OpenOrdersList = () => {
       },
     }),
     columnHelper.accessor("designInformation", {
-      cell: () => <Button variant="secondary">detail</Button>,
+      cell: (info) => (
+        <Button onClick={onOpen} variant="secondary">
+          details
+        </Button>
+      ),
       header: "details",
       id: "details",
     }),
@@ -59,6 +76,20 @@ const OpenOrdersList = () => {
       overflow="hidden"
     >
       <DataTable columns={columns} data={lists} />
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody></ModalBody>
+
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+            <Button>Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Stack>
   );
 };
