@@ -3,7 +3,6 @@ export * from "./ThemeProvider";
 export * from "./base";
 export * from "./general";
 
-// Tabs
 export {
   Stack,
   Container,
@@ -22,6 +21,5 @@ export {
   Center,
   Input,
   Link,
-  Grid,
-  GridItem,
+  Checkbox,
 } from "@chakra-ui/react";

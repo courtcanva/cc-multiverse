@@ -2,7 +2,16 @@ import { useForm } from "react-hook-form";
 import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CompanyInfoFormSchema } from "./SignUpFrom.schema";
-import { FormControl, FormInput, FormSelect, Stack, VStack, Button } from "@cc/ui-chakra";
+import useSignUp from "@src/services/signup/useSignUp";
+import {
+  FormControl,
+  FormInput,
+  FormSelect,
+  Stack,
+  VStack,
+  Button,
+  FormGroupInput,
+} from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
 
 type SignUpProps = {
@@ -21,17 +30,21 @@ const CompanyInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) 
     companyPostcode,
     businessAddress,
   } = formConfig;
-  const { register, formState, handleSubmit } = useForm<CompanyInfoFormData>({
+  const { register, formState, getValues, handleSubmit } = useForm<CompanyInfoFormData>({
     mode: "all",
     reValidateMode: "onChange",
     resolver: yupResolver(CompanyInfoFormSchema),
   });
+  const { checkDuplicateABN } = useSignUp();
   const onSubmit = handleSubmit((formData) => {
     setData({ ...data, ...formData });
     goNextFromStep();
   });
-  const goNextFromStep = () => {
-    setFormStep(formStep + 1);
+  const goNextFromStep = async () => {
+    const isAbnUnique = await checkDuplicateABN(getValues("abn"));
+    if (!isAbnUnique) {
+      setFormStep(formStep + 1);
+    }
   };
 
   return (
@@ -49,7 +62,7 @@ const CompanyInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps) 
             errorMessage={formState.errors.legalEntityName?.message}
           />
           <FormInput {...abn} {...register("abn")} errorMessage={formState.errors.abn?.message} />
-          <FormInput
+          <FormGroupInput
             {...contactNumber}
             {...register("contactNumber")}
             errorMessage={formState.errors.contactNumber?.message}

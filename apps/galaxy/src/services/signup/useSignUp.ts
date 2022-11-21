@@ -36,7 +36,7 @@ export default function useSignUp() {
           contactNumber,
           businessAddress,
           state: companyState,
-          companyPostcode,
+          postcode: companyPostcode,
         },
         staffPostDto: {
           firstName,
@@ -44,7 +44,7 @@ export default function useSignUp() {
           email: username,
           residentialAddress,
           phoneNumber,
-          residentialPostcode,
+          postcode: residentialPostcode,
           state: residentialState,
           password,
         },
@@ -108,5 +108,27 @@ export default function useSignUp() {
     }
     return true;
   };
-  return { signUp, isLoading, checkEmailIsExists };
+
+  const checkDuplicateABN = async (abn: string | null | undefined) => {
+    try {
+      const response = await axios.get(`/franchisee/abn/${abn}`);
+      if (response.status === 200) {
+        return false;
+      }
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        toast({
+          title: "Duplicate ABN number",
+          description: "This ABN number is already registered, please check again.",
+          status: "error",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    }
+    return true;
+  };
+
+  return { signUp, isLoading, checkEmailIsExists, checkDuplicateABN };
 }

@@ -11,6 +11,8 @@ const nonrestrictedURIs = [
   "/staff/verify",
   "/suburbs",
   "/franchisee/*/service_areas",
+  "/staff/emails/*",
+  "/franchisee/abn/*",
 ];
 
 const customAxios = axios.create({

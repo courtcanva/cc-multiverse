@@ -2,7 +2,15 @@ import { useForm } from "react-hook-form";
 import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { StaffInfoFormSchema } from "./SignUpFrom.schema";
-import { FormControl, FormInput, FormSelect, Stack, VStack, Button } from "@cc/ui-chakra";
+import {
+  FormControl,
+  FormInput,
+  FormSelect,
+  Stack,
+  VStack,
+  Button,
+  FormGroupInput,
+} from "@cc/ui-chakra";
 import useSignUp from "@src/services/signup/useSignUp";
 import { Dispatch, SetStateAction } from "react";
 
@@ -41,7 +49,7 @@ const StaffInfoPage = ({ data }: SignUpProps) => {
             {...register("lastName")}
             errorMessage={formState.errors.lastName?.message}
           />
-          <FormInput
+          <FormGroupInput
             {...phoneNumber}
             {...register("phoneNumber")}
             errorMessage={formState.errors.phoneNumber?.message}
