@@ -1,34 +1,45 @@
-type AustraliaState = "ACT" | "NSW" | "QLD" | "VIC" | "NT" | "WA" | "SA";
+type State = "NSW" | "VIC" | "QLD" | "SA" | "WA" | "NT" | "ACT";
 
-type BaseInfo = {
-  postcode: number | "";
-  state: AustraliaState | undefined;
+type SignUpFormData = {
+  username: string | null;
+  password: string | null;
+  confirmPassword: string | null;
+  businessName: string | null;
+  legalEntityName: string | null;
+  abn: string | null;
+  contactNumber: string | null;
+  businessAddress: string | null;
+  companyPostcode: string | null;
+  companyState: State | null;
+  firstName: string | null;
+  lastName: string | null;
+  phoneNumber: string | null;
+  residentialAddress: string | null;
+  residentialPostcode: string | null;
+  residentialState: State | null;
 };
 
-type SignUpFormValues = {
-  franchise: {
-    businessName?: string | "";
-    legalEntityName?: string | "";
-    abn?: string | "";
-    contactNumber?: string | "";
-    businessAddress?: string | "";
-  } & BaseInfo;
-  staff: {
-    firstName?: string | "";
-    lastName?: string | "";
-    email?: string | "";
-    password?: string | "";
-    confirmPassword?: string | "";
-    phoneNumber?: string | "";
-    residentialAddress?: string | "";
-  } & BaseInfo;
-};
+interface RegisterInfoFormData {
+  username: string | null;
+  password: string | null;
+  confirmPassword: string | null;
+}
 
-type SignUpFormStep = {
-  isDisabled?: boolean;
-  disableBackButton?: boolean;
-  isLastStep?: boolean;
-  onBack?: () => void;
-  onNext?: () => void;
-  fields: Array<FormInputField<SignUpFormValues>>;
-};
+interface CompanyInfoFormData {
+  businessName: string | null;
+  legalEntityName: string | null;
+  abn: string | null;
+  contactNumber: string | null;
+  businessAddress: string | null;
+  companyPostcode: string | null;
+  companyState: State | null;
+}
+
+interface StaffInfoFormData {
+  firstName: string | null;
+  lastName: string | null;
+  phoneNumber: string | null;
+  residentialAddress: string | null;
+  residentialPostcode: string | null;
+  residentialState: State | null;
+}

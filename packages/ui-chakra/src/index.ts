@@ -1,6 +1,9 @@
 export * from "./ThemeProvider";
 
 export * from "./base";
+export * from "./general";
+
+// Tabs
 export {
   Stack,
   Container,
@@ -10,7 +13,6 @@ export {
   Flex,
   Image,
   Text,
-  Input,
   useToast,
   VStack,
   HStack,
@@ -18,6 +20,8 @@ export {
   Wrap,
   WrapItem,
   Center,
+  Input,
+  Link,
   Grid,
   GridItem,
 } from "@chakra-ui/react";

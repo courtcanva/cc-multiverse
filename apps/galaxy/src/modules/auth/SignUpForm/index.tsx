@@ -1,67 +1,72 @@
-import React from "react";
-import { useSignUpForm } from "../../../services/signup/useSignUp";
+import React, { useState } from "react";
+import { Stack, VStack, Text, StepTab, Flex } from "@cc/ui-chakra";
+import Logo from "@src/components/Logo";
+import RegisterInfoPage from "./RegisterInfoPage";
+import CompanyInfoPage from "./CompanyInfoPage";
+import StaffInfoPage from "./StaffInfoPage";
 
-import { Form, Tab, TabList, TabPanels, Tabs, Flex, Image, Text } from "@cc/ui-chakra";
-import { SignUpFormStepPanel } from "./SignUpForm.StepPanel";
-
-export function SignUp() {
-  const { steps, currentStep, control, onSubmit } = useSignUpForm();
-  const formTitles: string[] = [
+const SignUp = () => {
+  const [formStep, setFormStep] = useState(0);
+  const [data, setData] = useState<SignUpFormData>({
+    username: null,
+    password: null,
+    confirmPassword: null,
+    businessName: null,
+    legalEntityName: null,
+    abn: null,
+    contactNumber: null,
+    businessAddress: null,
+    companyPostcode: null,
+    companyState: null,
+    firstName: null,
+    lastName: null,
+    phoneNumber: null,
+    residentialAddress: null,
+    residentialPostcode: null,
+    residentialState: null,
+  });
+  const formTitles = [
     "Register with CourtCanva as our franchisee",
     "Please Fill in your company information details",
     "Please fill in your personal information",
   ];
-  return (
-    <Flex width="100vw" justifyContent="center" alignItems="center">
-      <Flex
-        width="427px"
-        margin="102px 0px"
-        flexDir="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Image
-          boxSize="100px"
-          alt="dashboard-logo-192x192"
-          src="/assets/dashboard-logo-192x192.png"
-        />
-        <Text fontSize="24px" margin="24px 0px">
-          CourtCanva
-        </Text>
-        <Text marginBottom="24px" fontSize="16px" fontWeight="400">
-          {formTitles[currentStep]}
-        </Text>
 
-        <Form onSubmit={onSubmit}>
-          <Tabs isFitted align="center" index={currentStep}>
-            <TabList border="hidden" margin="10.5px 5px 30.5px 5px">
-              {steps.map((_step, index) => (
-                <Tab
-                  _selected={{ borderColor: "#49B785", color: "#2B6CB0" }}
-                  borderColor="rgba(54, 73, 93, 0.43)"
-                  color="rgba(43, 108, 176, 0.7)"
-                  margin="0px 5px"
-                  key={index}
-                  isDisabled={index > currentStep ? true : false}
-                >{`Step ${index + 1}`}</Tab>
-              ))}
-            </TabList>
-            <TabPanels>
-              {steps.map((step, index) => (
-                <SignUpFormStepPanel
-                  key={index}
-                  disableBackButton={index === 0}
-                  isLastStep={index === 2}
-                  onBack={step.onBack}
-                  onNext={step.onNext}
-                  fields={step.fields}
-                  control={control}
-                />
-              ))}
-            </TabPanels>
-          </Tabs>
-        </Form>
-      </Flex>
+  return (
+    <Flex mt="10vh" width="100%" justifyContent="center">
+      <VStack
+        marginX={{ base: "16px", sm: "16px", md: "200px" }}
+        width={{ base: "100%", lg: "428px" }}
+        mb="24px"
+      >
+        <Logo />
+        <Text marginTop="24px" fontSize="16px" fontWeight="400" textAlign="center">
+          {formTitles[formStep]}
+        </Text>
+        <Stack width={{ base: "80px", sm: "80px", md: "428px" }}>
+          <StepTab formStep={formStep} setFormStep={setFormStep} />
+        </Stack>
+        <Stack width="100%">
+          {formStep === 0 && (
+            <RegisterInfoPage
+              formStep={formStep}
+              setFormStep={setFormStep}
+              data={data}
+              setData={setData}
+            />
+          )}
+          {formStep === 1 && (
+            <CompanyInfoPage
+              formStep={formStep}
+              setFormStep={setFormStep}
+              data={data}
+              setData={setData}
+            />
+          )}
+          {formStep === 2 && <StaffInfoPage data={data} setData={setData} />}
+        </Stack>
+      </VStack>
     </Flex>
   );
-}
+};
+
+export default SignUp;
