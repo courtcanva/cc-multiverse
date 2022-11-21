@@ -26,7 +26,10 @@
     "@hookform/resolvers": "^2.9.9",
     "yup": "^0.32.11",
     "yup-password": "^0.2.2",
-    "next-transpile-modules": "9.0.0"
+    "next-transpile-modules": "9.0.0",
+    "yup-phone-lite": "^1.1.2",
+    "@hookform/error-message": "^2.0.0",
+    "chakra-react-select": "^4.2.5"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
