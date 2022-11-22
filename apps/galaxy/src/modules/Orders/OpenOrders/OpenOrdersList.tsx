@@ -1,25 +1,26 @@
-import React, { useState } from "react";
-import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
-import useGetOrders, { DesignInformation } from "@src/services/orders/useOrders";
-import dayjs from "dayjs";
-import { createColumnHelper } from "@tanstack/react-table";
-import ViewDetails from "./ViewDetails";
+import React from "react";
 import {
+  Button,
+  Checkbox,
+  DataTable,
+  Stack,
+  Image,
+  Text,
   Modal,
-  ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-} from "@chakra-ui/react";
-//put into package later
+} from "@cc/ui-chakra";
+import useGetOrders, { DesignInformation } from "@src/services/orders/useOrders";
+import dayjs from "dayjs";
+import { createColumnHelper } from "@tanstack/react-table";
 
 const OpenOrdersList = () => {
   const { lists } = useGetOrders("pending_orders");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const { designInfo, setDesignInfo } = useState<DesignInformation>();
 
   type Orders = {
     id: number;
@@ -60,9 +61,43 @@ const OpenOrdersList = () => {
     }),
     columnHelper.accessor("designInformation", {
       cell: (info) => (
-        <Button onClick={onOpen} variant="secondary">
-          details
-        </Button>
+        <>
+          <Button onClick={onOpen} variant="secondary">
+            details
+          </Button>
+          <Modal scrollBehavior={"inside"} isOpen={isOpen} onClose={onClose}>
+            <ModalContent>
+              <ModalHeader>Details</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Text align="center" fontWeight="bold">
+                  Quotation
+                </Text>
+                <Text>{info.getValue().quotation}</Text>
+                <Text align="center" fontWeight="bold">
+                  Construction Draw
+                </Text>
+                <Image src={info.getValue().constructionDraw} alt="image alt" />
+                <Text align="center" fontWeight="bold">
+                  Construction Address
+                </Text>
+                <Text>Country:{info.getValue().constructionAddress.country}</Text>
+                <Text>City:{info.getValue().constructionAddress.city}</Text>
+                <Text>State:{info.getValue().constructionAddress.state}</Text>
+                <Text>Postcode:{info.getValue().constructionAddress.postalCode}</Text>
+                <Text>Address Line 1:{info.getValue().constructionAddress.line1}</Text>
+                <Text>Address Line 2:{info.getValue().constructionAddress.line2}</Text>
+                <Text align="center" fontWeight="bold">
+                  isNeedLevelGround
+                </Text>
+                <Text>{info.getValue().isNeedLevelGround.toString()}</Text>
+              </ModalBody>
+              <ModalFooter>
+                <Button onClick={onClose}>Close</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </>
       ),
       header: "details",
       id: "details",
@@ -77,20 +112,6 @@ const OpenOrdersList = () => {
       overflow="hidden"
     >
       <DataTable columns={columns} data={lists} />
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody></ModalBody>
-
-          <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-            <Button>Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </Stack>
   );
 };
