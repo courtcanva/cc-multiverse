@@ -26,15 +26,11 @@ module.exports = withTM({
   async headers() {
     return [
       {
-        source: "/:path*",
+        source: "/sign-in",
         headers: [
           {
             key: "x-custom-header",
             value: "my custom header value",
-          },
-          {
-            key: "x-another-custom-header",
-            value: "my other custom header value",
           },
         ],
       },
