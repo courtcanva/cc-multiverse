@@ -1,21 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withTM = require("next-transpile-modules")(["@cc/ui-chakra"]);
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require("path");
 module.exports = withTM({
-  reactStrictMode: true,
-  trailingSlash: true,
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
-    return config;
-  },
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -23,17 +10,23 @@ module.exports = withTM({
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  async headers() {
-    return [
-      {
-        source: "/sign-in",
-        headers: [
-          {
-            key: "x-custom-header",
-            value: "my custom header value",
-          },
-        ],
-      },
-    ];
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+  reactStrictMode: true,
+  trailingSlash: true,
+  output: "standalone",
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, "../../"),
+    // transpilePackages: ["ui"],
+  },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+    return config;
   },
 });

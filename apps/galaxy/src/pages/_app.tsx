@@ -27,6 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         position: "top",
         isClosable: true,
       });
+    localStorage.removeItem("accessToken");
   };
 
   useEffect(() => {
