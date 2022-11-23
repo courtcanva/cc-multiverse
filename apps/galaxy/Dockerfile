@@ -43,5 +43,7 @@ COPY --from=installer /app/apps/galaxy/package.json .
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=installer --chown=nextjs:nodejs /app/apps/galaxy/.next/standalone ./
 COPY --from=installer --chown=nextjs:nodejs /app/apps/galaxy/.next/static ./apps/galaxy/.next/static
+COPY --from=installer /app/apps/galaxy/public ./apps/galaxy/public
+
 
 CMD node apps/galaxy/server.js
