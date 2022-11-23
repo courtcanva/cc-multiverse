@@ -16,7 +16,6 @@ module.exports = withTM({
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  trailingSlash: true,
   output: "standalone",
   experimental: {
     outputFileTracingRoot: path.join(__dirname, "../../"),

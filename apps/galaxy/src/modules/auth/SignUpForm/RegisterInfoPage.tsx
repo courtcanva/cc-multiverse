@@ -3,8 +3,17 @@ import { formConfig } from "./formConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterInfoFormSchema } from "./SignUpFrom.schema";
 import useSignUp from "@src/services/signup/useSignUp";
-import { FormControl, FormInput, Stack, VStack, Button, Center, Link } from "@cc/ui-chakra";
+import {
+  FormControl,
+  FormInput,
+  Stack,
+  VStack,
+  Button,
+  Center,
+  Link as CKLink,
+} from "@cc/ui-chakra";
 import { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 
 type SignUpProps = {
   formStep: number;
@@ -61,7 +70,7 @@ const RegisterInfoPage = ({ formStep, setFormStep, data, setData }: SignUpProps)
         <Center>
           Already have an account? &nbsp;
           <Link color="blue" href={"/sign-in"}>
-            Login here.
+            <CKLink color="blue">Login Here</CKLink>
           </Link>
         </Center>
       </VStack>

@@ -1,8 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useSignIn from "@src/services/signin/useSignIn";
-import { Button, FormLabel, FormControl, Input, Stack, VStack, Center, Link } from "@cc/ui-chakra";
+import {
+  Button,
+  FormLabel,
+  FormControl,
+  Input,
+  Stack,
+  VStack,
+  Center,
+  Link as CKLink,
+} from "@cc/ui-chakra";
 import { formConfig } from "./formConfig";
+import Link from "next/link";
 interface FormData {
   username: string;
   password: string;
@@ -36,8 +46,8 @@ const SignInForm = () => {
         </Button>
         <Center>
           Don&lsquo;t have an account? &nbsp;
-          <Link color="blue" href={"/sign-up"}>
-            Register here.
+          <Link href={"/sign-up"}>
+            <CKLink color="blue">Register Here</CKLink>
           </Link>
         </Center>
       </VStack>
