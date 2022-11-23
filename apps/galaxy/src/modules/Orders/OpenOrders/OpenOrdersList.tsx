@@ -72,19 +72,22 @@ const OpenOrdersList = () => {
               <ModalCloseButton />
               <ModalBody>
                 <Text fontWeight="bold">Quotation</Text>
-                <Link color="blue">{info.getValue().quotation}</Link>
+                <Link href={info.getValue().quotation} color="blue">
+                  click to see quotation here
+                </Link>
                 <br />
                 <br />
                 <Text fontWeight="bold">Construction Design</Text>
-                <Image src={info.getValue().constructionDraw} alt="image alt" />
+                <Image src={info.getValue().constructionDraw} alt="construction design alt" />
                 <br />
                 <Text fontWeight="bold">Construction Address</Text>
-                <Text>Country: {info.getValue().constructionAddress.country}</Text>
-                <Text>City: {info.getValue().constructionAddress.city}</Text>
-                <Text>State: {info.getValue().constructionAddress.state}</Text>
-                <Text>Postcode: {info.getValue().constructionAddress.postalCode}</Text>
-                <Text>Address Line 1: {info.getValue().constructionAddress.line1}</Text>
-                <Text>Address Line 2: {info.getValue().constructionAddress.line2}</Text>
+                <Text>
+                  {info.getValue().constructionAddress.line1},{" "}
+                  {info.getValue().constructionAddress.line2},{" "}
+                  {info.getValue().constructionAddress.state}{" "}
+                  {info.getValue().constructionAddress.postalCode},{" "}
+                  {info.getValue().constructionAddress.country}
+                </Text>
                 <br />
                 <Text fontWeight="bold">Need To Level Ground</Text>
                 <Text>{info.getValue().isNeedLevelGround.toString()}</Text>
