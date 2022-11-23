@@ -6,6 +6,7 @@ import {
   Stack,
   Image,
   Text,
+  Link,
   Modal,
   ModalContent,
   ModalHeader,
@@ -67,34 +68,27 @@ const OpenOrdersList = () => {
           </Button>
           <Modal scrollBehavior={"inside"} isOpen={isOpen} onClose={onClose}>
             <ModalContent>
-              <ModalHeader>Details</ModalHeader>
+              <ModalHeader>Order Details</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <Text align="center" fontWeight="bold">
-                  Quotation
-                </Text>
-                <Text>{info.getValue().quotation}</Text>
-                <Text align="center" fontWeight="bold">
-                  Construction Draw
-                </Text>
+                <Text fontWeight="bold">Quotation</Text>
+                <Link color="blue">{info.getValue().quotation}</Link>
+                <br />
+                <br />
+                <Text fontWeight="bold">Construction Design</Text>
                 <Image src={info.getValue().constructionDraw} alt="image alt" />
-                <Text align="center" fontWeight="bold">
-                  Construction Address
-                </Text>
-                <Text>Country:{info.getValue().constructionAddress.country}</Text>
-                <Text>City:{info.getValue().constructionAddress.city}</Text>
-                <Text>State:{info.getValue().constructionAddress.state}</Text>
-                <Text>Postcode:{info.getValue().constructionAddress.postalCode}</Text>
-                <Text>Address Line 1:{info.getValue().constructionAddress.line1}</Text>
-                <Text>Address Line 2:{info.getValue().constructionAddress.line2}</Text>
-                <Text align="center" fontWeight="bold">
-                  isNeedLevelGround
-                </Text>
+                <br />
+                <Text fontWeight="bold">Construction Address</Text>
+                <Text>Country: {info.getValue().constructionAddress.country}</Text>
+                <Text>City: {info.getValue().constructionAddress.city}</Text>
+                <Text>State: {info.getValue().constructionAddress.state}</Text>
+                <Text>Postcode: {info.getValue().constructionAddress.postalCode}</Text>
+                <Text>Address Line 1: {info.getValue().constructionAddress.line1}</Text>
+                <Text>Address Line 2: {info.getValue().constructionAddress.line2}</Text>
+                <br />
+                <Text fontWeight="bold">Need To Level Ground</Text>
                 <Text>{info.getValue().isNeedLevelGround.toString()}</Text>
               </ModalBody>
-              <ModalFooter>
-                <Button onClick={onClose}>Close</Button>
-              </ModalFooter>
             </ModalContent>
           </Modal>
         </>
