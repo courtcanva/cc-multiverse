@@ -1,0 +1,25 @@
+{
+    "family": "franchise-frontend-uat",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "franchise-frontend-container-uat",
+            "image": "245866473499.dkr.ecr.ap-southeast-2.amazonaws.com/franchise-frontend-dockerimage-repo:{{imageID}}",
+            "portMappings": [
+                {
+                    "containerPort": 3000,
+                    "hostPort": 3000,
+                    "protocol": "tcp"
+                }
+            ],
+          
+            "essential": true
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1vCPU",
+    "memory": "2GB",
+    "executionRoleArn": "arn:aws:iam::245866473499:role/myEcsTaskExecutionRole"
+}
