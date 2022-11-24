@@ -77,8 +77,37 @@ const OpenOrdersList = () => {
                 </Link>
                 <br />
                 <br />
-                <Text fontWeight="bold">Construction Design Preview</Text>
+                <Text fontWeight="bold">Design Preview</Text>
                 <Image src={info.getValue().constructionDraw} alt="construction design alt" />
+                <br />
+                <Text fontWeight="bold">Court Details</Text>
+                <Text>design name: {info.getValue().design.designName}</Text>
+                <Text>tile color: {info.getValue().design.tileColor.toString()}</Text>
+                <Text>length: {info.getValue().design.courtSize.length.toString()}</Text>
+                <Text>width: {info.getValue().design.courtSize.width.toString()}</Text>
+                <Text>
+                  three point radius: {info.getValue().design.courtSize.threePointRadius.toString()}
+                </Text>
+                <Text>
+                  three point line: {info.getValue().design.courtSize.threePointLine.toString()}
+                </Text>
+                <Text>
+                  length of corner: {info.getValue().design.courtSize.lengthOfCorner.toString()}
+                </Text>
+                <Text>
+                  restricted area length:{" "}
+                  {info.getValue().design.courtSize.restrictedAreaLength.toString()}
+                </Text>
+                <Text>
+                  restricted area width:{" "}
+                  {info.getValue().design.courtSize.restrictedAreaWidth.toString()}
+                </Text>
+                <Text>
+                  side border width: {info.getValue().design.courtSize.sideBorderWidth.toString()}
+                </Text>
+                <Text>
+                  line border width: {info.getValue().design.courtSize.lineBorderWidth.toString()}
+                </Text>
                 <br />
                 <Text fontWeight="bold">Construction Address</Text>
                 <Text>
@@ -87,13 +116,6 @@ const OpenOrdersList = () => {
                   {info.getValue().constructionAddress.state}{" "}
                   {info.getValue().constructionAddress.postalCode},{" "}
                   {info.getValue().constructionAddress.country}
-                </Text>
-                <br />
-                <Text fontWeight="bold">Court Details</Text>
-                <Text>
-                  design name: {info.getValue().design.designName}, tile color 0:
-                  {info.getValue().design.tileColor[0].color}, court size central radius:{" "}
-                  {info.getValue().design.courtSize.centreCircleRadius.toString()}{" "}
                 </Text>
                 <br />
                 <Text fontWeight="bold">Need To Level Ground</Text>
