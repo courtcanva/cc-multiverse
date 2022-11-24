@@ -1,10 +1,10 @@
 version: 0.2
 
-env: 
-  parameter-store: 
-    DOCKERHUB_USER: 'AW_DOCKERHUB_USERNAME'
-    DOCKERHUB_PW: 'AW_DOCKERHUB_PW'
-    ECR_URI_PREFIX: 'Fran_Frontend_ECR_URI'
+env:
+  parameter-store:
+    DOCKERHUB_USER: "AW_DOCKERHUB_USERNAME"
+    DOCKERHUB_PW: "AW_DOCKERHUB_PW"
+    ECR_URI_PREFIX: "Fran_Frontend_ECR_URI"
 phases:
   pre_build:
     commands:
@@ -28,7 +28,7 @@ phases:
       - ls -alh
       - docker images
       - echo Building the Docker image...
-      - docker build -f ./apps/galaxy/Dockerfile -t ${IMAGE_REPO_NAME}:latest .
+      - docker build -f ./apps/galaxy/Dockerfile --build-arg N_P_C_B_URL=${N_P_C_B_URL} -t ${IMAGE_REPO_NAME}:latest .
       - docker tag ${IMAGE_REPO_NAME}:latest ${REPOSITORY_URI}:${IMAGE_TAG}
   post_build:
     commands:
@@ -37,7 +37,7 @@ phases:
       - docker push ${REPOSITORY_URI}:${IMAGE_TAG}
       - echo Writing image definitions file...
       - sed -i "s|{{imageID}}|${IMAGE_TAG}|" taskdef-uat.json
-      - printf '[{"name":"%s","imageUri":"%s"}]' ${CC_CONTAINER} ${REPOSITORY_URI}:${IMAGE_TAG} > imagedefinitions.json    
+      - printf '[{"name":"%s","imageUri":"%s"}]' ${CC_CONTAINER} ${REPOSITORY_URI}:${IMAGE_TAG} > imagedefinitions.json
       - aws ecs register-task-definition --execution-role-arn arn:aws:iam::245866473499:role/myEcsTaskExecutionRole --cli-input-json file://taskdef-uat.json --region ap-southeast-2
       - aws ecs update-service --cluster ${AWS_ECS_CLUSTER} --service ${AWS_ECS_SERVICE} --task-definition ${task_def_arn} --region ap-southeast-2
 artifacts:

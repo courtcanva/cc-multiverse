@@ -17,6 +17,8 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
 
+ARG N_P_C_B_URL
+
 ENV NEXT_PUBLIC_API_BASE_URI=$N_P_C_B_URL
 
 # First install the dependencies (as they change less often)
