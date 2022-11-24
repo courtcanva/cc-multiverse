@@ -5,7 +5,7 @@ import React from "react";
 const OpenOrders = () => {
   return (
     <Flex w="100%">
-      <VStack w="100%" marginX={{ base: "16px", sm: "16px", md: "20px" }}>
+      <VStack w="100%" marginX={{ base: "0px", sm: "16px", md: "20px" }}>
         <HStack spacing="20px" alignItems="center" marginY="20px">
           <Image
             boxSize="64px"
