@@ -42,10 +42,9 @@ export type DesignInformation = {
     line1: string;
     line2: string;
     postalCode: string;
-    // uncomment following if need these attribute
-    // design: Design;
-    // quotationDetails: QuotationDetails[];
   };
+  design: Design;
+  quotationDetails: QuotationDetails[];
 };
 
 type Design = {

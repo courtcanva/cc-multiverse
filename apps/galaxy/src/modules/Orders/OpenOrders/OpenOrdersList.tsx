@@ -77,7 +77,7 @@ const OpenOrdersList = () => {
                 </Link>
                 <br />
                 <br />
-                <Text fontWeight="bold">Construction Design</Text>
+                <Text fontWeight="bold">Construction Design Preview</Text>
                 <Image src={info.getValue().constructionDraw} alt="construction design alt" />
                 <br />
                 <Text fontWeight="bold">Construction Address</Text>
@@ -87,6 +87,13 @@ const OpenOrdersList = () => {
                   {info.getValue().constructionAddress.state}{" "}
                   {info.getValue().constructionAddress.postalCode},{" "}
                   {info.getValue().constructionAddress.country}
+                </Text>
+                <br />
+                <Text fontWeight="bold">Court Details</Text>
+                <Text>
+                  design name: {info.getValue().design.designName}, tile color 0:
+                  {info.getValue().design.tileColor[0].color}, court size central radius:{" "}
+                  {info.getValue().design.courtSize.centreCircleRadius.toString()}{" "}
                 </Text>
                 <br />
                 <Text fontWeight="bold">Need To Level Ground</Text>
