@@ -11,7 +11,7 @@ export interface FormData {
   orders: Order[];
 }
 
-type OrderList = {
+export type OrderList = {
   checked: boolean;
   contactInformation: string;
   designInformation: string;
@@ -71,9 +71,7 @@ type CourtSize = {
   lineBorderWidth: number;
 };
 
-export interface OrderIdList {
-  id: number;
-}
+export type OrderIdList = Array<number | undefined>;
 
 export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
@@ -108,7 +106,7 @@ export default function useGetOrders() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleAcceptOrderSubmit = async (data: OrderIdList[]) => {
+  const handleAcceptOrderSubmit = async (data: OrderIdList) => {
     setIsLoading(true);
     const token = getToken() || "";
     try {
@@ -147,5 +145,5 @@ export default function useGetOrders() {
     setIsLoading(false);
   };
 
-  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists, setLists };
+  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists };
 }

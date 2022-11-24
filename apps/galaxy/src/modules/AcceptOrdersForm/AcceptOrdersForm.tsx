@@ -4,6 +4,7 @@ import useGetOrders from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { DataTable } from "@cc/ui-chakra/src/general/Table/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
+import { OrderList } from "@src/services/orders/useOrders";
 
 const OpenOrdersList = () => {
   const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
@@ -88,9 +89,8 @@ const OpenOrdersList = () => {
       })
       .filter((val) => val !== undefined);
     const idArr = lists
-      ?.map((val: any, i: number) => {
+      ?.map((val: OrderList, i: number) => {
         const bool = arr.find((val) => val == i);
-        // console.log(bool)
         if (bool != undefined) {
           return val.id;
         }
