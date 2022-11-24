@@ -73,14 +73,17 @@ const OpenOrdersList = () => {
               <ModalBody>
                 <Text fontWeight="bold">Quotation</Text>
                 <Link href={info.getValue().quotation} color="blue">
-                  click to see quotation here
+                  click to download quotation here
                 </Link>
-                <br />
+                <Text>quotation details: {info.getValue().quotationDetails.toString()}</Text>
                 <br />
                 <Text fontWeight="bold">Design Preview</Text>
                 <Image src={info.getValue().constructionDraw} alt="construction design alt" />
                 <br />
                 <Text fontWeight="bold">Court Details</Text>
+                <Link href={info.getValue().quotation} color="blue">
+                  click to download court details here
+                </Link>
                 <Text>design name: {info.getValue().design.designName}</Text>
                 <Text>tile color: {info.getValue().design.tileColor.toString()}</Text>
                 <Text>length: {info.getValue().design.courtSize.length.toString()}</Text>
