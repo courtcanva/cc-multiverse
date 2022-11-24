@@ -17,7 +17,7 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
 
-ENV NEXT_PUBLIC_API_BASE_URI=$N_P_C_B_URL
+ENV NEXT_PUBLIC_API_BASE_URI=https://uat.api.franchise.courtcanva.com/api/v1
 
 # First install the dependencies (as they change less often)
 COPY .gitignore .gitignore
