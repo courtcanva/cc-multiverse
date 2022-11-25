@@ -87,7 +87,7 @@ const OpenOrdersList = () => {
 
   return (
     <VStack>
-      <HStack left={206}>
+      <HStack>
         <Button onClick={sub} isLoading={isLoading} variant="secondary" left={190}>
           Accept Order(s)
         </Button>
