@@ -63,7 +63,6 @@ export default function useGetOrders() {
 
   useEffect(() => {
     getOpenOrders();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAcceptOrderSubmit = async (data: OrderIdList) => {
