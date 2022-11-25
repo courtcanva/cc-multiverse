@@ -14,7 +14,6 @@ const OpenOrdersList = () => {
 
   React.useEffect(() => {
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lists]);
 
   const columns = [
