@@ -9,12 +9,4 @@ describe("Sign in Page", () => {
     expect(screen.getByText("CourtCanva")).toBeInTheDocument();
     expect(screen.getByText("Sign in to CourtCanva Franchisee")).toBeInTheDocument();
   });
-
-  it("should navigate to the login page when click on the link", async () => {
-    renderWithMockedProvider(<SignIn />);
-    expect(screen.getByRole("link", { name: /register here\./i })).toHaveAttribute(
-      "href",
-      "/sign-up"
-    );
-  });
 });
