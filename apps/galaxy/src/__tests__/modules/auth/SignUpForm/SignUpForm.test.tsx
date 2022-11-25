@@ -19,11 +19,6 @@ describe("SignUp", () => {
     expect(screen.getByRole("tab", { name: /step 3/i })).toBeInTheDocument();
   });
 
-  it("should navigate to the login page when click on the link", async () => {
-    renderWithMockedProvider(<SignUp />);
-    expect(screen.getByRole("link", { name: /login here\./i })).toHaveAttribute("href", "/sign-in");
-  });
-
   it("should sign up succesfully when all input value is valid", async () => {
     mockAxios.onGet("/staff/emails/tester@gmail.com").reply(200);
     renderWithMockedProvider(<SignUp />);

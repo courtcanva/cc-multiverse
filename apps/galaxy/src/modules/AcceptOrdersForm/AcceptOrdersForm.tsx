@@ -3,25 +3,20 @@ import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
 import useGetOrders from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import { OrderList } from "@src/services/orders/useOrders";
+import { Order } from "@src/services/orders/useOrders";
 import { HStack, VStack } from "@cc/ui-chakra";
 
 const OpenOrdersList = () => {
   const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
-  type Orders = {
-    checked: boolean;
-    contactInformation: string;
-    designInformation: string;
-    createdTime: string;
-    customerId: string;
-    id: number;
-    orderId: string;
-    suburb: string;
-    postcode: string;
-    status: string;
-    totalAmount: number;
-  };
-  const columnHelper = createColumnHelper<Orders>();
+  // type Orders = {
+  //   checked: boolean;
+  //   id: number;
+  //   createdTime: string;
+  //   postcode: string;
+  //   totalAmount: number;
+  //   designInformation: DesignInformation;
+  // };
+  const columnHelper = createColumnHelper<Order>();
   const [checkedItems, setCheckedItems] = React.useState([false]);
   React.useEffect(() => {
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
@@ -55,19 +50,19 @@ const OpenOrdersList = () => {
       cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
       header: "date",
     }),
-    columnHelper.accessor("suburb", {
-      cell: (info) => info.getValue(),
+    columnHelper.accessor("designInformation", {
+      cell: (info) => info.getValue().constructionAddress?.city,
       header: "suburb",
     }),
     columnHelper.accessor("postcode", {
-      cell: (info) => "$" + info.getValue(),
+      cell: (info) => info.getValue(),
       header: "postcode",
       meta: {
         isNumeric: true,
       },
     }),
     columnHelper.accessor("totalAmount", {
-      cell: (info) => info.getValue(),
+      cell: (info) => "$" + info.getValue(),
       header: "total amount",
       meta: {
         isNumeric: true,
@@ -86,7 +81,7 @@ const OpenOrdersList = () => {
       })
       .filter((val) => val !== undefined);
     const idArr = lists
-      ?.map((val: OrderList, i: number) => {
+      ?.map((val: Order, i: number) => {
         const bool = arr.find((val) => val == i);
         if (bool != undefined) {
           return val.id;

@@ -3,34 +3,24 @@ import { useToast } from "@cc/ui-chakra";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import { getToken, getFranchiseeId } from "@src/utils/tokenService";
+
 export interface Order {
-  label: string;
-  value: number;
+  checked: boolean;
+  id: number;
+  createdTime: string;
+  postcode: string;
+  totalAmount: number;
+  designInformation: DesignInformation;
 }
+
 export interface FormData {
   orders: Order[];
 }
-
-export type OrderList = {
-  checked: boolean;
-  contactInformation: string;
-  designInformation: string;
-  createdTime: string;
-  customerId: string;
-  id: number;
-  orderId: string;
-  suburb: string;
-  postcode: string;
-  status: string;
-  totalAmount: number;
-};
 
 export type DesignInformation = {
   quotation: string;
   constructionDraw: string;
   isNeedLevelGround: boolean;
-  design: Design;
-  quotationDetails: QuotationDetails[];
   constructionAddress: {
     country: string;
     state: string;
@@ -41,53 +31,23 @@ export type DesignInformation = {
   };
 };
 
-type Design = {
-  designName: string;
-  tileColor: TileColor[];
-  courtSize: CourtSize;
-};
-
-type QuotationDetails = {
-  color: string;
-  quantity: number;
-};
-
-type TileColor = {
-  location: string;
-  color: string;
-};
-
-type CourtSize = {
-  name: string;
-  length: number;
-  width: number;
-  centreCircleRadius: number;
-  threePointRadius: number;
-  threePointLine: number;
-  lengthOfCorner: number;
-  restrictedAreaLength: number;
-  restrictedAreaWidth: number;
-  sideBorderWidth: number;
-  lineBorderWidth: number;
-};
-
 export type OrderIdList = Array<number | undefined>;
 
 export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
-  const [lists, setLists] = useState<OrderList[]>([]);
+  const [lists, setLists] = useState<Order[]>([]);
 
   const getOpenOrders = async () => {
     const token = getToken() || "";
     try {
       const response = await axios.get(`/franchisee/${getFranchiseeId(token)}/pending_orders`);
-      const result: OrderList[] = response.data;
-      const arr = result.map((val) => {
+      const result: Order[] = response.data;
+      const orderList = result.map((val) => {
         val.checked = false;
         return val;
       });
-      setLists(arr);
+      setLists(orderList);
     } catch (error) {
       const err = error as AxiosError;
       toast({
