@@ -22,4 +22,5 @@ export {
   Center,
   Input,
   Link,
+  Checkbox,
 } from "@chakra-ui/react";
