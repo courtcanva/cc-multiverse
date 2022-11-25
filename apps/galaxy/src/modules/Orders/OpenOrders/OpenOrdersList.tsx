@@ -67,28 +67,28 @@ const OpenOrdersList = () => {
     }),
   ];
 
-  const sub = () => {
-    const arr = checkedItems
-      .map((val, i) => {
-        if (val) return i;
+  const Submit = () => {
+    const Orders = checkedItems
+      .map((checked, index) => {
+        if (checked) return index;
       })
-      .filter((val) => val !== undefined);
-    const idArr = lists
-      ?.map((val: Order, i: number) => {
-        const bool = arr.find((val) => val == i);
-        if (bool != undefined) {
-          return val.id;
+      .filter((checked) => checked !== undefined);
+    const orderIds = lists
+      ?.map((checkedOrders: Order, index: number) => {
+        const status = Orders.find((val) => val == index);
+        if (status != undefined) {
+          return checkedOrders.id;
         }
       })
-      .filter((val: number | undefined) => val);
-    handleAcceptOrderSubmit(idArr);
+      .filter((value: number | undefined) => value);
+    handleAcceptOrderSubmit(orderIds);
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };
 
   return (
     <VStack>
       <HStack>
-        <Button onClick={sub} isLoading={isLoading} variant="secondary" left={190}>
+        <Button onClick={Submit} isLoading={isLoading} variant="secondary" left={190}>
           Accept Order(s)
         </Button>
         <Button variant="primary" color="white" left={190}>
