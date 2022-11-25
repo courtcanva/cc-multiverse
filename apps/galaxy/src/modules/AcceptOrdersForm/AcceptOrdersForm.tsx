@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Checkbox, Stack } from "@chakra-ui/react";
+import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
 import useGetOrders from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
-import { DataTable } from "@cc/ui-chakra/src/general/Table/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { OrderList } from "@src/services/orders/useOrders";
+import { HStack, VStack } from "@cc/ui-chakra";
 
 const OpenOrdersList = () => {
   const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
@@ -74,12 +74,9 @@ const OpenOrdersList = () => {
       },
     }),
     columnHelper.accessor("designInformation", {
-      cell: (info) => (
-        <Button colorScheme="teal" size="sm" value={info.getValue()}>
-          detail
-        </Button>
-      ),
+      cell: () => <Button variant="secondary">detail</Button>,
       header: "details",
+      id: "details",
     }),
   ];
   const sub = () => {
@@ -101,18 +98,25 @@ const OpenOrdersList = () => {
   };
 
   return (
-    <Stack
-      border="1px"
-      borderBottom="0px"
-      borderColor="gray.200"
-      borderRadius="lg"
-      overflow="hidden"
-    >
-      <DataTable columns={columns} data={lists} />
-      <Button onClick={sub} isLoading={isLoading}>
-        submit
-      </Button>
-    </Stack>
+    <VStack>
+      <HStack left={206}>
+        <Button onClick={sub} isLoading={isLoading} variant="secondary" left={190}>
+          Accept Order(s)
+        </Button>
+        <Button variant="primary" color="white" left={190}>
+          Reject Order(s)
+        </Button>
+      </HStack>
+      <Stack
+        border="1px"
+        borderBottom="0px"
+        borderColor="gray.200"
+        borderRadius="lg"
+        overflow="hidden"
+      >
+        <DataTable columns={columns} data={lists} />
+      </Stack>
+    </VStack>
   );
 };
 

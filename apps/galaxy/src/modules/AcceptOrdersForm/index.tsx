@@ -1,4 +1,4 @@
-import AcceptOrders from "./AcceptOrdersForm";
+import OpenOrdersList from "./AcceptOrdersForm";
 import { Box, Flex, HStack, Image, Stack, Text, VStack } from "@cc/ui-chakra";
 const AcceptedOrders = () => {
   return (
@@ -18,7 +18,7 @@ const AcceptedOrders = () => {
           />
           <Text fontSize="1.5rem">CourtCanva</Text>
         </HStack>
-        <AcceptOrders />
+        <OpenOrdersList />
       </VStack>
     </Flex>
   );

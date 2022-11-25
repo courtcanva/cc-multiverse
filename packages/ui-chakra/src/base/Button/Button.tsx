@@ -8,6 +8,7 @@ type ButtonProps = {
   marginTop?: string;
   isLoading?: boolean;
   flex?: number;
+  left?: number;
 };
 export const Button = ({
   variant = "primary",
