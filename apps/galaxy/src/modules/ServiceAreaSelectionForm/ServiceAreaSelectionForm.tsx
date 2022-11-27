@@ -1,4 +1,12 @@
-import { Button, HStack, Container, Select, FormControl, FormLabel } from "@cc/ui-chakra";
+import {
+  Button,
+  HStack,
+  Container,
+  Select,
+  FormControl,
+  FormLabel,
+  SearchableSelect,
+} from "@cc/ui-chakra";
 import { useState } from "react";
 import useServiceArea, { FormData } from "../../services/servicearea/useServiceArea";
 import { useForm, Controller } from "react-hook-form";
@@ -45,28 +53,21 @@ const ServiceAreaSelection = () => {
         name="suburbs"
         rules={{ required: true }}
         render={({ field: { onChange, value, name } }) => (
-          <FormControl id="reactSelect">
-            <FormLabel marginTop="24px" htmlFor="suburbs">
-              Search Area
-            </FormLabel>
-            <ReactSelect
-              isMulti
-              instanceId="SuburbSelect"
-              name={name}
-              onChange={onChange}
-              value={value}
-              options={options}
-              errorBorderColor="red.500"
-              isInvalid={!!errors.suburbs}
-              placeholder="Please input your address or suburb"
-              components={{ DropdownIndicator: () => null }}
-              closeMenuOnSelect={false}
-              onInputChange={handleInputChange}
-              menuIsOpen={menuIsOpen}
-              filterOption={createFilter({ matchFrom: "start" })}
-            />
-            <ErrorMessage errors={errors} name="suburbs" render={renderErrorMessage} />
-          </FormControl>
+          <SearchableSelect
+            id="reactSelect"
+            label="Search Area"
+            instanceId="SuburbSelect"
+            name={name}
+            onChange={onChange}
+            value={value}
+            options={options}
+            isInvalid={!!errors.suburbs}
+            placeholder="Please input your address or suburb"
+            components={{ DropdownIndicator: () => null }}
+            onInputChange={handleInputChange}
+            menuIsOpen={menuIsOpen}
+            filterOption={createFilter({ matchFrom: "start" })}
+          />
         )}
       />
 
