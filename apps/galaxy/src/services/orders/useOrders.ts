@@ -49,9 +49,8 @@ export default function useGetOrders() {
       });
       setLists(orderList);
     } catch (error) {
-      const err = error as AxiosError;
       toast({
-        title: err.message,
+        title: "Server Error",
         description: "error",
         status: "error",
         duration: 6000,
@@ -81,8 +80,7 @@ export default function useGetOrders() {
       });
       getOpenOrders();
     } catch (error) {
-      const err = error as AxiosError;
-      if (err.response?.status === 404) {
+      if (error instanceof AxiosError && error.response?.status === 404) {
         toast({
           title: "error",
           description: "You have not selected any order",
@@ -93,7 +91,8 @@ export default function useGetOrders() {
         });
       } else {
         toast({
-          title: err.message,
+          title: "Service Error",
+          description: "Service not response",
           status: "error",
           duration: 6000,
           position: "top",

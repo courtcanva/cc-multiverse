@@ -26,7 +26,7 @@ const OpenOrdersList = () => {
             setCheckedItems([...list]);
           }}
           isChecked={checkedItems[info.row.index]}
-        ></Checkbox>
+        />
       ),
       header: () => (
         <Checkbox
@@ -35,7 +35,7 @@ const OpenOrdersList = () => {
           onChange={(e) => {
             setCheckedItems([...checkedItems.fill(e.target.checked, 0, lists.length)]);
           }}
-        ></Checkbox>
+        />
       ),
     }),
     columnHelper.accessor("createdTime", {
@@ -67,31 +67,21 @@ const OpenOrdersList = () => {
     }),
   ];
 
-  const Submit = () => {
-    const Orders = checkedItems
-      .map((checked, index) => {
-        if (checked) return index;
-      })
-      .filter((checked) => checked !== undefined);
-    const orderIds = lists
-      ?.map((checkedOrders: Order, index: number) => {
-        const status = Orders.find((val) => val == index);
-        if (status != undefined) {
-          return checkedOrders.id;
-        }
-      })
-      .filter((value: number | undefined) => value);
-    handleAcceptOrderSubmit(orderIds);
+  const onSubmitSelectedOrders = () => {
+    const selectedOrderIds = lists
+      .filter((_item, index) => checkedItems.at(index))
+      .map((item) => item.id);
+    handleAcceptOrderSubmit(selectedOrderIds);
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };
 
   return (
     <VStack>
-      <HStack>
-        <Button onClick={Submit} isLoading={isLoading} variant="secondary" left={190}>
+      <HStack alignSelf={"flex-end"}>
+        <Button onClick={onSubmitSelectedOrders} isLoading={isLoading} variant="secondary">
           Accept Order(s)
         </Button>
-        <Button variant="primary" color="white" left={190}>
+        <Button variant="primary" color="white">
           Reject Order(s)
         </Button>
       </HStack>
