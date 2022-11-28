@@ -10,7 +10,7 @@ jest.mock("next/router", () => ({
   }),
 }));
 
-const realNextRoute = "/";
+const realNextRoute = "/sign-in";
 const mockPayload = {
   valid: {
     token: "valid",
