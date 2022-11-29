@@ -18,6 +18,17 @@ import {
 import useGetOrders, { DesignInformation } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
 
 const OpenOrdersList = () => {
   const { lists } = useGetOrders("pending_orders");
@@ -73,7 +84,7 @@ const OpenOrdersList = () => {
               <ModalBody>
                 <Text fontWeight="bold">Quotation</Text>
                 <Link href={info.getValue().quotation} color="blue">
-                  click to download quotation here
+                  click to view quotation here
                 </Link>
                 <Text>quotation details: {info.getValue().quotationDetails.toString()}</Text>
                 <br />
@@ -81,36 +92,55 @@ const OpenOrdersList = () => {
                 <Image src={info.getValue().constructionDraw} alt="construction design alt" />
                 <br />
                 <Text fontWeight="bold">Court Details</Text>
-                <Link href={info.getValue().quotation} color="blue">
-                  click to download court details here
-                </Link>
-                <Text>design name: {info.getValue().design.designName}</Text>
-                <Text>tile color: {info.getValue().design.tileColor.toString()}</Text>
-                <Text>length: {info.getValue().design.courtSize.length.toString()}</Text>
-                <Text>width: {info.getValue().design.courtSize.width.toString()}</Text>
-                <Text>
-                  three point radius: {info.getValue().design.courtSize.threePointRadius.toString()}
-                </Text>
-                <Text>
-                  three point line: {info.getValue().design.courtSize.threePointLine.toString()}
-                </Text>
-                <Text>
-                  length of corner: {info.getValue().design.courtSize.lengthOfCorner.toString()}
-                </Text>
-                <Text>
-                  restricted area length:{" "}
-                  {info.getValue().design.courtSize.restrictedAreaLength.toString()}
-                </Text>
-                <Text>
-                  restricted area width:{" "}
-                  {info.getValue().design.courtSize.restrictedAreaWidth.toString()}
-                </Text>
-                <Text>
-                  side border width: {info.getValue().design.courtSize.sideBorderWidth.toString()}
-                </Text>
-                <Text>
-                  line border width: {info.getValue().design.courtSize.lineBorderWidth.toString()}
-                </Text>
+                <TableContainer width="100%">
+                  <Table variant="simple">
+                    <Tbody>
+                      <Tr>
+                        <Td paddingLeft="0px">design name</Td>
+                        <Td>{info.getValue().design.designName}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">tile color</Td>
+                        <Td>{info.getValue().design.tileColor.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">length</Td>
+                        <Td>{info.getValue().design.courtSize.length.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">width</Td>
+                        <Td>{info.getValue().design.courtSize.width.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">three point radius</Td>
+                        <Td>{info.getValue().design.courtSize.threePointRadius.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">three point line</Td>
+                        <Td>{info.getValue().design.courtSize.threePointLine.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">length of corner</Td>
+                        <Td>{info.getValue().design.courtSize.lengthOfCorner.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">restricted area length</Td>
+                        <Td>{info.getValue().design.courtSize.restrictedAreaLength.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">side border width</Td>
+                        <Td>{info.getValue().design.courtSize.sideBorderWidth.toString()}</Td>
+                      </Tr>
+                      <Tr>
+                        <Td paddingLeft="0px">line border width</Td>
+                        <Td>{info.getValue().design.courtSize.lineBorderWidth.toString()}</Td>
+                      </Tr>
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+                <br />
+                <Text fontWeight="bold">Need To Level Ground</Text>
+                <Text>{info.getValue().isNeedLevelGround.toString()}</Text>
                 <br />
                 <Text fontWeight="bold">Construction Address</Text>
                 <Text>
@@ -121,8 +151,6 @@ const OpenOrdersList = () => {
                   {info.getValue().constructionAddress.country}
                 </Text>
                 <br />
-                <Text fontWeight="bold">Need To Level Ground</Text>
-                <Text>{info.getValue().isNeedLevelGround.toString()}</Text>
               </ModalBody>
             </ModalContent>
           </Modal>
