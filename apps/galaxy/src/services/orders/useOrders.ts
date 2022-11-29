@@ -9,6 +9,14 @@ export interface Order {
   value: number;
 }
 
+export type Orders = {
+  id: number;
+  createdTime: string;
+  postcode: string;
+  totalAmount: number;
+  designInformation: DesignInformation;
+};
+
 type OrderList = {
   contactInformation: {
     name: string;
@@ -47,23 +55,23 @@ export type DesignInformation = {
   quotationDetails: QuotationDetails[];
 };
 
-type Design = {
+export type Design = {
   designName: string;
   tileColor: TileColor[];
   courtSize: CourtSize;
 };
 
-type QuotationDetails = {
+export type QuotationDetails = {
   color: string;
   quantity: number;
 };
 
-type TileColor = {
+export type TileColor = {
   location: string;
   color: string;
 };
 
-type CourtSize = {
+export type CourtSize = {
   name: string;
   length: number;
   width: number;
