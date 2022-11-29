@@ -58,13 +58,7 @@ describe("Service Area Selection Page", () => {
     user.type(suburbInput, "E");
     jest.runAllTimers();
     expect(setTimeout).toHaveBeenCalledTimes(1);
-    // expect(setTimeout).toHaveBeenLastCalledWith(
-    //   expect(await screen.findByText("East Albury NSW, 2640")).toBeInTheDocument(),
-    //   1000
-    // );
-    // expect(await screen.findByText("East Albury NSW, 2640")).toBeInTheDocument();
-    // const mockHook = jest.fn();
-    // await waitFor(() => expect(mockHook).toHaveBeenCalledWith("E"), { timeout: 1000 });
+    expect(await screen.findByText("East Albury NSW, 2640")).toBeInTheDocument();
 
     user.type(suburbInput, "{backspace}");
     await waitFor(() =>
