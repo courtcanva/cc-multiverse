@@ -1,18 +1,42 @@
 import React from "react";
-import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
+import { Button, Checkbox, DataTable, Stack, HStack, VStack} from "@cc/ui-chakra";
 import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
 import Details from "../../Orders/Details";
 
 const OpenOrdersList = () => {
-  const { lists } = useGetOrders();
+  const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
   const columnHelper = createColumnHelper<Order>();
+  const [checkedItems, setCheckedItems] = React.useState([false]);
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+  React.useEffect(() => {
+    (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
+  }, [lists]);
 
   const columns = [
     columnHelper.accessor("id", {
-      cell: (info) => <Checkbox key={info.getValue()} value={info.getValue()}></Checkbox>,
-      header: () => <Checkbox></Checkbox>,
+      cell: (info) => (
+        <Checkbox
+          onChange={(e) => {
+            const list = checkedItems;
+            checkedItems[info.row.index] = e.target.checked;
+            setCheckedItems([...list]);
+          }}
+          isChecked={checkedItems[info.row.index]}
+        />
+      ),
+      header: () => (
+        <Checkbox
+          isChecked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={(e) => {
+            setCheckedItems([...checkedItems.fill(e.target.checked, 0, lists.length)]);
+          }}
+        />
+      ),
     }),
     columnHelper.accessor("createdTime", {
       cell: (info) => dayjs(info.getValue()).format("DD/MM/YYYY"),
@@ -43,16 +67,34 @@ const OpenOrdersList = () => {
     }),
   ];
 
+  const onSubmitSelectedOrders = () => {
+    const selectedOrderIds = lists
+      .filter((_item, index) => checkedItems.at(index))
+      .map((item) => item.id);
+    handleAcceptOrderSubmit(selectedOrderIds);
+    (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
+  };
+
   return (
-    <Stack
-      border="1px"
-      borderBottom="0px"
-      borderColor="gray.200"
-      borderRadius="lg"
-      overflow="hidden"
-    >
-      <DataTable columns={columns} data={lists} />
-    </Stack>
+    <VStack>
+      <HStack alignSelf={"flex-end"}>
+        <Button onClick={onSubmitSelectedOrders} isLoading={isLoading} variant="secondary">
+          Accept Order(s)
+        </Button>
+        <Button variant="primary" color="white">
+          Reject Order(s)
+        </Button>
+      </HStack>
+      <Stack
+        border="1px"
+        borderBottom="0px"
+        borderColor="gray.200"
+        borderRadius="lg"
+        overflow="hidden"
+      >
+        <DataTable columns={columns} data={lists} />
+      </Stack>
+    </VStack>
   );
 };
 
