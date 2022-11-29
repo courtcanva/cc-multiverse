@@ -2,7 +2,7 @@ import {
   DesignInformation,
   QuotationDetails,
   TileColor,
-  Orders,
+  Order,
 } from "@src/services/orders/useOrders";
 import {
   Button,
@@ -23,7 +23,7 @@ import {
 } from "@cc/ui-chakra";
 import { CellContext } from "@tanstack/react-table";
 
-const Details = (info: CellContext<Orders, DesignInformation>) => {
+const Details = (info: CellContext<Order, DesignInformation>) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
