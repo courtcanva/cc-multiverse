@@ -32,4 +32,9 @@ export {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Table,
+  Tbody,
+  Tr,
+  Td,
+  TableContainer,
 } from "@chakra-ui/react";

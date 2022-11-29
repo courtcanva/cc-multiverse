@@ -10,25 +10,18 @@ import {
   Modal,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Table,
+  Tbody,
+  Tr,
+  Td,
+  TableContainer,
 } from "@cc/ui-chakra";
 import useGetOrders, { DesignInformation } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from "@chakra-ui/react";
 
 const OpenOrdersList = () => {
   const { lists } = useGetOrders("pending_orders");
@@ -86,13 +79,20 @@ const OpenOrdersList = () => {
                 <Link href={info.getValue().quotation} color="blue">
                   click to view quotation here
                 </Link>
-                <Text>quotation details: {info.getValue().quotationDetails.toString()}</Text>
+                <Text>
+                  quotation details:{" "}
+                  {info
+                    .getValue()
+                    .quotationDetails.map(
+                      (quotationDetail) => `[${quotationDetail.color}, ${quotationDetail.quantity}]`
+                    )}
+                </Text>
                 <br />
                 <Text fontWeight="bold">Design Preview</Text>
-                <Image src={info.getValue().constructionDraw} alt="construction design alt" />
+                <Image src={info.getValue().constructionDraw} alt="design preview alt" />
                 <br />
                 <Text fontWeight="bold">Court Details</Text>
-                <TableContainer width="100%">
+                <TableContainer>
                   <Table variant="simple">
                     <Tbody>
                       <Tr>
@@ -101,7 +101,11 @@ const OpenOrdersList = () => {
                       </Tr>
                       <Tr>
                         <Td paddingLeft="0px">tile color</Td>
-                        <Td>{info.getValue().design.tileColor.toString()}</Td>
+                        <Td>
+                          {info
+                            .getValue()
+                            .design.tileColor.map((tile) => `[${tile.color}, ${tile.location}]`)}
+                        </Td>
                       </Tr>
                       <Tr>
                         <Td paddingLeft="0px">length</Td>
