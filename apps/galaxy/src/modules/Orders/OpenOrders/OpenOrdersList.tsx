@@ -1,14 +1,13 @@
 import React from "react";
-import { Checkbox, DataTable, Stack } from "@cc/ui-chakra";
-import useGetOrders, { Orders } from "@src/services/orders/useOrders";
+import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
+import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import Details from "../../Orders/details";
+import Details from "../../Orders/Details";
 
 const OpenOrdersList = () => {
-  const { lists } = useGetOrders("pending_orders");
-
-  const columnHelper = createColumnHelper<Orders>();
+  const { lists } = useGetOrders();
+  const columnHelper = createColumnHelper<Order>();
 
   const columns = [
     columnHelper.accessor("id", {
@@ -43,6 +42,7 @@ const OpenOrdersList = () => {
       id: "details",
     }),
   ];
+
   return (
     <Stack
       border="1px"

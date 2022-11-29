@@ -4,39 +4,12 @@ import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import { getFranchiseeId, getToken } from "@src/utils/tokenService";
 
-export interface Order {
-  label: string;
-  value: number;
-}
-
-export type Orders = {
+export type Order = {
   id: number;
   createdTime: string;
   postcode: string;
   totalAmount: number;
   designInformation: DesignInformation;
-};
-
-type OrderList = {
-  contactInformation: {
-    name: string;
-    phone: string;
-  };
-  designInformation: DesignInformation;
-  createdTime: string;
-  customerId: string;
-  id: number;
-  orderId: string;
-  suburb: string;
-  postcode: string;
-  status: string;
-  totalAmount: number;
-};
-
-export type Test = {
-  quotation: string;
-  constructionDraw: string;
-  isNeedLevelGround: boolean;
 };
 
 export type DesignInformation = {
@@ -85,15 +58,14 @@ export type CourtSize = {
   lineBorderWidth: number;
 };
 
-export default function useGetOrders(endpoint: string) {
-  const [isLoading, setIsLoading] = useState(false);
+const useGetOrders = () => {
   const toast = useToast();
-  const [lists, setLists] = useState<OrderList[]>([]);
+  const [lists, setLists] = useState<Order[]>([]);
 
   const getOpenOrders = async () => {
     try {
       const franchiseeId = getFranchiseeId(getToken());
-      const response = await axios.get(`/franchisee/${franchiseeId}/${endpoint}`);
+      const response = await axios.get(`/franchisee/${franchiseeId}/pending_orders`);
       setLists(response.data);
     } catch (error) {
       const err = error as AxiosError;
@@ -112,5 +84,7 @@ export default function useGetOrders(endpoint: string) {
     getOpenOrders();
   }, []);
 
-  return { isLoading, getOpenOrders, lists };
-}
+  return { lists };
+};
+
+export default useGetOrders;

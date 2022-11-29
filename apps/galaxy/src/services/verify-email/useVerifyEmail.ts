@@ -24,7 +24,7 @@ export type VerifyEmailRequestData = {
 export const useVerifyEmail = () => {
   const [status, setStatus] = useState<VerificationStatus>("verifying");
   const router = useRouter();
-  const nextRoute = "/";
+  const nextRoute = "/sign-in";
 
   const verificationInfos: VerificationInfo = {
     verifying: {
