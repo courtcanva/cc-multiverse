@@ -2,12 +2,12 @@ import { Button, HStack, Container, Select, FormControl, FormLabel } from "@cc/u
 import { useState } from "react";
 import useServiceArea, { FormData } from "../../services/servicearea/useServiceArea";
 import { useForm, Controller } from "react-hook-form";
-import { Select as ReactSelect, createFilter } from "chakra-react-select";
+import { createFilter, AsyncSelect } from "chakra-react-select";
 import { ErrorMessage } from "@hookform/error-message";
 
 const ServiceAreaSelection = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const { isLoading, handleServiceAreaSubmit, options } = useServiceArea();
+  const { isLoading, handleServiceAreaSubmit, promiseOptions } = useServiceArea();
   const {
     control,
     register,
@@ -49,13 +49,13 @@ const ServiceAreaSelection = () => {
             <FormLabel marginTop="24px" htmlFor="suburbs">
               Search Area
             </FormLabel>
-            <ReactSelect
+            <AsyncSelect
               isMulti
-              instanceId="SuburbSelect"
+              cacheOptions
+              loadOptions={promiseOptions}
               name={name}
               onChange={onChange}
               value={value}
-              options={options}
               errorBorderColor="red.500"
               isInvalid={!!errors.suburbs}
               placeholder="Please input your address or suburb"

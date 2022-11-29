@@ -53,6 +53,17 @@ export default function useServiceArea() {
     getSuburbsInfo();
   }, []);
 
+  const filterSuburbs = (inputValue: string) => {
+    return options.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+  };
+
+  const promiseOptions = (inputValue: string) =>
+    new Promise<SuburbOption[]>((resolve) => {
+      setTimeout(() => {
+        resolve(filterSuburbs(inputValue));
+      }, 1000);
+    });
+
   const handleServiceAreaSubmit = async (data: FormData) => {
     setIsLoading(true);
 
@@ -94,5 +105,5 @@ export default function useServiceArea() {
     setIsLoading(false);
   };
 
-  return { isLoading, handleServiceAreaSubmit, options };
+  return { isLoading, handleServiceAreaSubmit, promiseOptions };
 }

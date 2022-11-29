@@ -29,6 +29,14 @@ describe("Service Area Selection Page", () => {
   beforeAll(() => {
     mockAxios.reset();
   });
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.spyOn(global, "setTimeout");
+  });
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
 
   it("should render service area selection page success", async () => {
     renderWithMockedProvider(<ServiceAreaSelection />);
@@ -48,7 +56,15 @@ describe("Service Area Selection Page", () => {
     renderWithMockedProvider(<ServiceAreaSelection />);
     const suburbInput = screen.getByRole("combobox", { name: "" });
     user.type(suburbInput, "E");
-    expect(await screen.findByText("East Albury NSW, 2640")).toBeInTheDocument();
+    jest.runAllTimers();
+    expect(setTimeout).toHaveBeenCalledTimes(1);
+    // expect(setTimeout).toHaveBeenLastCalledWith(
+    //   expect(await screen.findByText("East Albury NSW, 2640")).toBeInTheDocument(),
+    //   1000
+    // );
+    // expect(await screen.findByText("East Albury NSW, 2640")).toBeInTheDocument();
+    // const mockHook = jest.fn();
+    // await waitFor(() => expect(mockHook).toHaveBeenCalledWith("E"), { timeout: 1000 });
 
     user.type(suburbInput, "{backspace}");
     await waitFor(() =>
