@@ -25,15 +25,7 @@ import { CellContext } from "@tanstack/react-table";
 
 const Details = (info: CellContext<Orders, DesignInformation>) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  interface Dictionary<T> {
-    [Key: string]: T;
-  }
-  const courtSizes: Dictionary<number> = {
-    length: info.getValue().design.courtSize.length,
-    width: info.getValue().design.courtSize.width,
-    threePointRadius: info.getValue().design.courtSize.threePointRadius,
-    threePointLine: info.getValue().design.courtSize.threePointLine,
-  };
+
   return (
     <>
       <Button onClick={onOpen} variant="secondary">
@@ -79,13 +71,14 @@ const Details = (info: CellContext<Orders, DesignInformation>) => {
                         )}
                     </Td>
                   </Tr>
-                  {Object.keys(courtSizes).map((key, value) => (
-                    <Tr key={key}>
-                      <Td paddingLeft="0px">{key}</Td>
-                      <Td>{value}</Td>
-                    </Tr>
-                  ))}
-
+                  <Tr>
+                    <Td paddingLeft="0px">length</Td>
+                    <Td>{info.getValue().design.courtSize.length.toString()}</Td>
+                  </Tr>
+                  <Tr>
+                    <Td paddingLeft="0px">width</Td>
+                    <Td>{info.getValue().design.courtSize.width.toString()}</Td>
+                  </Tr>
                   <Tr>
                     <Td paddingLeft="0px">three point radius</Td>
                     <Td>{info.getValue().design.courtSize.threePointRadius.toString()}</Td>
