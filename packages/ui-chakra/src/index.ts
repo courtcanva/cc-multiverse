@@ -37,4 +37,5 @@ export {
   Tr,
   Td,
   TableContainer,
+  Heading,
 } from "@chakra-ui/react";

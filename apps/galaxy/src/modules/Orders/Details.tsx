@@ -1,13 +1,9 @@
-import {
-  DesignInformation,
-  QuotationDetails,
-  TileColor,
-  Order,
-} from "@src/services/orders/useOrders";
+import { DesignInformation, TileColor, Order } from "@src/services/orders/useOrders";
 import {
   Button,
   Image,
   Text,
+  Heading,
   Link,
   Modal,
   ModalContent,
@@ -25,99 +21,84 @@ import { CellContext } from "@tanstack/react-table";
 
 const Details = (info: CellContext<Order, DesignInformation>) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    quotation,
+    quotationDetails,
+    constructionDraw,
+    design,
+    isNeedLevelGround,
+    constructionAddress,
+  } = info.getValue();
+  const constructionAddressDetails = `${constructionAddress.line1}, ${constructionAddress.line2}, ${constructionAddress.state} ${constructionAddress.postalCode}, ${constructionAddress.country}`;
+  const courtDetails = [
+    { label: "Design name", value: design.designName },
+    {
+      label: "Tile color",
+      value: design.tileColor.map((tile: TileColor) => `[${tile.color}, ${tile.location}] `),
+    },
+    { label: "Length", value: design.courtSize.length },
+    { label: "Width", value: design.courtSize.width },
+    { label: "Three point radius", value: design.courtSize.threePointRadius },
+    { label: "Three point line", value: design.courtSize.threePointLine },
+    { label: "Length of corner", value: design.courtSize.lengthOfCorner },
+    { label: "Restricted area length", value: design.courtSize.restrictedAreaLength },
+    { label: "Side border width", value: design.courtSize.sideBorderWidth },
+    { label: "Line border width", value: design.courtSize.lineBorderWidth },
+  ];
 
   return (
     <>
       <Button onClick={onOpen} variant="secondary">
-        details
+        View
       </Button>
       <Modal scrollBehavior={"inside"} isOpen={isOpen} onClose={onClose}>
         <ModalContent>
           <ModalHeader>Order Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text fontWeight="bold">Quotation</Text>
-            <Link href={info.getValue().quotation} color="blue">
-              click to view quotation here
+            <Heading fontSize="17px" marginBottom="5px">
+              Quotation
+            </Heading>
+            <Link href={quotation} color="blue">
+              Click to view quotation here
             </Link>
             <Text>
-              quotation details:{" "}
-              {info
-                .getValue()
-                .quotationDetails.map(
-                  (quotationDetail: QuotationDetails) =>
-                    `[${quotationDetail.color}, ${quotationDetail.quantity}] `
-                )}
+              {"Quotation details: "}
+              {quotationDetails.map(
+                (quotationDetail) => `[${quotationDetail.color}, ${quotationDetail.quantity}] `
+              )}
             </Text>
             <br />
-            <Text fontWeight="bold">Design Preview</Text>
-            <Image src={info.getValue().constructionDraw} alt="design preview alt" />
+            <Heading fontSize="17px" marginBottom="5px">
+              Design Preview
+            </Heading>
+            <Image src={constructionDraw} alt="design preview alt" />
             <br />
-            <Text fontWeight="bold">Court Details</Text>
+            <Heading fontSize="17px" marginBottom="5px">
+              Court Details
+            </Heading>
             <TableContainer>
               <Table variant="simple">
                 <Tbody>
-                  <Tr>
-                    <Td paddingLeft="0px">design name</Td>
-                    <Td>{info.getValue().design.designName}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">tile color</Td>
-                    <Td>
-                      {info
-                        .getValue()
-                        .design.tileColor.map(
-                          (tile: TileColor) => `[${tile.color}, ${tile.location}] `
-                        )}
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">length</Td>
-                    <Td>{info.getValue().design.courtSize.length.toString()}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">width</Td>
-                    <Td>{info.getValue().design.courtSize.width.toString()}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">three point radius</Td>
-                    <Td>{info.getValue().design.courtSize.threePointRadius.toString()}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">three point line</Td>
-                    <Td>{info.getValue().design.courtSize.threePointLine.toString()}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">length of corner</Td>
-                    <Td>{info.getValue().design.courtSize.lengthOfCorner.toString()}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">restricted area length</Td>
-                    <Td>{info.getValue().design.courtSize.restrictedAreaLength.toString()}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">side border width</Td>
-                    <Td>{info.getValue().design.courtSize.sideBorderWidth.toString()}</Td>
-                  </Tr>
-                  <Tr>
-                    <Td paddingLeft="0px">line border width</Td>
-                    <Td>{info.getValue().design.courtSize.lineBorderWidth.toString()}</Td>
-                  </Tr>
+                  {courtDetails.map(({ label, value }) => (
+                    <Tr key={label}>
+                      <Td paddingLeft="0px">{label}</Td>
+                      <Td>{value}</Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>
             <br />
-            <Text fontWeight="bold">Need To Level Ground</Text>
-            <Text>{info.getValue().isNeedLevelGround.toString()}</Text>
+            <Heading fontSize="17px" marginBottom="5px">
+              Need To Level Ground
+            </Heading>
+            <Text>{isNeedLevelGround ? "Yes" : "No"}</Text>
             <br />
-            <Text fontWeight="bold">Construction Address</Text>
-            <Text>
-              {info.getValue().constructionAddress.line1},{" "}
-              {info.getValue().constructionAddress.line2},{" "}
-              {info.getValue().constructionAddress.state}{" "}
-              {info.getValue().constructionAddress.postalCode},{" "}
-              {info.getValue().constructionAddress.country}
-            </Text>
+            <Heading fontSize="17px" marginBottom="5px">
+              Construction Address
+            </Heading>
+            <Text>{constructionAddressDetails}</Text>
             <br />
           </ModalBody>
         </ModalContent>
