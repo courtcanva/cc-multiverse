@@ -30,7 +30,7 @@ const Details = (info: CellContext<Order, DesignInformation>) => {
     constructionAddress,
   } = info.getValue();
   const constructionAddressDetails = `${constructionAddress.line1}, ${constructionAddress.line2}, ${constructionAddress.state} ${constructionAddress.postalCode}, ${constructionAddress.country}`;
-  const courtDetails = [
+  const courtDesignDetails = [
     { label: "Design name", value: design.designName },
     {
       label: "Tile color",
@@ -80,9 +80,9 @@ const Details = (info: CellContext<Order, DesignInformation>) => {
             <TableContainer>
               <Table variant="simple">
                 <Tbody>
-                  {courtDetails.map(({ label, value }) => (
+                  {courtDesignDetails.map(({ label, value }) => (
                     <Tr key={label}>
-                      <Td paddingLeft="0px">{label}</Td>
+                      <Td paddingLeft="1px">{label}</Td>
                       <Td>{value}</Td>
                     </Tr>
                   ))}
