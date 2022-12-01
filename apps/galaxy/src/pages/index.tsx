@@ -1,6 +1,5 @@
 import { Stack, Button } from "@cc/ui-chakra";
 import { useRouter } from "next/router";
-import NoFoundIcon from "@src/assets/icons/404.svg";
 
 export default function Galaxy() {
   const router = useRouter();
