@@ -29,41 +29,11 @@ export type DesignInformation = {
     line2: string;
     postalCode: string;
   };
-  design: Design;
-  quotationDetails: QuotationDetails[];
-};
-
-export type Design = {
-  designName: string;
-  tileColor: TileColor[];
-  courtSize: CourtSize;
-};
-
-export type QuotationDetails = {
-  color: string;
-  quantity: number;
-};
-
-export type TileColor = {
-  location: string;
-  color: string;
-};
-
-export type CourtSize = {
-  name: string;
-  length: number;
-  width: number;
-  centreCircleRadius: number;
-  threePointRadius: number;
-  threePointLine: number;
-  lengthOfCorner: number;
-  restrictedAreaLength: number;
-  restrictedAreaWidth: number;
-  sideBorderWidth: number;
-  lineBorderWidth: number;
 };
 
 export type OrderIdList = Array<number | undefined>;
+
+export type rejectOrderIds = Array<number | undefined>;
 
 export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
@@ -135,5 +105,44 @@ export default function useGetOrders() {
     setIsLoading(false);
   };
 
-  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists };
+  const handleRejectOrderSubmit = async (data: rejectOrderIds) => {
+    setIsLoading(true);
+    const token = getToken() || "";
+    try {
+      await axios.post(`/franchisee/${getFranchiseeId(token)}/reject_orders2`, {
+        ids: data,
+      });
+      toast({
+        title: "Reject Successfully",
+        status: "info",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      });
+      getOpenOrders();
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 404) {
+        toast({
+          title: "error",
+          description: "You have not selected any order",
+          status: "error",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Service Error",
+          description: "Service not response",
+          status: "error",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    }
+    setIsLoading(false);
+  };
+
+  return { isLoading, handleAcceptOrderSubmit, handleRejectOrderSubmit, getOpenOrders, lists };
 }

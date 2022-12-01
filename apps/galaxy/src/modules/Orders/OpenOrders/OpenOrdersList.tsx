@@ -1,12 +1,12 @@
 import React from "react";
-import { Button, Checkbox, DataTable, Stack, HStack, VStack } from "@cc/ui-chakra";
+import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
 import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import Details from "../../Orders/Details";
+import { HStack, VStack } from "@cc/ui-chakra";
 
 const OpenOrdersList = () => {
-  const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
+  const { isLoading, handleAcceptOrderSubmit, handleRejectOrderSubmit, lists } = useGetOrders();
   const columnHelper = createColumnHelper<Order>();
   const [checkedItems, setCheckedItems] = React.useState([false]);
   const allChecked = checkedItems.every(Boolean);
@@ -61,7 +61,7 @@ const OpenOrdersList = () => {
       },
     }),
     columnHelper.accessor("designInformation", {
-      cell: (info) => <Details {...info} />,
+      cell: () => <Button variant="secondary">detail</Button>,
       header: "details",
       id: "details",
     }),
@@ -75,13 +75,21 @@ const OpenOrdersList = () => {
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };
 
+  const onSubmitRejectOrders = () => {
+    const rejectOrderIds = lists
+      .filter((_item, index) => checkedItems.at(index))
+      .map((item) => item.id);
+    handleRejectOrderSubmit(rejectOrderIds);
+    (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
+  };
+
   return (
     <VStack>
       <HStack alignSelf={"flex-end"}>
-        <Button onClick={onSubmitSelectedOrders} isLoading={isLoading} variant="secondary">
+        <Button onClick={onSubmitSelectedOrders} variant="secondary">
           Accept Order(s)
         </Button>
-        <Button variant="primary" color="white">
+        <Button onClick={onSubmitRejectOrders} variant="primary">
           Reject Order(s)
         </Button>
       </HStack>
