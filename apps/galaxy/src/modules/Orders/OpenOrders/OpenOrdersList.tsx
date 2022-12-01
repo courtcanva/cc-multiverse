@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
+import { Button, Checkbox, DataTable, Stack, HStack, VStack } from "@cc/ui-chakra";
 import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import { HStack, VStack } from "@cc/ui-chakra";
+import Details from "../../Orders/Details";
 
 const OpenOrdersList = () => {
   const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
@@ -61,7 +61,7 @@ const OpenOrdersList = () => {
       },
     }),
     columnHelper.accessor("designInformation", {
-      cell: () => <Button variant="secondary">detail</Button>,
+      cell: (info) => <Details {...info} />,
       header: "details",
       id: "details",
     }),
