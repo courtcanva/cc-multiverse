@@ -1,16 +1,20 @@
 import { VStack, HStack, Text, Divider, Link as CKLink } from "@chakra-ui/react";
-import { CalendarIcon, CheckCircleIcon } from "@chakra-ui/icons";
+import { CalendarIcon, CheckCircleIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import Logo from "../../../../../apps/galaxy/src/components/Logo";
+import { useRouter } from "next/router";
 
 export function Sidebar() {
+  const router = useRouter();
+  const signOut = () => {
+    localStorage.removeItem("accessToken");
+    router.push("/sign-in");
+  };
   return (
     <>
       <VStack
-        w="200px"
+        w="240px"
         h="98%"
         display="flex"
-        margin-top="200px"
         justifyContent="space-between"
         spacing="2rem"
         m="0.5rem"
@@ -21,7 +25,7 @@ export function Sidebar() {
         color="black"
         fontSize="1rem"
       >
-        <VStack alignSelf="stretch" spacing="5rem">
+        <VStack spacing="1rem">
           <VStack spacing="4" pl="0.25rem">
             <VStack h="100px" p={4}>
               <Text fontSize="2xl">My Orders</Text>
@@ -41,7 +45,22 @@ export function Sidebar() {
             </Link>
           </VStack>
         </VStack>
-        <Logo />
+        <VStack spacing="5rem">
+          <VStack spacing="0px" pl="0.25rem">
+            <VStack h="100px" p={4}>
+              <Text fontSize="2xl">My Account</Text>
+              <Divider borderColor={"#49b785"} />
+            </VStack>
+            <Link href={"/open-orders"}>
+              <HStack>
+                <ExternalLinkIcon />
+                <CKLink onClick={signOut} color="#595a5c">
+                  Sign Out
+                </CKLink>
+              </HStack>
+            </Link>
+          </VStack>
+        </VStack>
       </VStack>
     </>
   );
