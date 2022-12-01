@@ -6,8 +6,6 @@ import renderWithMockedProvider from "../../testHelper";
 import { screen, waitFor } from "@testing-library/react";
 import ServiceAreaSelection from "../../../pages/service-area-selection";
 
-// const mockedOptions = [{ value: 11344, label: "East Albury NSW, 2640" }];
-
 const mockedOptions = (_inputValue: string, callback: (fn: () => void) => void) => {
   callback(() => [{ value: 11344, label: "East Albury NSW, 2640" }]);
 };
