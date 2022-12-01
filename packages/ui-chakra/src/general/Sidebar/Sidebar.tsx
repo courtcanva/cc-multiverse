@@ -32,13 +32,13 @@ export function Sidebar() {
               <Divider borderColor={"#49b785"} />
             </VStack>
             <Link href={"/open-orders"}>
-              <HStack>
+              <HStack width="150px">
                 <CalendarIcon />
                 <CKLink color="#595a5c">Open orders</CKLink>
               </HStack>
             </Link>
             <Link href={"/accepted-orders"}>
-              <HStack>
+              <HStack width="150px">
                 <CheckCircleIcon />
                 <CKLink color="#595a5c">Accept orders</CKLink>
               </HStack>
@@ -52,7 +52,7 @@ export function Sidebar() {
               <Divider borderColor={"#49b785"} />
             </VStack>
             <Link href={"/open-orders"}>
-              <HStack>
+              <HStack width="150px">
                 <ExternalLinkIcon />
                 <CKLink onClick={signOut} color="#595a5c">
                   Sign Out

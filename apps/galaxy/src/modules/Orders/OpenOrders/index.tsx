@@ -5,16 +5,14 @@ import Logo from "@src/components/Logo";
 
 const OpenOrders = () => {
   return (
-    <Flex>
-      <HStack>
-        <Sidebar />
-        <VStack alignContent="center" alignItems="center" h="100%">
-          <HStack alignItems="center" marginY="20px">
-            <Logo />
-          </HStack>
-          <OpenOrdersList />
-        </VStack>
-      </HStack>
+    <Flex width="100%">
+      <Sidebar />
+      <VStack alignContent="center" alignItems="center" h="100%" width="100%">
+        <HStack alignItems="center" marginY="20px">
+          <Logo />
+        </HStack>
+        <OpenOrdersList />
+      </VStack>
     </Flex>
   );
 };
