@@ -5,16 +5,25 @@ import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 
 export interface Order {
   checked: boolean;
-  id: number;
+  contactInformation: ContactInformation;
   createdTime: string;
-  postcode: string;
-  totalAmount: number;
+  customerId: string;
   designInformation: DesignInformation;
+  id: number;
+  orderId: string;
+  postcode: string;
+  status: string;
+  totalAmount: number;
 }
 
 export interface FormData {
   orders: Order[];
 }
+
+export type ContactInformation = {
+  name: string;
+  phone: string;
+};
 
 export type DesignInformation = {
   quotation: string;
@@ -71,8 +80,11 @@ export default function useGetOrders() {
   const getAcceptedOrders = async () => {
     const token = getToken() || "";
     try {
-      const response = await axios.get(`/franchisee/${getFranchiseeId(token)}/accepted_orders`);
-      const result: Order[] = response.data;
+      const response = await axios.get(
+        `/franchisee/${getFranchiseeId(token)}/accepted_orders?page=1`
+      );
+      const result: Order[] = response.data.acceptedOrders;
+      console.log(result);
       const orderList = result.map((val) => {
         val.checked = false;
         return val;

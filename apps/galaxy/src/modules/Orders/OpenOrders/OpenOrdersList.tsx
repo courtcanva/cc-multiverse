@@ -3,7 +3,7 @@ import { Button, Checkbox, DataTable, Stack, HStack, VStack } from "@cc/ui-chakr
 import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import Details from "../../Orders/Details";
+import Details from "./Details";
 
 const OpenOrdersList = () => {
   const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
