@@ -4,9 +4,10 @@ import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
 import Details from "./Details";
+import { getToken, getFranchiseeId } from "@src/utils/tokenService";
 
 const OpenOrdersList = () => {
-  const { isLoading, handleAcceptOrderSubmit, lists } = useGetOrders();
+  const { handleRejectOrderSubmit, handleAcceptOrderSubmit, lists } = useGetOrders();
   const columnHelper = createColumnHelper<Order>();
   const [checkedItems, setCheckedItems] = React.useState([false]);
   const allChecked = checkedItems.every(Boolean);
@@ -70,18 +71,28 @@ const OpenOrdersList = () => {
   const onSubmitSelectedOrders = () => {
     const selectedOrderIds = lists
       .filter((_item, index) => checkedItems.at(index))
-      .map((item) => item.id);
+      .map((item) => ({
+        id: item.id,
+      }));
     handleAcceptOrderSubmit(selectedOrderIds);
+    (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
+  };
+  const token = getToken() || "";
+  const onSubmitRejectOrders = () => {
+    const rejectOrderIds = lists
+      .filter((_item, index) => checkedItems.at(index))
+      .map((item) => ({ id: { franchiseeId: `${getFranchiseeId(token)}`, orderId: item.id } }));
+    handleRejectOrderSubmit(rejectOrderIds);
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };
 
   return (
     <VStack>
       <HStack alignSelf={"flex-end"}>
-        <Button onClick={onSubmitSelectedOrders} isLoading={isLoading} variant="secondary">
+        <Button onClick={onSubmitSelectedOrders} variant="secondary">
           Accept Order(s)
         </Button>
-        <Button variant="primary" color="white">
+        <Button onClick={onSubmitRejectOrders} variant="primary">
           Reject Order(s)
         </Button>
       </HStack>

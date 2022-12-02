@@ -63,7 +63,16 @@ export type CourtSize = {
   lineBorderWidth: number;
 };
 
-export type OrderIdList = Array<number | undefined>;
+export type OrderIdList = {
+  id: number;
+}[];
+
+export type rejectOrderIds = {
+  id: {
+    orderId: number;
+    franchiseeId: string;
+  };
+}[];
 
 export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
@@ -135,5 +144,35 @@ export default function useGetOrders() {
     setIsLoading(false);
   };
 
-  return { isLoading, handleAcceptOrderSubmit, getOpenOrders, lists };
+  const handleRejectOrderSubmit = async (data: rejectOrderIds) => {
+    setIsLoading(true);
+    const token = getToken() || "";
+    try {
+      await axios.post(`/franchisee/${getFranchiseeId(token)}/reject_orders`, {
+        orderAssignments: data,
+      });
+      toast({
+        title: "Reject Successfully",
+        status: "info",
+        duration: 6000,
+        position: "top",
+        isClosable: true,
+      });
+      getOpenOrders();
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 404) {
+        toast({
+          title: "Service Error",
+          description: "Service not response",
+          status: "error",
+          duration: 6000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    }
+    setIsLoading(false);
+  };
+
+  return { isLoading, handleAcceptOrderSubmit, handleRejectOrderSubmit, getOpenOrders, lists };
 }
