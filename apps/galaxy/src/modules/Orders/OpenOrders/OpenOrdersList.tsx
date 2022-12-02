@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Checkbox, DataTable, Stack } from "@cc/ui-chakra";
+import { Button, Checkbox, DataTable, Stack, HStack, VStack } from "@cc/ui-chakra";
 import useGetOrders, { Order } from "@src/services/orders/useOrders";
 import dayjs from "dayjs";
 import { createColumnHelper } from "@tanstack/react-table";
-import { HStack, VStack } from "@cc/ui-chakra";
+import Details from "./Details";
 
 const OpenOrdersList = () => {
   const { handleAcceptOrderSubmit, handleRejectOrderSubmit, lists } = useGetOrders();
