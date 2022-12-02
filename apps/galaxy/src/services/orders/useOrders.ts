@@ -70,7 +70,7 @@ export type OrderIdList = {
 export type rejectOrderIds = {
   id: {
     orderId: number;
-    franchiseeId: number;
+    franchiseeId: string;
   };
 }[];
 
