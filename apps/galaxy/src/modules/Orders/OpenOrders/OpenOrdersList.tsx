@@ -6,7 +6,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { HStack, VStack } from "@cc/ui-chakra";
 
 const OpenOrdersList = () => {
-  const { isLoading, handleAcceptOrderSubmit, handleRejectOrderSubmit, lists } = useGetOrders();
+  const { handleAcceptOrderSubmit, handleRejectOrderSubmit, lists } = useGetOrders();
   const columnHelper = createColumnHelper<Order>();
   const [checkedItems, setCheckedItems] = React.useState([false]);
   const allChecked = checkedItems.every(Boolean);
@@ -70,7 +70,9 @@ const OpenOrdersList = () => {
   const onSubmitSelectedOrders = () => {
     const selectedOrderIds = lists
       .filter((_item, index) => checkedItems.at(index))
-      .map((item) => item.id);
+      .map((item) => ({
+        id: item.id,
+      }));
     handleAcceptOrderSubmit(selectedOrderIds);
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };
@@ -78,7 +80,7 @@ const OpenOrdersList = () => {
   const onSubmitRejectOrders = () => {
     const rejectOrderIds = lists
       .filter((_item, index) => checkedItems.at(index))
-      .map((item) => item.id);
+      .map((item) => ({ id: { franchiseeId: 1, orderId: item.id } }));
     handleRejectOrderSubmit(rejectOrderIds);
     (checkedItems.length = lists.length), checkedItems.fill(false, 0, lists.length);
   };

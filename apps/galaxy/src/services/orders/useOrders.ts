@@ -31,9 +31,16 @@ export type DesignInformation = {
   };
 };
 
-export type OrderIdList = Array<number | undefined>;
+export type OrderIdList = {
+  id: number;
+}[];
 
-export type rejectOrderIds = Array<number | undefined>;
+export type rejectOrderIds = {
+  id: {
+    orderId: number;
+    franchiseeId: number;
+  };
+}[];
 
 export default function useGetOrders() {
   const [isLoading, setIsLoading] = useState(false);
@@ -109,8 +116,8 @@ export default function useGetOrders() {
     setIsLoading(true);
     const token = getToken() || "";
     try {
-      await axios.post(`/franchisee/${getFranchiseeId(token)}/reject_orders2`, {
-        ids: data,
+      await axios.post(`/franchisee/${getFranchiseeId(token)}/reject_orders`, {
+        orderAssignments: data,
       });
       toast({
         title: "Reject Successfully",
@@ -122,15 +129,6 @@ export default function useGetOrders() {
       getOpenOrders();
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 404) {
-        toast({
-          title: "error",
-          description: "You have not selected any order",
-          status: "error",
-          duration: 6000,
-          position: "top",
-          isClosable: true,
-        });
-      } else {
         toast({
           title: "Service Error",
           description: "Service not response",
