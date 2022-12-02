@@ -1,8 +1,8 @@
 import { Flex, HStack, VStack, Image, Text, Sidebar } from "@cc/ui-chakra";
-import OpenOrdersList from "@src/modules/Orders/OpenOrders/OpenOrdersList";
+import AcceptedOrdersList from "@src/modules/Orders/AcceptedOrders/AcceptedOrders";
 import React from "react";
 
-const OpenOrders = () => {
+const AcceptedOrders = () => {
   return (
     <Flex width="100%">
       <Sidebar />
@@ -15,10 +15,10 @@ const OpenOrders = () => {
           />
           <Text fontSize="1.5rem">CourtCanva</Text>
         </HStack>
-        <OpenOrdersList />
+        <AcceptedOrdersList />
       </VStack>
     </Flex>
   );
 };
 
-export default OpenOrders;
+export default AcceptedOrders;
