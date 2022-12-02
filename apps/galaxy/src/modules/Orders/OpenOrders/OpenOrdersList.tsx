@@ -6,7 +6,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import Details from "./Details";
 
 const OpenOrdersList = () => {
-  const { handleAcceptOrderSubmit, handleRejectOrderSubmit, lists } = useGetOrders();
+  const { handleRejectOrderSubmit, handleAcceptOrderSubmit, lists } = useGetOrders();
   const columnHelper = createColumnHelper<Order>();
   const [checkedItems, setCheckedItems] = React.useState([false]);
   const allChecked = checkedItems.every(Boolean);
@@ -61,7 +61,7 @@ const OpenOrdersList = () => {
       },
     }),
     columnHelper.accessor("designInformation", {
-      cell: () => <Button variant="secondary">detail</Button>,
+      cell: (info) => <Details {...info} />,
       header: "details",
       id: "details",
     }),

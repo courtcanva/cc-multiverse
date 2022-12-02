@@ -29,6 +29,38 @@ export type DesignInformation = {
     line2: string;
     postalCode: string;
   };
+  design: Design;
+  quotationDetails: QuotationDetails[];
+};
+
+export type Design = {
+  designName: string;
+  tileColor: TileColor[];
+  courtSize: CourtSize;
+};
+
+export type QuotationDetails = {
+  color: string;
+  quantity: number;
+};
+
+export type TileColor = {
+  location: string;
+  color: string;
+};
+
+export type CourtSize = {
+  name: string;
+  length: number;
+  width: number;
+  centreCircleRadius: number;
+  threePointRadius: number;
+  threePointLine: number;
+  lengthOfCorner: number;
+  restrictedAreaLength: number;
+  restrictedAreaWidth: number;
+  sideBorderWidth: number;
+  lineBorderWidth: number;
 };
 
 export type OrderIdList = {
