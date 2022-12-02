@@ -75,7 +75,6 @@ export default function useGetOrders() {
     try {
       const response = await axios.get(`/franchisee/${getFranchiseeId(token)}/pending_orders`);
       const result: Order[] = response.data;
-      console.log(result);
       const orderList = result.map((val) => {
         val.checked = false;
         return val;

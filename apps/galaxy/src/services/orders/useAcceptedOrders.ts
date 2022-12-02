@@ -84,7 +84,6 @@ export default function useGetOrders() {
         `/franchisee/${getFranchiseeId(token)}/accepted_orders?page=1`
       );
       const result: Order[] = response.data.acceptedOrders;
-      console.log(result);
       const orderList = result.map((val) => {
         val.checked = false;
         return val;
